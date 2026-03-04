@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoadingScreen from '@/components/LoadingScreen';
 import Threads from '@/components/Threads';
 import Header from '@/components/Header';
@@ -16,6 +16,17 @@ import Contact from '@/components/Contact';
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    // Remove the hash from the URL so it doesn't jump to the section on reload
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <main>

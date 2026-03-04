@@ -52,7 +52,7 @@ export default function Footer() {
                     <div className={styles.col}>
                         <h3 className={styles.heading}>Síguenos</h3>
                         <div className={styles.socials}>
-                            <a href="#" className={styles.socialLink} aria-label="WhatsApp">
+                            <a href="https://wa.me/584241344659" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="WhatsApp">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="20"

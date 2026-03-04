@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Threads 1200x630 Exact Port</title>
+    <title>Threads 3240x1350 Exact Port</title>
     <style>
         body,
         html {
@@ -23,8 +23,8 @@
         }
 
         #container {
-            width: 1200px;
-            height: 630px;
+            width: 3240px;
+            height: 1350px;
             background: rgba(0, 67, 70, 0.5);
             /* Optional: semi-transparent teal just for preview */
             position: relative;
@@ -76,13 +76,13 @@
 
 <body>
     <div class="desc">
-        <strong>Exact Threads Port (1200x630)</strong><br>
+        <strong>Exact Threads Port (3240x1350)</strong><br>
         Ported directly from <code>Threads.tsx</code>.<br>
         Background: Transparent.<br>
-        Format: 1200px x 630px.
+        Format: 3240px x 1350px.
     </div>
     <div id="container"></div>
-    <button id="downloadBtn">Download 1200x630 Transparent PNG</button>
+    <button id="downloadBtn">Download 3240x1350 Transparent PNG</button>
 
     <script type="module">
         import { Renderer, Program, Mesh, Triangle, Color, Vec2 } from 'https://cdn.skypack.dev/ogl';
@@ -225,7 +225,7 @@
         const mesh = new Mesh(gl, { geometry, program });
 
         function resize() {
-            // Exact dimensions: 1200x630 pixel
+            // Exact dimensions: 3240x1350 pixel
             const width = container.clientWidth;
             const height = container.clientHeight;
             renderer.setSize(width, height);
@@ -246,7 +246,7 @@
         document.getElementById('downloadBtn').onclick = () => {
             const link = document.createElement('a');
             link.timestamp = new Date().getTime();
-            link.download = `threads_1200x630_${link.timestamp}.png`;
+            link.download = `threads_3240x1350_${link.timestamp}.png`;
             link.href = gl.canvas.toDataURL('image/png');
             link.click();
         };

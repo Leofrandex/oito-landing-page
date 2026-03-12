@@ -40,9 +40,7 @@ export default function AuthorityBanner() {
         return brandsList.map((brand, idx) => (
             <div key={`${keyPrefix}-${idx}`} className={styles.logoItem}>
                 {brand.Icon ? (
-                    <>
-                        <brand.Icon className={styles.iconSVG} aria-label={brand.name} />
-                    </>
+                    <brand.Icon className={styles.iconSVG} aria-label={brand.name} />
                 ) : (
                     <span className={styles.textLogo}>{brand.name}</span>
                 )}

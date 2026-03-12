@@ -29,13 +29,67 @@
     left: 1rem;
     right: 1rem;
     max-width: 1200px;
-    background-color: rgba(255, 255, 255, 0.93);
-    backdrop-filter: blur(16px) url(#glass-distortion);
-    -webkit-backdrop-filter: blur(16px) url(#glass-distortion);
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    background-color: rgba(20, 20, 20, 0.65);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    box-shadow: 
+        0 10px 40px -10px rgba(0, 0, 0, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 9999px;
     padding: 0.5rem 0;
+}
+
+.header.scrolled:not(.menuOpen) .navLink {
+    color: var(--color-text-light);
+}
+
+.header.scrolled:not(.menuOpen) .navLink:hover {
+    color: var(--color-accent);
+}
+
+.oitoLogoWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.logoImage {
+    object-fit: contain;
+    display: block;
+    transition: opacity 0.4s ease;
+}
+
+.logoMintMask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-accent);
+    mask-image: url('/oito_logo_2.png');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url('/oito_logo_2.png');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.header.scrolled:not(.menuOpen) .logoImage {
+    opacity: 0;
+}
+
+.header.scrolled:not(.menuOpen) .logoMintMask {
+    opacity: 1;
+}
+
+.header.scrolled:not(.menuOpen) .bar {
+    background: var(--color-text-light);
 }
 
 .container {
@@ -54,10 +108,6 @@
     align-items: center;
 }
 
-.logoImage {
-    object-fit: contain;
-    display: block;
-}
 
 .navWrapper {
     display: flex;

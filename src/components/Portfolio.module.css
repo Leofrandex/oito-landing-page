@@ -99,13 +99,29 @@
     white-space: nowrap;
 }
 
+.introClickPrompt {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-accent);
+    font-family: var(--font-dm-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    opacity: 0.9;
+    background: rgba(var(--color-accent-rgb), 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border-left: 2px solid var(--color-accent);
+    width: fit-content;
+}
+
 /* BENTO GRID LAYOUT */
 .bentoGrid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: minmax(auto, 280px);
-    /* Base height for rows */
-    gap: 1.5rem;
+    grid-auto-rows: minmax(240px, auto); /* Reduced height */
+    gap: 2rem;
     width: 100%;
 }
 
@@ -158,19 +174,17 @@
     grid-row: span 1;
 }
 
-/* Card 4: Standard */
+/* Card 4, 5, 6: Custom spread */
 .bentoCard4 {
     grid-column: span 1;
     grid-row: span 1;
 }
 
-/* Card 5: Wide horizontal */
 .bentoCard5 {
     grid-column: span 2;
     grid-row: span 1;
 }
 
-/* Card 6: Square */
 .bentoCard6 {
     grid-column: span 1;
     grid-row: span 1;
@@ -214,11 +228,35 @@
     font-size: 0.95rem;
     color: rgba(255, 255, 255, 0.7);
     line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+}
+
+/* Text-Only Card Title */
+.textCardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    text-align: center;
+    container-type: inline-size;
+}
+
+.textCardTitle {
+    font-family: var(--font-dm-sans);
+    font-size: var(--text-h2);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.gradientText {
+    background: linear-gradient(135deg, #00ffaa, var(--color-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
 }
 
 .cardBody {
@@ -239,23 +277,19 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 0; /* Reduced padding and removed background */
     flex: 1;
-    min-width: 140px;
+    min-width: 130px;
 }
 
 .kpiIconWrapper {
-    width: 40px;
-    height: 40px;
-    background: rgba(var(--color-accent-rgb), 0.15);
-    border-radius: 10px;
+    width: 32px;
+    height: 32px;
+    background: rgba(var(--color-accent-rgb), 0.08); /* More subtle background */
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(var(--color-accent-rgb), 0.2);
     flex-shrink: 0;
 }
 
@@ -283,65 +317,32 @@
     font-weight: 500;
 }
 
-/* Workflow inside Bento */
-.workflowColumn {
+.mainIconWrapper {
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    margin: 0.5rem 0;
     position: relative;
-    width: 100%;
-    margin-top: auto;
-    /* Push to bottom if space */
 }
 
-/* Small connecting line */
-.workflowColumn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-50%);
-    z-index: 0;
-}
-
-.workflowStep {
-    position: relative;
-    z-index: 2;
-}
-
-.workflowIconBox {
-    width: 44px;
-    height: 44px;
-    background: var(--color-hero-bg);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.workflowStepIcon {
-    color: #fff;
-}
-
-.arrowWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
-}
-
-.workflowArrow {
+.mainIcon {
     color: var(--color-accent);
-    opacity: 0.8;
-    background: var(--color-hero-bg);
-    border-radius: 50%;
-    padding: 2px;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 20px rgba(var(--color-accent-rgb), 0.3));
+    transition: transform 0.3s ease;
+}
+
+.flipContainer:hover .mainIcon {
+    transform: scale(1.05);
+}
+
+.kpiColumnBack {
+    display: flex;
+    flex-wrap: wrap; /* Allows KPIs to sit side by side */
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 0.5rem;
 }
 
 .footerText {
@@ -354,6 +355,113 @@
     margin-top: 2rem;
     letter-spacing: 0.05em;
     filter: drop-shadow(0 0 10px rgba(var(--color-accent-rgb), 0.2));
+}
+
+/* FLIP CARD SYSTEM */
+.flipContainer {
+    perspective: 1000px;
+    padding: 0;
+    display: block; /* Override bentoCard flex */
+    cursor: pointer;
+}
+
+.flipInner {
+    display: grid;
+    grid-template-areas: "card";
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.isFlipped {
+    transform: rotateY(180deg);
+}
+
+.flipFront, .flipBack {
+    grid-area: card;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    border-radius: 24px;
+}
+
+.flipFront {
+    transform: rotateY(0deg);
+    z-index: 2;
+}
+
+.flipBack {
+    transform: rotateY(180deg);
+    /* Removing dark background so it inherits the bentoCard glass effect just like the front */
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.flipPrompt {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    font-family: var(--font-dm-sans);
+    opacity: 0.8;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    position: absolute;
+    bottom: -0.5rem;
+    right: 0;
+}
+
+.flipContainer:hover .flipPrompt {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+/* Category Tags */
+.categoryTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.categoryTag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    background: rgba(var(--color-accent-rgb), 0.1);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.3);
+    color: var(--color-accent);
+    border-radius: 9999px;
+    font-weight: 500;
+    font-family: var(--font-dm-sans);
+}
+
+/* Back Face Content Styles */
+.backSectionTitle {
+    color: #fff;
+    font-family: var(--font-dm-sans);
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.backSectionTime {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--font-dm-sans);
 }
 
 /* RESPONSIVE */

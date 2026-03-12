@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Globe from './Globe';
 import styles from './About.module.css';
 
 if (typeof window !== "undefined") {
@@ -29,9 +30,6 @@ const pillars = [
     }
 ];
 
-import Globe from './Globe';
-
-// ... (existing pillars data)
 
 export default function About() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);

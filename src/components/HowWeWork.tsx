@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './HowWeWork.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -42,14 +42,14 @@ const HowWeWork: React.FC = () => {
     const [isMobile, setIsMobile] = useState(false);
     const [secondsOnline, setSecondsOnline] = useState(0);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 1024);
         checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const updateTime = () => {
             setSecondsOnline(Math.floor(performance.now() / 1000));
         };

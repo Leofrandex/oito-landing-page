@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { scrollToSection } from '@/lib/scrollUtils';
 import styles from './Hero.module.css';
 import TextType from './TextType';
 
@@ -20,22 +21,12 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
         "onboarding de clientes",
         "generación de contenido",
         "inventario",
-        "generación de propuestas"
+        "generación de propuestas",
+        "CRM",
+        "reportes"
     ];
 
-    const scrollToContact = () => {
-        const element = document.getElementById('contact');
-        if (element) {
-            const headerHeight = 80;
-            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-            const offsetPosition = elementPosition - headerHeight;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    };
+    const scrollToContact = () => scrollToSection('contact');
 
     useGSAP(() => {
         // Hide elements initially

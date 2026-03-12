@@ -34,7 +34,6 @@ export async function sendEmail(formData: FormData) {
             return { success: false, error: 'Hubo un error al enviar el correo. Por favor intenta nuevamente.' };
         }
 
-        console.log('Email sent successfully:', data);
         return { success: true, data };
     } catch (err) {
         console.error('Server Error:', err);

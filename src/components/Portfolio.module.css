@@ -484,6 +484,16 @@
         grid-column: span 2 !important;
         /* Keep wide cards wide */
     }
+
+    .textCardContainer {
+        grid-column: span 2 !important;
+        grid-row: span 1 !important;
+        padding: 1.5rem 1rem;
+    }
+
+    .textCardTitle {
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
+    }
 }
 
 @media (max-width: 768px) {
@@ -495,6 +505,20 @@
         grid-column: span 1 !important;
         grid-row: span 1 !important;
         min-height: auto;
+    }
+
+    .textCardContainer {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+        padding: 2rem 1rem;
+    }
+
+    .textCardTitle {
+        font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+    }
+
+    .textCardTitle span {
+        white-space: normal !important;
     }
 
     .workflowColumn {

@@ -173,7 +173,8 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
         if (!containerRef.current) return;
         const container = containerRef.current;
 
-        const renderer = new Renderer({ alpha: true });
+        const dpr = typeof window !== 'undefined' ? (window.devicePixelRatio || 1) : 1;
+        const renderer = new Renderer({ alpha: true, dpr });
         const gl = renderer.gl;
         gl.clearColor(0, 0, 0, 0);
         gl.enable(gl.BLEND);
@@ -202,9 +203,9 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
             if (!container) return;
             const { clientWidth, clientHeight } = container;
             renderer.setSize(clientWidth, clientHeight);
-            program.uniforms.iResolution.value.r = clientWidth;
-            program.uniforms.iResolution.value.g = clientHeight;
-            program.uniforms.iResolution.value.b = clientWidth / clientHeight;
+            program.uniforms.iResolution.value.r = gl.canvas.width;
+            program.uniforms.iResolution.value.g = gl.canvas.height;
+            program.uniforms.iResolution.value.b = gl.canvas.width / gl.canvas.height;
         }
         window.addEventListener('resize', resize);
         resize();

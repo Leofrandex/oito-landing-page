@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Threads 1200x1600 Exact Port</title>
+    <title>Threads 1920x1080 High Resolution</title>
     <style>
         body,
         html {
@@ -12,33 +12,35 @@
             padding: 0;
             width: 100%;
             min-height: 100%;
-            background: #222;
+            background: #111;
             /* Dark background to preview transparency better */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-family: sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             overflow-y: auto;
+            color: white;
         }
 
         #container {
-            width: 1200px;
-            height: 1600px;
+            width: 1920px;
+            height: 1080px;
             background: rgba(0, 67, 70, 0.5);
-            /* Optional: semi-transparent teal just for preview */
             position: relative;
-            margin: 20px;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            margin: 40px;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
             /* Checkerboard to see transparency */
             background-image:
-                linear-gradient(45deg, #333 25%, transparent 25%),
-                linear-gradient(-45deg, #333 25%, transparent 25%),
-                linear-gradient(45deg, transparent 75%, #333 75%),
-                linear-gradient(-45deg, transparent 75%, #333 75%);
-            background-size: 20px 20px;
-            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-            border: 1px solid #444;
+                linear-gradient(45deg, #1a1a1a 25%, transparent 25%),
+                linear-gradient(-45deg, #1a1a1a 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #1a1a1a 75%),
+                linear-gradient(-45deg, transparent 75%, #1a1a1a 75%);
+            background-size: 40px 40px;
+            background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+            border: 1px solid #333;
+            transform: scale(0.6); /* Scale down for viewable preview on most screens */
+            transform-origin: center center;
         }
 
         canvas {
@@ -49,40 +51,61 @@
 
         #downloadBtn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 15px 30px;
+            bottom: 40px;
+            right: 40px;
+            padding: 18px 36px;
             background: #09bc8a;
             color: #004346;
             border: none;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 16px;
             cursor: pointer;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(9, 188, 138, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        #downloadBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(9, 188, 138, 0.5);
+            filter: brightness(1.1);
         }
 
         .desc {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            background: white;
-            padding: 10px;
-            border-radius: 5px;
+            top: 40px;
+            left: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 12px;
             font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            line-height: 1.6;
+        }
+
+        code {
+            color: #09bc8a;
+            background: rgba(9, 188, 138, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
         }
     </style>
 </head>
 
 <body>
     <div class="desc">
-        <strong>Exact Threads Port (1200x1600)</strong><br>
+        <strong style="font-size: 18px; color: #09bc8a;">Threads Tool: 1080p Edition</strong><br>
         Ported directly from <code>Threads.tsx</code>.<br>
-        Background: Transparent.<br>
-        Format: 1200px x 1600px.
+        <span style="opacity: 0.7;">Resolution:</span> 1920px x 1080px (Full HD)<br>
+        <span style="opacity: 0.7;">Background:</span> Transparent PNG<br>
+        <span style="opacity: 0.7;">Status:</span> Ready for High-Res Export
     </div>
+    
     <div id="container"></div>
-    <button id="downloadBtn">Download 1200x1600 Transparent PNG</button>
+    
+    <button id="downloadBtn">Download 1920x1080 Transparent PNG</button>
 
     <script type="module">
         import { Renderer, Program, Mesh, Triangle, Color, Vec2 } from 'https://cdn.skypack.dev/ogl';
@@ -110,9 +133,9 @@
 
             #define PI 3.1415926538
 
-            const int u_line_count = 40;
-            const float u_line_width = 7.0;
-            const float u_line_blur = 10.0;
+            const int u_line_count = 50; // Increased for higher density at 1080p
+            const float u_line_width = 6.0; // Slightly thinner for elegance
+            const float u_line_blur = 12.0; // Softer falloff
 
             float Perlin2D(vec2 P) {
                 vec2 Pi = floor(P);
@@ -179,7 +202,6 @@
             }
 
             void main() {
-                // gl_FragCoord is in screen space [0, resolution]
                 vec2 uv = gl_FragCoord.xy / iResolution.xy;
 
                 float line_strength = 1.0;
@@ -198,7 +220,6 @@
                 }
 
                 float colorVal = 1.0 - line_strength;
-                // Output color with alpha for transparency
                 gl_FragColor = vec4(uColor, colorVal);
             }
         `;
@@ -214,27 +235,23 @@
             fragment: fragmentShader,
             uniforms: {
                 iTime: { value: 0 },
-                iResolution: { value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height) },
+                iResolution: { value: new Color(1920, 1080, 1920 / 1080) },
                 uColor: { value: new Color(0.035, 0.737, 0.541) }, // Mint Green: #09bc8a
-                uAmplitude: { value: 2.0 }, // Increased for impact on A4
-                uDistance: { value: 0.1 }, // Matches Threads.tsx default 0
+                uAmplitude: { value: 1.8 }, // Balanced for 1080p
+                uDistance: { value: 0.15 }, // Slightly more spread
                 uMouse: { value: new Vec2(0.5, 0.5) }
             }
         });
 
         const mesh = new Mesh(gl, { geometry, program });
 
-        function resize() {
-            // Exact dimensions: 1200x1600 pixel
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            renderer.setSize(width, height);
-            program.uniforms.iResolution.value.r = width;
-            program.uniforms.iResolution.value.g = height;
-            program.uniforms.iResolution.value.b = width / height;
+        function setup() {
+            renderer.setSize(1920, 1080);
+            program.uniforms.iResolution.value.r = 1920;
+            program.uniforms.iResolution.value.g = 1080;
+            program.uniforms.iResolution.value.b = 1920 / 1080;
         }
-        window.addEventListener('resize', resize);
-        resize();
+        setup();
 
         function update(t) {
             program.uniforms.iTime.value = t * 0.001;
@@ -245,12 +262,12 @@
 
         document.getElementById('downloadBtn').onclick = () => {
             const link = document.createElement('a');
-            link.timestamp = new Date().getTime();
-            link.download = `threads_1200x1600_${link.timestamp}.png`;
+            const ts = new Date().getTime();
+            link.download = `threads_1080p_${ts}.png`;
             link.href = gl.canvas.toDataURL('image/png');
             link.click();
         };
     </script>
 </body>
 
-</html>
+</html>

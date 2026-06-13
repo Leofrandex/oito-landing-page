@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oito - Propuestas de Identidad Visual</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Varela+Round&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #09bc8a;
+            --primary-glow: rgba(9, 188, 138, 0.4);
+            --bg: #0b0f1a;
+            --card-bg: #161b22;
+            --text-main: #f0f6fc;
+            --text-dim: #8b949e;
+            --border: #30363d;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 60px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 800px;
+        }
+
+        .header h1 {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .icon-box {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.03);
+            border-radius: 24px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .icon-box {
+            background: rgba(9, 188, 138, 0.1);
+        }
+
+        .card h2 {
+            font-family: 'Varela Round', sans-serif;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: var(--bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Elements Section */
+        .elements-section {
+            margin-top: 80px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .elements-section h2 {
+            font-family: 'Varela Round', sans-serif;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+
+        .bullet-examples {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+            background: rgba(255,255,255,0.02);
+            padding: 50px;
+            border-radius: 24px;
+            border: 1px dashed var(--border);
+        }
+
+        .bullet-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .bullet-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Bullet Types */
+        .glow-point {
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .mini-infinity {
+            color: var(--primary);
+        }
+
+        .double-dot {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .double-dot div {
+            width: 8px;
+            height: 8px;
+            border: 1.5px solid var(--primary);
+            border-radius: 50%;
+        }
+
+        .footer {
+            margin-top: 100px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div style="margin-bottom: 20px;">
+            <svg width="60" height="30" viewBox="0 0 75 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 17.5C12 24.4036 17.5964 30 24.5 30C31.4036 30 37 24.4036 37 17.5C37 10.5964 31.4036 5 24.5 5C17.5964 5 12 10.5964 12 17.5ZM0 17.5C0 7.83502 7.83502 0 17.5 0C27.165 0 35 7.83502 35 17.5C35 27.165 27.165 35 17.5 35C7.83502 35 0 27.165 0 17.5Z" fill="#09bc8a"/>
+                <path d="M49 17.5C49 24.4036 54.5964 30 61.5 30C68.4036 30 74 24.4036 74 17.5C74 10.5964 68.4036 5 61.5 5C54.5964 5 49 10.5964 49 17.5ZM37 17.5C37 7.83502 44.835 0 54.5 0C64.165 0 72 7.83502 72 17.5C72 27.165 64.165 35 54.5 35C44.835 35 37 27.165 37 17.5Z" fill="#09bc8a"/>
+            </svg>
+        </div>
+        <h1>Identidad Visual Oito</h1>
+        <p>Propuestas de elementos gráficos y bullet points diseñados para reforzar la marca Oito basada en automatización, IA y el concepto del número 8.</p>
+    </div>
+
+    <div class="grid">
+        <!-- Opción 1 -->
+        <div class="card">
+            <span class="tag">Lucide</span>
+            <div class="icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#09bc8a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 12c-2-2-5-3-8-3-2 0-4 1-4 3s2 3 4 3c3 0 6-1 8-3 2-2 5-3 8-3 2 0 4 1 4 3s-2 3-4 3c-3 0-6-1-8-3Z"/>
+                </svg>
+            </div>
+            <h2>El Infinito Moderno</h2>
+            <p>La interpretación más clara del nombre Oito. Simboliza procesos perpetuos y estabilidad.</p>
+        </div>
+
+        <!-- Opción 2 -->
+        <div class="card">
+            <span class="tag">Lucide</span>
+            <div class="icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#09bc8a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/>
+                    <path d="M10.4 21.9a10 10 0 0 0 9.941-4.973"/>
+                    <path d="M7.98 5.2a10 10 0 0 1 11.539 2.508"/>
+                    <path d="M4.019 11.28a10 10 0 0 1 1.481-6.08"/>
+                    <path d="M21.979 12.72a10 10 0 0 1-1.48 6.08"/>
+                </svg>
+            </div>
+            <h2>Órbita Conectada</h2>
+            <p>Muestra a Oito como el núcleo de un sistema que integra diversas herramientas.</p>
+        </div>
+
+        <!-- Opción 3: NUEVA - Red de Nodos -->
+        <div class="card">
+            <span class="tag">Lucide</span>
+            <div class="icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#09bc8a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="2"/><path d="M16.2 3.8 12 12"/><path d="M12 12 3.8 7.8"/><circle cx="18" cy="2" r="2"/><circle cx="2" cy="6" r="2"/><circle cx="12" cy="22" r="2"/><path d="M12 12v10"/><path d="M12 12l8.2 4.2"/><circle cx="22" cy="18" r="2"/>
+                </svg>
+            </div>
+            <h2>Nodos de Inteligencia</h2>
+            <p>Representa la interconectividad de la IA. Ideal si quieres enfatizar "redes" y "datos".</p>
+        </div>
+
+        <!-- Opción 4: NUEVA - Bucle Iterativo -->
+        <div class="card">
+            <span class="tag">Lucide</span>
+            <div class="icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#09bc8a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m15 11-3 3-3-3"/><path d="M4 10a8 8 0 1 1 16 0V4"/><path d="M20 10a8 8 0 1 0-16 0v6"/>
+                </svg>
+            </div>
+            <h2>El Flujo de Mejora</h2>
+            <p>Un icono de "loop" que sugiere que el sistema siempre está aprendiendo y optimizando.</p>
+        </div>
+
+        <!-- Opción 5: NUEVA - Circuito Octogonal -->
+        <div class="card">
+            <span class="tag">Custom SVG</span>
+            <div class="icon-box">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#09bc8a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 2 L17 2 L22 7 L22 17 L17 22 L7 22 L2 17 L2 7 Z" />
+                    <circle cx="12" cy="12" r="3" fill="#09bc8a" fill-opacity="0.2" />
+                    <circle cx="12" cy="12" r="0.5" fill="#09bc8a" />
+                </svg>
+            </div>
+            <h2>Núcleo Estable (8 Lados)</h2>
+            <p>Usando el octágono como base geométrica del número 8 para transmitir seguridad técnica.</p>
+        </div>
+
+        <!-- Opción 6: NUEVA - Oito Fusion -->
+        <div class="card">
+            <span class="tag">Abstract</span>
+            <div class="icon-box">
+                <svg width="64" height="64" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 10 A10 10 0 1 0 20 20 A10 10 0 1 1 20 30" stroke="#09bc8a" stroke-width="3" stroke-linecap="round" />
+                    <circle cx="20" cy="20" r="2" fill="#09bc8a" />
+                </svg>
+            </div>
+            <h2>Senda Continua</h2>
+            <p>Una línea única que fluye formando un 8 incompleto, sugiriendo agilidad y falta de fricción.</p>
+        </div>
+
+        <!-- Opción 7: NUEVA - Pulso Digital -->
+        <div class="card">
+            <span class="tag">Data</span>
+            <div class="icon-box">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#09bc8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12h3L9 3l6 18L19 12h3" />
+                </svg>
+            </div>
+            <h2>Pulso Vital</h2>
+            <p>La automatización como el "corazón" del negocio que nunca deja de latir.</p>
+        </div>
+
+        <!-- Opción 8: NUEVA - Pixeled 8 -->
+        <div class="card">
+            <span class="tag">Retro Tech</span>
+            <div class="icon-box">
+                <div style="display: grid; grid-template-columns: repeat(3, 8px); gap: 4px;">
+                    <div style="width:8px; height:8px; background:var(--primary); border-radius:1px;"></div>
+                    <div style="width:8px; height:8px; background:var(--primary); border-radius:1px;"></div>
+                    <div style="width:8px; height:8px; background:var(--primary); border-radius:1px;"></div>
+                    <div style="width:8px; height:8px; background:var(--primary); border-radius:1px;"></div>
+                    <div style="width:8px; height:8px; opacity:0"></div>
+                    <div style="width:8px; height:8px; background:var(--primary); border-radius:1px;"></div>
+                    <div style="width:8px; height:8px; background:var(--primary); border-radius:1px;"></div>
+                    <div style="width:8px; height:8px; background:var(--primary); border-radius:1px;"></div>
+                    <div style="width:8px; height:8px; background:var(--primary); border-radius:1px;"></div>
+                </div>
+            </div>
+            <h2>Data Grid</h2>
+            <p>Un 8 nacido de bloques de datos. Muy alineado con el concepto de estructurar información.</p>
+        </div>
+    </div>
+
+    <div class="elements-section">
+        <h2>Bullet Points Recomendados</h2>
+        
+        <div class="bullet-examples">
+            <!-- Glow Point -->
+            <div class="bullet-group">
+                <h3 style="color:var(--text-dim); font-size: 0.8rem; margin-bottom: 15px;">OPCIÓN: TECH GLOW</h3>
+                <div class="bullet-item"><div class="glow-point"></div> Automatización de CRM</div>
+                <div class="bullet-item"><div class="glow-point"></div> Agentes de IA 24/7</div>
+                <div class="bullet-item"><div class="glow-point"></div> Reportes en tiempo real</div>
+            </div>
+
+            <!-- Mini Infinity -->
+            <div class="bullet-group">
+                <h3 style="color:var(--text-dim); font-size: 0.8rem; margin-bottom: 15px;">OPCIÓN: BRAND INFINITY</h3>
+                <div class="bullet-item">
+                    <svg class="mini-infinity" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2-2-5-3-8-3-2 0-4 1-4 3s2 3 4 3c3 0 6-1 8-3 2-2 5-3 8-3 2 0 4 1 4 3s-2 3-4 3c-3 0-6-1-8-3Z"/></svg>
+                    Optimización de flujos
+                </div>
+                <div class="bullet-item">
+                    <svg class="mini-infinity" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2-2-5-3-8-3-2 0-4 1-4 3s2 3 4 3c3 0 6-1 8-3 2-2 5-3 8-3 2 0 4 1 4 3s-2 3-4 3c-3 0-6-1-8-3Z"/></svg>
+                    Escalabilidad infinita
+                </div>
+                <div class="bullet-item">
+                    <svg class="mini-infinity" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2-2-5-3-8-3-2 0-4 1-4 3s2 3 4 3c3 0 6-1 8-3 2-2 5-3 8-3 2 0 4 1 4 3s-2 3-4 3c-3 0-6-1-8-3Z"/></svg>
+                    Sin intervención humana
+                </div>
+            </div>
+
+            <!-- Double Dot -->
+            <div class="bullet-group">
+                <h3 style="color:var(--text-dim); font-size: 0.8rem; margin-bottom: 15px;">OPCIÓN: MINIMAL OITO</h3>
+                <div class="bullet-item"><div class="double-dot"><div></div><div></div></div> Integración total</div>
+                <div class="bullet-item"><div class="double-dot"><div></div><div></div></div> Ahorro de +40h/mes</div>
+                <div class="bullet-item"><div class="double-dot"><div></div><div></div></div> Resultados medibles</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 Oito | Consultoría de Automatización e IA
+    </div>
+
+</body>
+</html>

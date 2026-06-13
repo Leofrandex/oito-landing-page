@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oito - Sistema de Identidad Sutil</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Varela+Round&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-mint: #09bc8a;
+            --primary-forest: #004346;
+            --primary: var(--primary-mint);
+            --bg: #0b0f1a;
+            --card-bg: #161b22;
+            --text-main: #f0f6fc;
+            --text-dim: #8b949e;
+            --border: #30363d;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .controls {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            display: inline-flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .color-btn {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-mint { background: var(--primary-mint); color: #000; }
+        .btn-forest { background: var(--primary-forest); color: #fff; }
+        .color-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        .header h1 {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: white;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .section-separator {
+            margin: 60px 0 20px 0;
+            text-align: left;
+            width: 100%;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: 'Varela Round', sans-serif;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 0;
+            transition: color 0.3s;
+        }
+
+        .section-subtitle {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* THE SYSTEM */
+        .brand-system {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        .brand-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .vertex-container {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .brand-unit:hover .vertex-container {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+        }
+
+        .label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        /* SVG Styles */
+        svg {
+            overflow: visible;
+        }
+
+        .main-line {
+            stroke: var(--primary);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke 0.3s;
+        }
+
+        .accent-dot {
+            fill: var(--primary);
+            transition: fill 0.3s;
+        }
+
+        .faint-line {
+            stroke: var(--border);
+            stroke-width: 1;
+        }
+
+        .download-hint {
+            font-size: 10px;
+            color: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+            margin-top: -10px;
+        }
+
+        .brand-unit:hover .download-hint {
+            opacity: 1;
+        }
+
+        .explanation {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 30px;
+            text-align: left;
+            margin-top: 80px;
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="controls">
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Color de Marca:</span>
+            <button class="color-btn btn-mint" onclick="setColor('mint')">Mint Green</button>
+            <button class="color-btn btn-forest" onclick="setColor('forest')">Forest Green</button>
+        </div>
+
+        <div class="header">
+            <h1>Exploración de Identidad Oito</h1>
+            <p>5 propuestas de sistemas visuales. Haz click en cualquier icono para descargarlo como PNG.</p>
+        </div>
+
+        <!-- PROPUESTA B: OITO FLOW (REFINED) -->
+        <div class="section-separator">
+            <h2 class="section-title">1. Oito Flow <span class="section-subtitle">(Simplificación Orgánica)</span></h2>
+        </div>
+        <div class="brand-system">
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="8" class="main-line" />
+                        <circle cx="20" cy="20" r="1.5" class="accent-dot" />
+                    </svg>
+                </div>
+                <span class="label">Esencia</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="8" class="main-line" style="opacity:0.3" />
+                        <circle cx="20" cy="12" r="2" class="accent-dot" />
+                        <circle cx="20" cy="28" r="2" class="accent-dot" />
+                    </svg>
+                </div>
+                <span class="label">Conexión</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="8" class="main-line" />
+                        <!-- Orbit fixed to same size (r=8) but offset to form an 8 -->
+                        <circle cx="20" cy="10" r="8" class="main-line" style="stroke-dasharray: 2 4; opacity: 0.5;" />
+                    </svg>
+                </div>
+                <span class="label">Sistema</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="8" class="main-line" stroke-dasharray="10 4" />
+                        <path d="M16 20 H24 M20 16 V24" class="main-line" stroke-width="1" />
+                    </svg>
+                </div>
+                <span class="label">Proceso</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="8" class="main-line" />
+                        <path d="M20 10 A10 10 0 0 1 30 20 M20 30 A10 10 0 0 1 10 20" class="main-line" stroke-width="1" style="opacity:0.4" />
+                    </svg>
+                </div>
+                <span class="label">Impacto</span>
+            </div>
+        </div>
+
+        <!-- PROPUESTA C: OITO LENS (Optical & Minimal) -->
+        <div class="section-separator" style="border-color: #4a5568;">
+            <h2 class="section-title" style="color: #63b3ed;">2. Oito Lens <span class="section-subtitle">(Foco y Precisión)</span></h2>
+        </div>
+        <div class="brand-system">
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <path d="M20 5 V35 M5 20 H35" class="faint-line" style="opacity:0.2" />
+                        <circle cx="20" cy="20" r="12" class="main-line" style="stroke: var(--primary); stroke-width: 1;" />
+                        <circle cx="20" cy="20" r="4" class="accent-dot" style="fill: var(--primary);" />
+                    </svg>
+                </div>
+                <span class="label">Foco</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="12" class="main-line" style="stroke: var(--primary); stroke-width: 1;" />
+                        <path d="M20 12 V28 M12 20 H28" class="main-line" style="stroke: var(--primary); stroke-width: 2;" />
+                    </svg>
+                </div>
+                <span class="label">Apertura</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="12" class="main-line" style="stroke: var(--primary); stroke-width: 1;" />
+                        <circle cx="20" cy="12" r="3" class="accent-dot" style="fill: var(--primary);" />
+                    </svg>
+                </div>
+                <span class="label">Captura</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="12" class="main-line" style="stroke: var(--primary); stroke-width: 1; stroke-dasharray: 2 4;" />
+                        <circle cx="20" cy="20" r="6" class="main-line" style="stroke: var(--primary); stroke-width: 1;" />
+                    </svg>
+                </div>
+                <span class="label">Visión</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <path d="M12 12 L28 28 M28 12 L12 28" class="main-line" style="stroke: var(--primary); stroke-width: 1;" />
+                        <circle cx="20" cy="20" r="12" class="main-line" style="stroke: var(--primary); stroke-width: 1;" />
+                    </svg>
+                </div>
+                <span class="label">Análisis</span>
+            </div>
+        </div>
+
+
+        <!-- PROPUESTA E: OITO ORBITS (Atomic Structure) -->
+        <div class="section-separator" style="border-color: #4a5568;">
+            <h2 class="section-title" style="color: #f6ad55;">4. Oito Orbits <span class="section-subtitle">(Estructura Molecular)</span></h2>
+        </div>
+        <div class="brand-system">
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="6" class="main-line" style="stroke: var(--primary);" />
+                        <circle cx="20" cy="20" r="14" class="main-line" style="stroke: var(--primary); opacity: 0.3;" />
+                    </svg>
+                </div>
+                <span class="label">Base</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="6" class="main-line" style="stroke: var(--primary);" />
+                        <circle cx="34" cy="20" r="2.5" style="fill: var(--primary);" />
+                        <circle cx="20" cy="20" r="14" class="main-line" style="stroke: var(--primary); opacity: 0.3;" />
+                    </svg>
+                </div>
+                <span class="label">Agente</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="6" class="main-line" style="stroke: var(--primary);" />
+                        <circle cx="20" cy="6" r="2" style="fill: var(--primary);" />
+                        <circle cx="20" cy="34" r="2" style="fill: var(--primary);" />
+                        <circle cx="6" cy="20" r="2" style="fill: var(--primary);" />
+                        <circle cx="34" cy="20" r="2" style="fill: var(--primary);" />
+                    </svg>
+                </div>
+                <span class="label">Red</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="14" class="main-line" style="stroke: var(--primary); stroke-dasharray: 4 4;" />
+                        <circle cx="20" cy="20" r="4" style="fill: var(--primary);" />
+                    </svg>
+                </div>
+                <span class="label">Núcleo</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="10" class="main-line" style="stroke: var(--primary);" />
+                        <path d="M20 20 L28 28" class="main-line" style="stroke: var(--primary); stroke-width: 1.5;" />
+                    </svg>
+                </div>
+                <span class="label">Enlace</span>
+            </div>
+        </div>
+
+        <!-- PROPUESTA F: OITO DOTS (Minimalist & Digital) -->
+        <div class="section-separator" style="border-color: #4a5568;">
+            <h2 class="section-title" style="color: #cbd5e0;">5. Oito Dots <span class="section-subtitle">(Simplicidad Digital)</span></h2>
+        </div>
+        <div class="brand-system">
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="16" cy="16" r="3" class="accent-dot" style="fill: var(--primary);" />
+                        <circle cx="24" cy="24" r="3" class="accent-dot" style="fill: var(--primary); opacity: 0.5;" />
+                    </svg>
+                </div>
+                <span class="label">Dúo</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="2" class="accent-dot" style="fill: var(--primary);" />
+                        <circle cx="20" cy="10" r="2" class="accent-dot" style="fill: var(--primary); opacity: 0.3;" />
+                        <circle cx="20" cy="30" r="2" class="accent-dot" style="fill: var(--primary); opacity: 0.3;" />
+                    </svg>
+                </div>
+                <span class="label">Alineado</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="8" class="faint-line" style="stroke: var(--primary); opacity:0.2;" />
+                        <circle cx="28" cy="20" r="2.5" style="fill: var(--primary);" />
+                    </svg>
+                </div>
+                <span class="label">Punto</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <path d="M10 20 H30" class="main-line" style="stroke: var(--primary); stroke-width: 1.5; opacity: 0.4;" />
+                        <circle cx="20" cy="20" r="3" style="fill: var(--primary);" />
+                    </svg>
+                </div>
+                <span class="label">Nodo</span>
+            </div>
+            <div class="brand-unit">
+                <div class="vertex-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                        <circle cx="15" cy="15" r="2" style="fill: var(--primary);" />
+                        <circle cx="25" cy="15" r="2" style="fill: var(--primary);" />
+                        <circle cx="15" cy="25" r="2" style="fill: var(--primary);" />
+                        <circle cx="25" cy="25" r="2" style="fill: var(--primary);" />
+                    </svg>
+                </div>
+                <span class="label">Matriz</span>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h3>Notas de Diseño</h3>
+            <p>He ajustado el sistema original y añadido 3 nuevas propuestas para un total de 5 caminos visuales:</p>
+            <ul style="color:var(--text-dim); line-height: 1.8;">
+                <li><strong>Oito Flow (Ajustado):</strong> La órbita en la variación "Sistema" ahora tiene el mismo radio (8) que el círculo base, creando una intersección perfecta.</li>
+                <li><strong>Oito Lens:</strong> Inspirado en la óptica y la precisión, ideal para auditorías y "visión de negocio".</li>
+                <li><strong>Oito Infinity:</strong> Un trazo continuo que forma un 8 acostado, representando flujos de automatización sin fin.</li>
+                <li><strong>Oito Orbits:</strong> Estructura molecular que sugiere que Oito es el núcleo de un sistema más grande.</li>
+                <li><strong>Oito Dots:</strong> La mínima expresión digital. Puntos que se agrupan y separan.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function setColor(type) {
+            const root = document.querySelector(':root');
+            if (type === 'mint') {
+                root.style.setProperty('--primary', 'var(--primary-mint)');
+            } else {
+                root.style.setProperty('--primary', 'var(--primary-forest)');
+            }
+        }
+
+        // Script to download SVG as PNG
+        document.querySelectorAll('.vertex-container').forEach(container => {
+            container.addEventListener('click', function() {
+                const svg = this.querySelector('svg');
+                const label = this.parentElement.querySelector('.label').innerText.toLowerCase();
+                const section = this.closest('.brand-system').previousElementSibling.querySelector('.section-title').innerText.split('.')[1].trim().toLowerCase();
+                const fileName = `oito-${section}-${label}.png`;
+
+                downloadSvgAsPng(svg, fileName);
+            });
+
+            // Add download hint
+            const hint = document.createElement('span');
+            hint.className = 'download-hint';
+            hint.innerText = 'Click para descargar PNG';
+            container.parentElement.appendChild(hint);
+        });
+
+        function downloadSvgAsPng(svgElement, fileName) {
+            const svgData = new XMLSerializer().serializeToString(svgElement);
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            // HIGH RESOLUTION: 1024x1024
+            canvas.width = 1024; 
+            canvas.height = 1024;
+
+            const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+            const url = URL.createObjectURL(svgBlob);
+
+            img.onload = function() {
+                // Clear background (dark to match brand)
+                ctx.fillStyle = '#0b0f1a';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw SVG centered and scaled
+                const scale = 20.48; // Scale up for 1024x1024 (1024 / 50 approx with padding)
+                // Using 40x40 viewBox, so 1024/40 = 25.6
+                const s = 1024 / 40;
+                
+                ctx.save();
+                ctx.scale(s, s);
+                ctx.drawImage(img, 0, 0);
+                ctx.restore();
+
+                const pngUrl = canvas.toDataURL('image/png');
+                const downloadLink = document.createElement('a');
+                downloadLink.href = pngUrl;
+                downloadLink.download = fileName;
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                URL.revokeObjectURL(url);
+            };
+
+            img.src = url;
+        }
+    </script>
+</body>
+</html>

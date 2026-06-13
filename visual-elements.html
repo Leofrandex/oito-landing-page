@@ -302,9 +302,18 @@
             const container = document.getElementById(containerId);
             const svg = container.querySelector('svg');
             
+            // Resolve actual colors since CSS variables don't work in SVG-to-Canvas
+            const style = window.getComputedStyle(svg);
+            const strokeColor = style.stroke === 'none' ? 'none' : style.stroke;
+            const fillColor = style.fill === 'none' ? 'none' : style.fill;
+
             const clonedSvg = svg.cloneNode(true);
-            clonedSvg.setAttribute('width', '512');
-            clonedSvg.setAttribute('height', '512');
+            clonedSvg.setAttribute('width', '1024');
+            clonedSvg.setAttribute('height', '1024');
+            
+            // Manually set colors on the clone
+            if (strokeColor !== 'none') clonedSvg.style.stroke = strokeColor;
+            if (fillColor !== 'none') clonedSvg.style.fill = fillColor;
             
             const serializer = new XMLSerializer();
             let source = serializer.serializeToString(clonedSvg);
@@ -317,22 +326,29 @@
             const url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
 
             const canvas = document.createElement('canvas');
-            canvas.width = 512;
-            canvas.height = 512;
+            canvas.width = 1024;
+            canvas.height = 1024;
             const ctx = canvas.getContext('2d');
 
             const img = new Image();
             img.onload = function() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0, 512, 512);
+                ctx.drawImage(img, 0, 0, 1024, 1024);
                 
-                const pngInfo = canvas.toDataURL('image/png');
-                const a = document.createElement('a');
-                a.download = fileName + '.png';
-                a.href = pngInfo;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+                try {
+                    const pngInfo = canvas.toDataURL('image/png');
+                    const a = document.createElement('a');
+                    a.download = fileName + '.png';
+                    a.href = pngInfo;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                } catch (e) {
+                    console.error('Error generating PNG:', e);
+                }
+            };
+            img.onerror = function() {
+                console.error('Failed to load SVG into image for PNG conversion');
             };
             img.src = url;
         }

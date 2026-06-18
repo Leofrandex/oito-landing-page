@@ -1,170 +1,194 @@
+/* ============================================================
+   Hero — dark full-screen section (threads background shows through)
+   ============================================================ */
+
 .hero {
     min-height: 100dvh;
-    /* Use dynamic viewport height for better mobile support */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 2rem;
-    background-color: transparent;
-    padding-top: 80px;
-    /* Space for fixed header */
-    margin-bottom: 5vh;
-    /* Slight separation from next section */
+    padding: 80px 2rem 2rem; /* top: account for fixed header */
+    background-color: transparent; /* threads + forest-deep shell shows through */
     text-align: center;
     position: relative;
     overflow: hidden;
 }
 
+/* ── Content stack ── */
 .content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2.5rem;
-    max-width: 900px;
+    gap: 1.75rem;
+    max-width: 860px;
+    width: 100%;
     z-index: 10;
 }
 
-.headline {
-    font-family: var(--font-dm-sans);
-    line-height: 1;
-    color: var(--color-hero-bg);
-    font-weight: 800;
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.oitoText {
-    font-family: var(--font-varela-round);
-    color: var(--color-accent);
-    text-transform: lowercase;
+/* ── Brand wordmark ── */
+.brand {
+    font-family: var(--font-varela-round), sans-serif;
     font-weight: 400;
-    font-size: calc(var(--text-h1) * 1.5);
+    font-size: clamp(4rem, 14vw, 9rem);
     line-height: 1;
-}
-
-.mainText {
-    font-size: var(--text-h1);
-    /* Slightly smaller to fit better on one line */
+    color: var(--color-accent); /* mint #09bc8a */
+    text-transform: lowercase;
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, var(--color-hero-bg) 0%, rgba(20, 20, 20, 0.8) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: var(--color-hero-bg);
-    text-transform: uppercase;
+    text-shadow:
+        0 0 40px rgba(9, 188, 138, 0.55),
+        0 0 80px rgba(9, 188, 138, 0.25);
+    display: block;
 }
 
-.description {
-    font-family: var(--font-dm-sans);
-    color: var(--color-text-charcoal);
-    font-size: var(--text-subtitle);
-    line-height: 1.5;
-    max-width: 900px;
-    opacity: 0.9;
-}
-
-.rotatingTextWrap {
-    display: inline-block;
-    vertical-align: bottom;
+/* ── Tagline ── */
+.tagline {
+    font-family: var(--font-dm-sans), sans-serif;
     font-weight: 800;
+    font-size: clamp(1.4rem, 4vw, 2.4rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted); /* #e5e5e5 — clear on dark */
+    display: block;
+}
 
-    /* Deep Mint Gradient Text Effect */
-    background: linear-gradient(90deg, #036B4D 0%, var(--color-accent) 50%, #036B4D 100%);
-    background-size: 200% auto;
+/* ── TextType row ── */
+.typeRow {
+    min-height: 2.5em; /* prevent layout shift while typing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.typeWrap {
+    font-family: var(--font-dm-sans), sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
     color: var(--color-accent);
-    /* Fallback for browsers without background-clip text */
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: textShine 3s linear infinite;
+    letter-spacing: 0.01em;
 }
 
-.rotatingTextWrap :global(.text-type__cursor) {
+/* Override cursor colour inside typeWrap */
+.typeWrap :global(.text-type__cursor) {
     color: var(--color-accent);
-    -webkit-text-fill-color: var(--color-accent);
 }
 
-@keyframes textShine {
-    to {
-        background-position: 200% center;
-    }
+/* ── Fixed subtitle ── */
+.subtitle {
+    font-family: var(--font-dm-sans), sans-serif;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    line-height: 1.65;
+    color: rgba(229, 229, 229, 0.75); /* muted but legible on dark */
+    max-width: 680px;
 }
 
+/* ── WhatsApp CTA button ── */
 .ctaButton {
+    display: inline-block;
     background-color: var(--color-accent);
-    color: var(--color-hero-bg);
-    padding: 0.8rem 2.5rem;
+    color: #002a2c; /* deep dark on mint */
+    padding: 0.9rem 2.8rem;
     border-radius: 9999px;
-    font-family: var(--font-varela-round);
+    font-family: var(--font-varela-round), sans-serif;
     font-weight: 400;
-    font-size: var(--text-subtitle);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
     line-height: 1;
-    text-transform: lowercase;
-    width: fit-content;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* Bouncy transition */
     text-decoration: none;
     border: none;
     cursor: pointer;
     outline: none;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.3s ease,
+                background-color 0.2s ease;
+    box-shadow:
+        0 0 22px rgba(9, 188, 138, 0.45),
+        0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-.ctaButton:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    background-color: var(--color-hero-bg);
-    color: var(--color-text-light);
+.ctaButton:hover,
+.ctaButton:focus-visible {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow:
+        0 0 34px rgba(9, 188, 138, 0.65),
+        0 12px 32px rgba(0, 0, 0, 0.35);
+    background-color: #0dd9a0; /* slightly lighter mint on hover */
 }
 
-/* Tablet & Mobile Responsiveness */
-.mobileBreak {
-    display: none;
+/* ── Skip intro link ── */
+.skipLink {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-dm-sans), sans-serif;
+    font-size: 0.85rem;
+    color: rgba(229, 229, 229, 0.45);
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.2s ease;
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
+.skipLink:hover,
+.skipLink:focus-visible {
+    color: rgba(229, 229, 229, 0.85);
+}
+
+/* ============================================================
+   Reduced-motion: disable entrance animations entirely
+   (GSAP also reads this flag; CSS belt-and-suspenders)
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    .brand,
+    .tagline,
+    .typeRow,
+    .subtitle,
+    .ctaButton,
+    .skipLink {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ============================================================
+   Tablet
+   ============================================================ */
 @media (max-width: 1024px) {
-    .headline {
-        gap: 1rem;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .oitoText {
-        font-size: calc(var(--text-h1) * 1.125);
+    .content {
+        gap: 1.5rem;
     }
 }
 
+/* ============================================================
+   Mobile
+   ============================================================ */
 @media (max-width: 768px) {
     .hero {
-        padding-top: 60px;
+        padding-top: 70px;
     }
 
-    .description {
-        padding: 0 1rem;
-    }
-
-    .mobileBreak {
-        display: block;
-    }
-
-    .rotatingTextWrap {
-        display: block !important;
-        margin-top: 5px;
-        text-align: center;
+    .content {
+        gap: 1.25rem;
     }
 
     .ctaButton {
-        padding: 0.8rem 1.5rem;
-        font-size: var(--text-body);
         width: 100%;
         max-width: 320px;
-        white-space: normal;
         text-align: center;
-        line-height: 1.2;
+        white-space: normal;
+        line-height: 1.3;
+        padding: 0.85rem 1.5rem;
+    }
+
+    .typeRow {
+        min-height: 3em; /* more room on small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .subtitle {
+        padding: 0 0.5rem;
     }
 }

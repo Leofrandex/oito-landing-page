@@ -84,6 +84,15 @@ WhatsApp actual: `https://wa.me/584241344659`. Esto simplifica el sitio y mejora
 
 Specs en `docs/superpowers/specs/`.
 
+**✅ FIJADO — Glassmorphism sobre hilos:** Lenguaje visual central. Paneles de vidrio
+esmerilado (`backdrop-filter: blur ~7px saturate(1.35)`, fill translúcido ~3-4%, borde de luz
+sutil, esquinas redondeadas) sobre los hilos animados, que se ven y "distorsionan" a través.
+Se aplica al **header**, hero, tarjetas, chips y CTAs. Dos variantes: `glass` (translúcida,
+tarjetas) y `glass-strong` (algo más opaca + blur ~11px, para bloques con mucho texto, para no
+perder contraste). Texto con leve sombra para legibilidad. Cuidar rendimiento (dosificar
+`backdrop-filter` en móvil) y contraste (WCAG AA). Receta de referencia:
+`.superpowers/mockups/glassmorphism-v2.html`.
+
 **✅ FIJADO — Dirección visual del Home:** Tratamiento **híbrido**: Hero y momentos clave en
 oscuro cinemático (forest green + hilos WebGL), secciones de contenido en claro (cream mint)
 para legibilidad y rendimiento. Patrón *Immersive/Interactive Experience + Feature-Rich

@@ -8,7 +8,7 @@
 ## 1. Qué es este proyecto
 
 Landing page de **oito**, un estudio digital para **pymes hispanohablantes de LatAm**.
-Actualmente en rediseño completo (rama `rediseno-2026`).
+Actualmente en rediseño completo (rama `oito-page-v5`).
 
 **Stack:**
 - Next.js 16 (App Router) + React 19 + TypeScript
@@ -75,7 +75,7 @@ WhatsApp actual: `https://wa.me/584241344659`. Esto simplifica el sitio y mejora
 
 ## 5. Plan de rediseño
 
-**Una rama:** `rediseno-2026` → se fusiona a `main` una sola vez al final.
+**Una rama:** `oito-page-v5` → se fusiona a `main` una sola vez al final.
 
 **Tres iniciativas, secuenciales, cada una con su spec + plan:**
 1. **Contenido** — mensaje, estructura de secciones, copy, keywords *(cimiento)*. ← EN CURSO
@@ -102,7 +102,23 @@ velocidad/SEO** — efectos con `transform`/`opacity`, degradación en móvil, r
 
 ---
 
-## 7. Convenciones de trabajo
+## 7. Pendientes de datos (el usuario los conseguirá)
+
+El copy deck (`docs/content/copy-deck.md`) está cerrado con **6 casos reales** (3 desarrollo:
+Ponce-Benzo, Hospitalar, Hospiwaste · 3 automatización: SecureByte, Go To Truckers, SupraBT),
+pero falta data que el usuario aportará después:
+
+- **Permisos de nombre/logo:** los 6 clientes salieron N/D → por ahora **anonimizados por
+  sector**. Nombrar + logo solo cuando el cliente autorice.
+- **Testimonios:** ninguno disponible aún (sección de prueba social arranca sin testimonios
+  o más liviana).
+- **Capturas/mockups:** solo **Hospiwaste** confirmó capturas reales; los demás N/D.
+- **Tiempos/métricas:** ningún caso tiene métricas medidas → se redacta sin cifras de resultado.
+
+> Cuando lleguen estos datos, actualizar el copy deck y "ascender" los casos (nombre, logo,
+> testimonio, capturas) donde haya permiso.
+
+## 8. Convenciones de trabajo
 
 - Responder e interactuar con el usuario en **español**.
 - Cada iniciativa: brainstorming → spec aprobado → plan → implementación → verificación.

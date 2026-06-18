@@ -1,194 +1,119 @@
-/* ============================================================
-   Hero — dark full-screen section (threads background shows through)
-   ============================================================ */
+/* Hero — dark immersive thesis over the live threads. Text light, high contrast. */
 
 .hero {
+    position: relative;
     min-height: 100dvh;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 80px 2rem 2rem; /* top: account for fixed header */
-    background-color: transparent; /* threads + forest-deep shell shows through */
+    justify-content: center;
     text-align: center;
-    position: relative;
-    overflow: hidden;
+    padding: 7rem 1.5rem 4rem;
+    background-color: transparent; /* shows the dark threads backdrop */
 }
 
-/* ── Content stack ── */
-.content {
+.inner {
+    max-width: 920px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.75rem;
-    max-width: 860px;
-    width: 100%;
-    z-index: 10;
 }
 
-/* ── Brand wordmark ── */
-.brand {
-    font-family: var(--font-varela-round), sans-serif;
-    font-weight: 400;
-    font-size: clamp(4rem, 14vw, 9rem);
-    line-height: 1;
-    color: var(--color-accent); /* mint #09bc8a */
-    text-transform: lowercase;
-    letter-spacing: -0.02em;
-    text-shadow:
-        0 0 40px rgba(9, 188, 138, 0.55),
-        0 0 80px rgba(9, 188, 138, 0.25);
-    display: block;
-}
-
-/* ── Tagline ── */
-.tagline {
-    font-family: var(--font-dm-sans), sans-serif;
-    font-weight: 800;
-    font-size: clamp(1.4rem, 4vw, 2.4rem);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-text-muted); /* #e5e5e5 — clear on dark */
-    display: block;
-}
-
-/* ── TextType row ── */
-.typeRow {
-    min-height: 2.5em; /* prevent layout shift while typing */
+.headline {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 0.4rem;
+    margin: 0;
 }
 
-.typeWrap {
+.wordmark {
+    font-size: clamp(72px, 16vw, 190px);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--color-accent);
+    text-shadow: 0 0 50px rgba(0, 255, 170, 0.45), 0 0 14px rgba(9, 188, 138, 0.5);
+}
+
+.tagline {
+    font-size: clamp(20px, 4.2vw, 42px);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #eafff6;
+    text-shadow: 0 2px 18px rgba(0, 20, 22, 0.6);
+}
+
+.rotatingLine {
+    margin-top: 1.6rem;
+    font-size: clamp(18px, 2.8vw, 28px);
+    font-weight: 500;
+    color: #d6f5ec;
+    min-height: 1.6em;
+    text-shadow: 0 1px 12px rgba(0, 20, 22, 0.55);
+}
+
+.rotating {
+    color: var(--color-accent);
+    font-weight: 700;
+}
+
+.subtitle {
+    margin-top: 1.1rem;
+    max-width: 540px;
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.6;
+    color: rgba(234, 255, 246, 0.74);
+    text-shadow: 0 1px 10px rgba(0, 20, 22, 0.5);
+}
+
+.actions {
+    margin-top: 2.2rem;
+}
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 54px;
+    padding: 0 2rem;
+    border-radius: 50px;
+    background: var(--color-accent);
+    color: #002a2c;
     font-family: var(--font-dm-sans), sans-serif;
     font-weight: 700;
-    font-size: clamp(1.1rem, 3vw, 1.6rem);
-    color: var(--color-accent);
-    letter-spacing: 0.01em;
-}
-
-/* Override cursor colour inside typeWrap */
-.typeWrap :global(.text-type__cursor) {
-    color: var(--color-accent);
-}
-
-/* ── Fixed subtitle ── */
-.subtitle {
-    font-family: var(--font-dm-sans), sans-serif;
-    font-size: clamp(1rem, 2.2vw, 1.2rem);
-    line-height: 1.65;
-    color: rgba(229, 229, 229, 0.75); /* muted but legible on dark */
-    max-width: 680px;
-}
-
-/* ── WhatsApp CTA button ── */
-.ctaButton {
-    display: inline-block;
-    background-color: var(--color-accent);
-    color: #002a2c; /* deep dark on mint */
-    padding: 0.9rem 2.8rem;
-    border-radius: 9999px;
-    font-family: var(--font-varela-round), sans-serif;
-    font-weight: 400;
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    line-height: 1;
+    font-size: 1.05rem;
     text-decoration: none;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                box-shadow 0.3s ease,
-                background-color 0.2s ease;
-    box-shadow:
-        0 0 22px rgba(9, 188, 138, 0.45),
-        0 8px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 34px rgba(9, 188, 138, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.ctaButton:hover,
-.ctaButton:focus-visible {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow:
-        0 0 34px rgba(9, 188, 138, 0.65),
-        0 12px 32px rgba(0, 0, 0, 0.35);
-    background-color: #0dd9a0; /* slightly lighter mint on hover */
+.cta:hover {
+    transform: translateY(-2px);
+    background: #ffffff;
+    box-shadow: 0 0 44px rgba(0, 255, 170, 0.6);
 }
 
-/* ── Skip intro link ── */
-.skipLink {
+.skip {
+    margin-top: 1.6rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     background: none;
     border: none;
-    cursor: pointer;
+    color: rgba(234, 255, 246, 0.55);
     font-family: var(--font-dm-sans), sans-serif;
     font-size: 0.85rem;
-    color: rgba(229, 229, 229, 0.45);
-    letter-spacing: 0.06em;
-    padding: 0.25rem 0.5rem;
+    letter-spacing: 0.02em;
+    cursor: pointer;
     transition: color 0.2s ease;
-    text-decoration: underline;
-    text-underline-offset: 3px;
 }
 
-.skipLink:hover,
-.skipLink:focus-visible {
-    color: rgba(229, 229, 229, 0.85);
+.skip:hover {
+    color: var(--color-accent);
 }
 
-/* ============================================================
-   Reduced-motion: disable entrance animations entirely
-   (GSAP also reads this flag; CSS belt-and-suspenders)
-   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
-    .brand,
-    .tagline,
-    .typeRow,
-    .subtitle,
-    .ctaButton,
-    .skipLink {
-        opacity: 1 !important;
-        transform: none !important;
-        animation: none !important;
-        transition: none !important;
-    }
-}
-
-/* ============================================================
-   Tablet
-   ============================================================ */
-@media (max-width: 1024px) {
-    .content {
-        gap: 1.5rem;
-    }
-}
-
-/* ============================================================
-   Mobile
-   ============================================================ */
-@media (max-width: 768px) {
-    .hero {
-        padding-top: 70px;
-    }
-
-    .content {
-        gap: 1.25rem;
-    }
-
-    .ctaButton {
-        width: 100%;
-        max-width: 320px;
-        text-align: center;
-        white-space: normal;
-        line-height: 1.3;
-        padding: 0.85rem 1.5rem;
-    }
-
-    .typeRow {
-        min-height: 3em; /* more room on small screens */
-    }
-}
-
-@media (max-width: 480px) {
-    .subtitle {
-        padding: 0 0.5rem;
+    .skip {
+        display: none; /* nothing to skip when motion is reduced */
     }
 }

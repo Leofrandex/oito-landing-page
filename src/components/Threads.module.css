@@ -6,8 +6,9 @@
     height: 100%;
     z-index: -1;
     pointer-events: none;
-    background-color: var(--color-bg);
-    /* Allow clicks to pass through unless interaction is needed */
+    background-color: transparent;
+    /* Base color comes from the ThreadsBackground wrapper (forest-deep).
+       Transparent here lets that dark base show through behind the mint threads. */
 }
 
 .threads-container canvas {

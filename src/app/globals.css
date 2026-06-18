@@ -67,8 +67,13 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--font-varela-round), sans-serif;
+    /* Headings use DM Sans (body font). Varela Round is reserved for the "oito" wordmark only. */
     line-height: 1.1;
+}
+
+/* The "oito" wordmark — the ONLY place Varela Round is used. */
+.wordmark {
+    font-family: var(--font-varela-round), sans-serif;
 }
 
 a {

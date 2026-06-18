@@ -3,131 +3,91 @@
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import styles from './Hero.module.css';
+import { ArrowDown } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
 import TextType from './TextType';
+import styles from './Hero.module.css';
+
+const ROTATING = [
+  'construye tu página web',
+  'diseña tu app móvil',
+  'crea tu sistema a medida',
+  'automatiza tu facturación',
+  'agiliza tu prospección',
+  'ordena tu CRM',
+  'gestiona tu inventario',
+  'responde a tus clientes 24/7',
+  'genera tus reportes',
+];
 
 export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
-    const sectionRef = useRef<HTMLElement>(null);
-    const brandRef = useRef<HTMLSpanElement>(null);
-    const taglineRef = useRef<HTMLSpanElement>(null);
-    const typeRowRef = useRef<HTMLDivElement>(null);
-    const subtitleRef = useRef<HTMLParagraphElement>(null);
-    const ctaRef = useRef<HTMLAnchorElement>(null);
-    const skipRef = useRef<HTMLButtonElement>(null);
+  const root = useRef<HTMLElement>(null);
+  const tl = useRef<gsap.core.Timeline | null>(null);
 
-    const PHRASES = [
-        'construye tu página web',
-        'diseña tu app móvil',
-        'crea tu sistema a medida',
-        'automatiza tu facturación',
-        'agiliza tu prospección',
-        'ordena tu CRM',
-        'gestiona tu inventario',
-        'responde a tus clientes 24/7',
-        'genera tus reportes',
-    ];
+  useGSAP(
+    () => {
+      const items = gsap.utils.toArray<HTMLElement>('[data-anim]');
+      const reduce =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const prefersReducedMotion =
-        typeof window !== 'undefined'
-            ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-            : false;
+      if (reduce || !isLoaded) {
+        gsap.set(items, { opacity: 1, y: 0 });
+        return;
+      }
 
-    const handleSkip = () => {
-        const next = sectionRef.current?.nextElementSibling as HTMLElement | null;
-        if (next) {
-            next.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
-        }
-    };
+      gsap.set(items, { opacity: 0, y: 28 });
+      tl.current = gsap
+        .timeline({ defaults: { ease: 'power3.out' } })
+        .to(items[0], { opacity: 1, y: 0, duration: 1, ease: 'power2.out' })
+        .to(items.slice(1), { opacity: 1, y: 0, duration: 0.7, stagger: 0.16 }, '-=0.35');
+    },
+    { scope: root, dependencies: [isLoaded] },
+  );
 
-    useGSAP(() => {
-        const els = [
-            brandRef.current,
-            taglineRef.current,
-            typeRowRef.current,
-            subtitleRef.current,
-            ctaRef.current,
-            skipRef.current,
-        ];
+  const skipIntro = () => {
+    tl.current?.progress(1);
+  };
 
-        if (prefersReducedMotion) {
-            gsap.set(els, { opacity: 1, y: 0 });
-            return;
-        }
+  return (
+    <section id="hero" className={styles.hero} ref={root}>
+      <div className={styles.inner}>
+        <h1 className={styles.headline} data-anim>
+          <span className={`${styles.wordmark} wordmark`}>oito</span>
+          <span className={styles.tagline}>lo hace por ti</span>
+        </h1>
 
-        gsap.set(els, { opacity: 0, y: 40 });
+        <p className={styles.rotatingLine} data-anim>
+          <TextType
+            text={ROTATING}
+            as="span"
+            className={styles.rotating}
+            typingSpeed={50}
+            deletingSpeed={30}
+            pauseDuration={2000}
+          />
+        </p>
 
-        if (!isLoaded) return;
+        <p className={styles.subtitle} data-anim>
+          Tu equipo técnico que construye software y automatiza procesos.
+        </p>
 
-        gsap.timeline()
-            .to(brandRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' })
-            .to(taglineRef.current, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
-            .to(typeRowRef.current, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
-            .to(subtitleRef.current, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
-            .to([ctaRef.current, skipRef.current], {
-                opacity: 1,
-                y: 0,
-                duration: 0.5,
-                stagger: 0.1,
-                ease: 'power2.out',
-            }, '-=0.2');
-    }, { scope: sectionRef, dependencies: [isLoaded] });
+        <div className={styles.actions} data-anim>
+          <a
+            href="https://wa.me/584241344659"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.cta}
+          >
+            <WhatsAppIcon size={22} />
+            Hablemos por WhatsApp
+          </a>
+        </div>
 
-    return (
-        <section id="hero" className={styles.hero} ref={sectionRef}>
-            <div className={styles.content}>
-                {/* Brand wordmark */}
-                <span className={styles.brand} ref={brandRef} style={{ opacity: 0 }}>
-                    oito
-                </span>
-
-                {/* Tagline */}
-                <span className={styles.tagline} ref={taglineRef} style={{ opacity: 0 }}>
-                    LO HACE POR TI
-                </span>
-
-                {/* TextType rotating phrases */}
-                <div className={styles.typeRow} ref={typeRowRef} style={{ opacity: 0 }}>
-                    <TextType
-                        text={PHRASES}
-                        as="span"
-                        className={styles.typeWrap}
-                        typingSpeed={45}
-                        deletingSpeed={25}
-                        pauseDuration={2200}
-                        showCursor={true}
-                    />
-                </div>
-
-                {/* Fixed subtitle */}
-                <p className={styles.subtitle} ref={subtitleRef} style={{ opacity: 0 }}>
-                    Tu equipo técnico que construye software y automatiza procesos — para que tú no tengas que lidiar con lo técnico.
-                </p>
-
-                {/* WhatsApp CTA */}
-                <a
-                    href="https://wa.me/584241344659"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.ctaButton}
-                    ref={ctaRef}
-                    style={{ opacity: 0 }}
-                >
-                    Hablemos por WhatsApp
-                </a>
-
-                {/* Skip intro */}
-                <button
-                    type="button"
-                    className={styles.skipLink}
-                    onClick={handleSkip}
-                    ref={skipRef}
-                    style={{ opacity: 0 }}
-                >
-                    saltar intro
-                </button>
-            </div>
-        </section>
-    );
+        <button type="button" className={styles.skip} data-anim onClick={skipIntro}>
+          saltar intro <ArrowDown size={15} />
+        </button>
+      </div>
+    </section>
+  );
 }

@@ -1,0 +1,211 @@
+/* =====================================================
+   HowWeWorkHome — condensed process section (Home)
+   Light / soft-contrast section, responsive timeline
+   ===================================================== */
+
+.section {
+    background: var(--color-mint-light);
+    padding: 6rem 2rem 7rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ---- Header ---- */
+.header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.title {
+    font-family: var(--font-dm-sans);
+    font-size: var(--text-h2);
+    font-weight: 700;
+    color: var(--color-hero-bg);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+
+.brandHighlight {
+    font-family: var(--font-varela-round);
+    color: var(--color-accent);
+    font-weight: 400;
+}
+
+/* ---- Steps grid ---- */
+.stepsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+}
+
+/* ---- Card ---- */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2.5rem 2rem 2rem;
+}
+
+/* Horizontal connector line between cards (desktop only) */
+.connectorLine {
+    display: block;
+    position: absolute;
+    top: calc(2.5rem + 16px); /* aligns with center of number badge */
+    right: calc(-1 * (100% / 2 - 40px));
+    width: calc(100% - 80px);
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(9, 188, 138, 0.35) 0%,
+        rgba(9, 188, 138, 0.6) 50%,
+        rgba(9, 188, 138, 0.35) 100%
+    );
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ---- Number badge ---- */
+.numberBadge {
+    position: relative;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+    font-family: var(--font-varela-round);
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 6px rgba(9, 188, 138, 0.12);
+}
+
+/* ---- Icon ---- */
+.iconWrap {
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+/* ---- Step text ---- */
+.stepTitle {
+    font-family: var(--font-dm-sans);
+    font-size: var(--text-subtitle);
+    font-weight: 700;
+    color: var(--color-hero-bg);
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+}
+
+.stepDescription {
+    font-family: var(--font-dm-sans);
+    font-size: var(--text-body);
+    color: var(--color-text-charcoal);
+    line-height: 1.65;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+/* =====================================================
+   Responsive — tablet
+   ===================================================== */
+@media (max-width: 900px) {
+    .stepsGrid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    /* hide horizontal connector on mobile / tablet */
+    .connectorLine {
+        display: none;
+    }
+
+    /* Vertical timeline line */
+    .card {
+        padding: 2rem 1.5rem;
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+        gap: 1.25rem;
+    }
+
+    /* left column: badge + icon stacked */
+    .numberBadge {
+        margin-bottom: 0.75rem;
+        flex-shrink: 0;
+    }
+
+    .iconWrap {
+        margin-bottom: 0;
+    }
+
+    /* Group badge + icon vertically */
+    .card {
+        position: relative;
+        padding-left: 1rem;
+        border-left: none;
+    }
+
+    /* Vertical connector between cards */
+    .card:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: calc(1rem + 17px); /* center of badge */
+        top: calc(2rem + 36px);  /* below the badge */
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(
+            180deg,
+            rgba(9, 188, 138, 0.5) 0%,
+            rgba(9, 188, 138, 0.08) 100%
+        );
+    }
+
+    .stepDescription {
+        max-width: 100%;
+    }
+}
+
+/* =====================================================
+   Responsive — mobile
+   ===================================================== */
+@media (max-width: 480px) {
+    .section {
+        padding: 4rem 1.25rem 5rem;
+    }
+
+    .header {
+        margin-bottom: 2.5rem;
+    }
+
+    .card {
+        padding: 1.5rem 0.75rem;
+        gap: 1rem;
+    }
+}
+
+/* =====================================================
+   Reduced-motion
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+    /* framer-motion respects this via `useReducedMotion`;
+       belt-and-suspenders: keep elements visible */
+    .card,
+    .header {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}

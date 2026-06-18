@@ -1,0 +1,139 @@
+/* TwoPillars.module.css */
+
+.section {
+  padding: 6rem 1.5rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.title {
+  font-family: var(--font-varela-round), sans-serif;
+  font-size: var(--text-h2);
+  line-height: 1.15;
+  color: var(--color-text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.mintText {
+  color: var(--color-accent);
+}
+
+.subtitle {
+  font-size: var(--text-subtitle);
+  color: var(--color-text-charcoal);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+}
+
+@media (max-width: 680px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Card wrapper (for motion) ── */
+.cardWrapper {
+  display: flex;
+}
+
+/* ── Card ── */
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 2.25rem 2rem;
+  gap: 0;
+  width: 100%;
+  /* On the light background, use a tinted card feel */
+  background: rgba(0, 67, 70, 0.07) !important;
+  border: 1px solid rgba(9, 188, 138, 0.22) !important;
+  box-shadow: 0 6px 28px rgba(0, 67, 70, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
+  backdrop-filter: blur(10px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.3) !important;
+}
+
+/* ── Icon container ── */
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(9, 188, 138, 0.12);
+  border: 1px solid rgba(9, 188, 138, 0.25);
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* ── Card text ── */
+.cardTitle {
+  font-family: var(--font-varela-round), sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  color: var(--color-text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.cardText {
+  font-size: var(--text-body);
+  color: var(--color-text-charcoal);
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Card link ── */
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  letter-spacing: 0.01em;
+  transition: opacity 0.2s ease, gap 0.2s ease;
+  text-decoration: none;
+  margin-top: auto;
+}
+
+.cardLink:hover {
+  opacity: 0.8;
+}
+
+/* ── Reduced motion: kill glass-hover transform ── */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none !important;
+  }
+}
+
+/* ── Mobile padding ── */
+@media (max-width: 480px) {
+  .section {
+    padding: 4rem 1rem;
+  }
+
+  .card {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .header {
+    margin-bottom: 2.5rem;
+  }
+}

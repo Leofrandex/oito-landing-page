@@ -6,6 +6,7 @@ import Hero from '@/components/Hero';
 import AuthorityBanner from '@/components/AuthorityBanner';
 import About from '@/components/About';
 
+import FeaturedCases from '@/components/FeaturedCases';
 import Portfolio from '@/components/Portfolio';
 import HowWeWork from '@/components/HowWeWork';
 import Pricing from '@/components/Pricing';
@@ -31,6 +32,7 @@ export default function Home() {
       <Hero isLoaded={isLoaded} />
       <AuthorityBanner />
       <About />
+      <FeaturedCases />
       <Portfolio />
       <HowWeWork />
       <Pricing />

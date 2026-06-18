@@ -1,0 +1,101 @@
+/* FeaturedCases.module.css */
+
+.section {
+  padding: 6rem 1.5rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.title {
+  font-family: var(--font-varela-round), sans-serif;
+  font-size: var(--text-h2);
+  line-height: 1.15;
+  color: var(--color-text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.mintText {
+  color: var(--color-accent);
+}
+
+.subtitle {
+  font-size: var(--text-subtitle);
+  color: var(--color-text-charcoal);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ── Grid: 2×2 desktop, 1 col mobile ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+}
+
+@media (max-width: 680px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Card wrapper (motion container) ── */
+.cardWrapper {
+  display: flex;
+}
+
+/* Ensure CaseStudy card fills the wrapper */
+.cardWrapper > * {
+  width: 100%;
+}
+
+/* ── CTA ── */
+.ctaWrap {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.cta {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.cta:hover {
+  opacity: 0.75;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .cta {
+    transition: none !important;
+  }
+}
+
+/* ── Mobile spacing ── */
+@media (max-width: 480px) {
+  .section {
+    padding: 4rem 1rem;
+  }
+
+  .header {
+    margin-bottom: 2.5rem;
+  }
+
+  .ctaWrap {
+    margin-top: 2rem;
+  }
+}

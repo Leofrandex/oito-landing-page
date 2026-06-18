@@ -86,7 +86,7 @@ export default function FeaturedCases() {
           ))}
         </div>
 
-        {/* CTA link */}
+        {/* CTA links — one per pillar */}
         <motion.div
           className={styles.ctaWrap}
           initial={{ opacity: 0 }}
@@ -94,8 +94,11 @@ export default function FeaturedCases() {
           viewport={{ once: true }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : 0.5 }}
         >
+          <Link href="/desarrollo-web" className={styles.cta}>
+            Ver desarrollo →
+          </Link>
           <Link href="/automatizacion-ia" className={styles.cta}>
-            Ver todas las soluciones →
+            Ver automatización →
           </Link>
         </motion.div>
       </div>

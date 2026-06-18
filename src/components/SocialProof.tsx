@@ -34,7 +34,7 @@ export default function SocialProof() {
   };
 
   return (
-    <section className={styles.section}>
+    <section className={`sectionLight ${styles.section}`}>
       <div className={styles.container}>
         {/* Title with mint accent on "oito" */}
         <motion.h2

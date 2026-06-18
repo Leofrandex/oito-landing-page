@@ -1,0 +1,142 @@
+.section {
+  position: relative;
+  width: 100%;
+  padding: 4rem 1.5rem;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.title {
+  font-family: var(--font-varela-round, sans-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  text-align: center;
+  line-height: 1.2;
+  max-width: 600px;
+  margin: 0;
+}
+
+.mintText {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.logosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 800px;
+  justify-items: center;
+}
+
+.logoPlaceholder {
+  width: 130px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(7px) saturate(1.35);
+  -webkit-backdrop-filter: blur(7px) saturate(1.35);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: default;
+}
+
+.logoPlaceholder:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(9, 188, 138, 0.16);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoPlaceholder {
+    transition: none;
+  }
+  .logoPlaceholder:hover {
+    background: rgba(255, 255, 255, 0.035);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 8px 36px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.placeholderIcon {
+  font-size: 3rem;
+  color: var(--color-text-charcoal);
+  opacity: 0.3;
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 1rem;
+    margin: 1rem 0;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .logosGrid {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 1rem;
+    max-width: 100%;
+  }
+
+  .logoPlaceholder {
+    width: 110px;
+    height: 110px;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .placeholderIcon {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 2rem 0.75rem;
+    margin: 0.5rem 0;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .logosGrid {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .logoPlaceholder {
+    width: 90px;
+    height: 90px;
+    padding: 0.75rem;
+    border-radius: 10px;
+  }
+
+  .placeholderIcon {
+    font-size: 2rem;
+  }
+}

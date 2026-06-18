@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import LoadingScreen from '@/components/LoadingScreen';
+import { useEffect } from 'react';
 import Hero from '@/components/Hero';
 import TwoPillars from '@/components/TwoPillars';
 import SocialProof from '@/components/SocialProof';
@@ -11,8 +10,6 @@ import HowWeWorkHome from '@/components/HowWeWorkHome';
 import FinalCTA from '@/components/FinalCTA';
 
 export default function Home() {
-  const [isLoaded, setIsLoaded] = useState(false);
-
   useEffect(() => {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
@@ -26,8 +23,7 @@ export default function Home() {
 
   return (
     <main>
-      {!isLoaded && <LoadingScreen onComplete={() => setIsLoaded(true)} />}
-      <Hero isLoaded={isLoaded} />
+      <Hero />
       <TwoPillars />
       <SocialProof />
       <WhyOito />

@@ -93,6 +93,15 @@ perder contraste). Texto con leve sombra para legibilidad. Cuidar rendimiento (d
 `backdrop-filter` en móvil) y contraste (WCAG AA). Receta de referencia:
 `.superpowers/mockups/glassmorphism-v2.html`.
 
+**✅ FIJADO — Glass premium (GlassSurface):** Para vidrio de alta calidad con **refracción SVG
+real** (distorsiona el fondo, no solo blur) se usa `src/components/GlassSurface.jsx` (de React
+Bits). Ya aplicado al **Header** (`displace=3`, `distortionScale=-160`, `backgroundOpacity=0.18`,
+`color-scheme: dark` para legibilidad sobre oscuro, texto claro con sombra). ⚠️ La refracción SVG
+solo funciona en **Chromium**; en Safari/Firefox cae a blur normal (fallback automático). Las
+utilidades `.glass`/`.glass-strong` y `GlassCard` siguen para vidrio simple/ligero. Nota: el
+`backdrop-filter` crea containing block → elementos `position:fixed` hijos (ej. overlay de menú
+móvil) deben ir FUERA del GlassSurface.
+
 **✅ FIJADO — Dirección visual del Home:** Tratamiento **híbrido**: Hero y momentos clave en
 oscuro cinemático (forest green + hilos WebGL), secciones de contenido en claro (cream mint)
 para legibilidad y rendimiento. Patrón *Immersive/Interactive Experience + Feature-Rich

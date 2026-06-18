@@ -5,7 +5,7 @@ export default function ThreadsBackground() {
   return (
     <div
       aria-hidden="true"
-      style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}
+      style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', backgroundColor: '#002a2c' }}
     >
       <Threads amplitude={1} distance={0} enableMouseInteraction={false} isLoaded={true} />
     </div>

@@ -51,6 +51,7 @@ export default function Header() {
         saturation={1.6}
         distortionScale={-160}
         blur={9}
+        displace={3}
         className={styles.bar}
       >
         <div className={styles.container}>

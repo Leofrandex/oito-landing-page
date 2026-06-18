@@ -3,14 +3,12 @@
 import { useState, useEffect } from 'react';
 import LoadingScreen from '@/components/LoadingScreen';
 import Hero from '@/components/Hero';
-import AuthorityBanner from '@/components/AuthorityBanner';
-import About from '@/components/About';
-
+import TwoPillars from '@/components/TwoPillars';
+import SocialProof from '@/components/SocialProof';
+import WhyOito from '@/components/WhyOito';
 import FeaturedCases from '@/components/FeaturedCases';
-import Portfolio from '@/components/Portfolio';
-import HowWeWork from '@/components/HowWeWork';
-import Pricing from '@/components/Pricing';
-import Contact from '@/components/Contact';
+import HowWeWorkHome from '@/components/HowWeWorkHome';
+import FinalCTA from '@/components/FinalCTA';
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -30,13 +28,12 @@ export default function Home() {
     <main>
       {!isLoaded && <LoadingScreen onComplete={() => setIsLoaded(true)} />}
       <Hero isLoaded={isLoaded} />
-      <AuthorityBanner />
-      <About />
+      <TwoPillars />
+      <SocialProof />
+      <WhyOito />
       <FeaturedCases />
-      <Portfolio />
-      <HowWeWork />
-      <Pricing />
-      <Contact />
+      <HowWeWorkHome />
+      <FinalCTA />
     </main>
   );
 }

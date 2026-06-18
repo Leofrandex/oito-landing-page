@@ -1,99 +1,18 @@
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: transparent;
-    border-radius: 0;
-    border: 1px solid transparent;
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-    padding: 1.5rem 0;
-    margin: 0 auto;
-    max-width: 100%;
-    transition:
-        top 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        left 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        right 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        border-radius 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        background-color 0.4s ease,
-        backdrop-filter 0.4s ease,
-        box-shadow 0.4s ease,
-        border-color 0.4s ease,
-        padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* Header.module.css — sticky glass pill, route nav, WhatsApp CTA */
 
-.header.scrolled {
-    top: 0.75rem;
-    left: 1rem;
-    right: 1rem;
-    max-width: 1200px;
-    background-color: rgba(20, 20, 20, 0.65);
-    backdrop-filter: blur(24px) saturate(150%);
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
-    box-shadow: 
-        0 10px 40px -10px rgba(0, 0, 0, 0.3),
-        inset 0 1px 1px rgba(255, 255, 255, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+.header {
+    position: sticky;
+    top: 14px;
+    z-index: 40;
+    max-width: 1180px;
+    margin: 14px auto 0;
+    /* Glass background comes from global .glass class — no opaque bg here */
     border-radius: 9999px;
     padding: 0.5rem 0;
 }
 
-.header.scrolled:not(.menuOpen) .navLink {
-    color: var(--color-text-light);
-}
-
-.header.scrolled:not(.menuOpen) .navLink:hover {
-    color: var(--color-accent);
-}
-
-.oitoLogoWrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.logoImage {
-    object-fit: contain;
-    display: block;
-    transition: opacity 0.4s ease;
-}
-
-.logoMintMask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-accent);
-    mask-image: url('/oito_logo_2.png');
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-image: url('/oito_logo_2.png');
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-}
-
-.header.scrolled:not(.menuOpen) .logoImage {
-    opacity: 0;
-}
-
-.header.scrolled:not(.menuOpen) .logoMintMask {
-    opacity: 1;
-}
-
-.header.scrolled:not(.menuOpen) .bar {
-    background: var(--color-text-light);
-}
-
 .container {
-    max-width: 1200px;
+    max-width: 1180px;
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
@@ -102,18 +21,14 @@
 }
 
 .logo {
-    z-index: 1002;
+    z-index: 42;
     position: relative;
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
-
-.navWrapper {
-    display: flex;
-    align-items: center;
-}
-
+/* ── Nav (desktop) ───────────────────────────────────────── */
 .nav {
     display: flex;
     gap: 2.5rem;
@@ -133,35 +48,35 @@
     color: var(--color-accent);
 }
 
-.desktopCta {
+.active {
+    color: var(--color-accent);
+}
+
+/* ── WhatsApp CTA ────────────────────────────────────────── */
+.cta {
     background-color: var(--color-accent);
-    color: var(--color-hero-bg);
-    padding: 0.5rem 1.5rem;
-    border-radius: 9999px;
-    display: flex;
+    color: #002a2c;
+    font-family: var(--font-dm-sans);
+    font-size: var(--text-body);
+    font-weight: 700;
+    padding: 0.65rem 1.5rem;
+    border-radius: 30px;
+    min-height: 44px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-    border: none;
-    cursor: pointer;
-    font-family: var(--font-dm-sans);
-    font-size: var(--text-body);
-    font-weight: 500;
-    line-height: 1;
+    white-space: nowrap;
 }
 
-.desktopCta:hover {
+.cta:hover {
     transform: translateY(-2px);
-    background-color: var(--color-hero-bg);
-    color: var(--color-text-light);
+    background-color: #002a2c;
+    color: var(--color-accent);
 }
 
-.mobileCta {
-    display: none;
-}
-
-/* Hamburger Menu */
+/* ── Hamburger (hidden on desktop) ──────────────────────── */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -172,41 +87,25 @@
     border: none;
     cursor: pointer;
     padding: 0;
-    z-index: 1002;
+    z-index: 42;
 }
 
-.bar {
+.hamburger span {
     width: 2rem;
     height: 0.25rem;
-    background: var(--color-hero-bg);
+    background: var(--color-text-charcoal);
     border-radius: 10px;
     transition: all 0.3s linear;
-    position: relative;
+    display: block;
     transform-origin: 1px;
 }
 
-.hamburger.active .bar:nth-child(1) {
-    transform: rotate(45deg);
-}
-
-.hamburger.active .bar:nth-child(2) {
-    opacity: 0;
-    transform: translateX(20px);
-}
-
-.hamburger.active .bar:nth-child(3) {
-    transform: rotate(-45deg);
-}
-
+/* ── Mobile ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
     .header {
-        padding: 1rem 0;
-    }
-
-    .header.scrolled {
-        left: 0.5rem;
-        right: 0.5rem;
-        top: 0.5rem;
+        top: 8px;
+        margin: 8px auto 0;
+        border-radius: 18px;
         padding: 0.25rem 0;
     }
 
@@ -218,61 +117,45 @@
         display: flex;
     }
 
-    .navWrapper {
+    /* Mobile nav: full-screen overlay */
+    .nav {
         position: fixed;
         top: 0;
         right: -100%;
         width: 100%;
         height: 100vh;
-        background-color: rgba(255, 255, 255, 0.98);
+        background-color: rgba(0, 30, 32, 0.97);
         flex-direction: column;
         justify-content: center;
-        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 1001;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .navWrapper.open {
-        right: 0;
-    }
-
-    .nav {
-        flex-direction: column;
         gap: 3rem;
         align-items: center;
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 41;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav.open {
+        right: 0;
     }
 
     .navLink {
         font-size: var(--text-h2);
         font-weight: 700;
-        color: var(--color-hero-bg);
+        color: var(--color-text-light);
     }
 
-    .desktopCta {
-        display: none;
+    .navLink:hover {
+        color: var(--color-accent);
     }
 
-    .mobileCta {
-        display: flex;
-        background-color: var(--color-accent);
-        color: var(--color-hero-bg);
-        padding: 0.8rem 2.5rem;
-        border-radius: 9999px;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        transition: background-color 0.2s ease, color 0.2s ease;
-        border: none;
-        cursor: pointer;
-        font-family: var(--font-dm-sans);
+    .active {
+        color: var(--color-accent);
+    }
+
+    .cta {
         font-size: var(--text-h2);
         font-weight: 700;
-        line-height: 1;
+        padding: 0.8rem 2.5rem;
         margin-top: 1rem;
-    }
-
-    .mobileCta:hover {
-        background-color: var(--color-hero-bg);
-        color: var(--color-text-light);
     }
 }

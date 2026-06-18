@@ -137,9 +137,7 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
     const animationFrameId = useRef<number | null>(null);
 
     useGSAP(() => {
-        const heroSection = document.getElementById('hero');
-
-        if (containerRef.current && heroSection) {
+        if (containerRef.current) {
             // Initial state: hidden
             gsap.set(containerRef.current, {
                 opacity: 0,

@@ -25,7 +25,7 @@ export default function Header() {
         <button
           className={styles.hamburger}
           onClick={() => setOpen(v => !v)}
-          aria-label="Abrir menú" aria-expanded={open}
+          aria-label={open ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={open}
         >
           <span /><span /><span />
         </button>
@@ -44,6 +44,7 @@ export default function Header() {
             href="https://wa.me/584241344659"
             target="_blank" rel="noopener noreferrer"
             className={styles.cta}
+            onClick={() => setOpen(false)}
           >
             WhatsApp
           </a>

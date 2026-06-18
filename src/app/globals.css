@@ -81,4 +81,34 @@ button {
     cursor: pointer;
     font-family: inherit;
 }
+
+/* ===== Glassmorphism (lenguaje visual oito) ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(7px) saturate(1.35);
+  -webkit-backdrop-filter: blur(7px) saturate(1.35);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 26px;
+  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+.glass-strong {
+  background: rgba(0, 38, 40, 0.20);
+  backdrop-filter: blur(11px) saturate(1.45);
+  -webkit-backdrop-filter: blur(11px) saturate(1.45);
+  border: 1px solid rgba(9, 188, 138, 0.26);
+  border-radius: 26px;
+  box-shadow: 0 10px 44px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+.glass-hover { transition: transform .25s ease, box-shadow .25s ease; }
+.glass-hover:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(9,188,138,.20); }
+
+/* En móvil, reducir nº de capas con blur costoso: fallback sólido translúcido */
+@media (max-width: 768px) {
+  .glass { backdrop-filter: blur(5px) saturate(1.2); -webkit-backdrop-filter: blur(5px) saturate(1.2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  .glass-hover:hover { transform: none; }
+}
 

@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import LoadingScreen from '@/components/LoadingScreen';
-import Threads from '@/components/Threads';
-import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import AuthorityBanner from '@/components/AuthorityBanner';
 import About from '@/components/About';
@@ -11,7 +9,6 @@ import About from '@/components/About';
 import Portfolio from '@/components/Portfolio';
 import HowWeWork from '@/components/HowWeWork';
 import Pricing from '@/components/Pricing';
-import Footer from '@/components/Footer';
 import Contact from '@/components/Contact';
 
 export default function Home() {
@@ -31,8 +28,6 @@ export default function Home() {
   return (
     <main>
       {!isLoaded && <LoadingScreen onComplete={() => setIsLoaded(true)} />}
-      <Threads amplitude={1} distance={0} enableMouseInteraction={true} isLoaded={isLoaded} />
-      <Header isLoaded={isLoaded} />
       <Hero isLoaded={isLoaded} />
       <AuthorityBanner />
       <About />
@@ -40,7 +35,6 @@ export default function Home() {
       <HowWeWork />
       <Pricing />
       <Contact />
-      <Footer />
     </main>
   );
 }

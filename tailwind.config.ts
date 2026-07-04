@@ -20,6 +20,11 @@ const config: Config = {
 					foreground: 'hsl(var(--accent-foreground))'
 				},
 				'accent-light': '#09bc8a',
+				mint: '#09bc8a',
+				forest: '#004346',
+				'forest-deep': '#002a2c',
+				'mint-light': '#f4fcf9',
+				neon: '#00ffaa',
 				charcoal: '#333333',
 				dark: '#1a1a1a',
 				light: '#ffffff',

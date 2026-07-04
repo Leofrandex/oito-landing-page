@@ -42,9 +42,12 @@ Un cliente puede contratar solo una. No somos "solo IA".
 
 ---
 
-## 3. Identidad visual → ver `agents.md`
+## 3. Identidad visual → ver `docs/design-system.md`
 
-`agents.md` es la **biblia visual** (colores, tipografía, sistema de hilos, íconos).
+**📐 Biblia visual = `docs/design-system.md`** (handoff revisado: tipografía, glass, botones,
+chips, GlassCard, glow bullets, nodos, paleta — valores exactos verbatim-implementables).
+`agents.md` queda como referencia de marca de alto nivel; ante conflicto, **manda
+`docs/design-system.md`**.
 Resumen rápido:
 - **Verde Mint** `#09bc8a` (acento) · **Forest Green** `#004346` · **Forest Deep** `#002a2c`
 - **Cream Mint** `#f4fcf9` (fondo claro) · **Neon Mint** `#00ffaa` (glow)
@@ -57,9 +60,19 @@ se extiende al resto del sitio como **acentos** (fondo `hilos-fondo.png`, figura
 del kit, divisores), pero el shader pesado NO corre permanentemente en todas las secciones
 (rendimiento/SEO). Nunca eliminar ni reemplazar el efecto de hilos.
 
-**⚠️ Discrepancias a reconciliar (decisión pendiente):**
-- `agents.md` dice heading = **Outfit**, pero el código usa **Varela Round + Playfair**. Definir cuál es la verdad.
-- `agents.md` aún describe a oito como "Automatización e IA" → actualizar al nuevo posicionamiento (§2).
+**✅ FIJADO — Tipografía (actualizado 2026-07-04):** **Outfit** para titulares (hero/secciones/
+tarjetas), **DM Sans** para cuerpo y UI, **Varela Round SOLO para el wordmark "oito"** (y el CTA
+lúdico `oitomatiza`). El CTA funcional de WhatsApp va en DM Sans 700. Esto **revierte** la decisión
+previa de "headings = DM Sans": ahora manda `agents.md`/`design-system.md` → **Outfit**.
+Tareas de código (fase visual): quitar **Playfair** de `layout.tsx`, añadir Outfit, y corregir
+`globals.css`/`base.css` que hoy aplican Varela Round a todos los h1-h6. Detalle en
+`docs/design-system.md` §1.
+
+**✅ FIJADO — Copy a eliminar (feedback usuario):**
+- Quitar "Nacimos en Venezuela, trabajamos para toda LatAm" del sitio.
+- Quitar "Sin cifras infladas — solo lo que hicimos."
+
+**⚠️ Pendiente:** `agents.md` aún describe a oito como "Automatización e IA" → actualizar al nuevo posicionamiento (§2).
 
 ---
 

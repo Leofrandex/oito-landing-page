@@ -28,6 +28,7 @@ Oito utiliza una combinación de fuentes limpias y redondeadas de Google Fonts p
 * **Outfit** (Heading principal de secciones y títulos de tarjetas):
   * *Uso*: `font-family: 'Outfit', sans-serif;` con pesos `800` (extra bold) o `600` (semi bold).
 * **Varela Round** (Títulos de marca e isotipos tipográficos):
+
   * *Uso*: `font-family: 'Varela Round', sans-serif;` para títulos redondeados y amigables.
 * **DM Sans** (Textos de cuerpo y descripciones):
   * *Uso*: `font-family: 'DM Sans', sans-serif;` con pesos `400` (regular) o `500` (medium).

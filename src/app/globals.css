@@ -15,6 +15,28 @@
     --color-text-charcoal: #333333;
     --color-mint-light: #f4fcf9;
 
+    /* Tailwind compatibility HSL variables */
+    --background: 183 100% 9%; /* #002a2c */
+    --foreground: 0 0% 100%;
+    --card: 183 100% 11%;
+    --card-foreground: 0 0% 100%;
+    --popover: 183 100% 9%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 183 100% 14%; /* #004346 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 183 100% 11%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 183 20% 20%;
+    --muted-foreground: 183 10% 70%;
+    --accent: 163 91% 39%; /* #09bc8a */
+    --accent-foreground: 183 100% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 163 91% 39% / 0.15;
+    --input: 183 100% 7%;
+    --ring: 163 91% 39%;
+    --radius: 26px;
+
     /* Typography Standards */
     --text-h1: 4rem;
     /* Mobile: 2.5rem */
@@ -121,4 +143,80 @@ button {
 /* ===== Section utilities (hybrid dark/light layout) ===== */
 .sectionDark { position: relative; color: #fff; }
 .sectionLight { position: relative; background: var(--color-mint-light, #f4fcf9); color: #1a1a1a; }
+
+/* ===== Glow Tech Bullets ===== */
+.glow-circle {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    box-shadow: 0 0 12px var(--color-accent);
+}
+
+.glow-ring {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--color-accent);
+    box-shadow: 0 0 10px var(--color-accent);
+    background-color: transparent;
+}
+
+.glow-diamond {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    background-color: var(--color-accent);
+    transform: rotate(45deg);
+    box-shadow: 0 0 12px var(--color-accent);
+}
+
+.glow-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    filter: drop-shadow(0 0 4px var(--color-accent));
+}
+
+.glow-cross {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    filter: drop-shadow(0 0 4px var(--color-accent));
+}
+
+.glow-sparkle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    filter: drop-shadow(0 0 5px var(--color-accent));
+}
+
+/* ===== Section Dividers ===== */
+.divider-dashed {
+    border-top: 1px dashed rgba(9, 188, 138, 0.3);
+    margin: 3rem 0;
+    position: relative;
+}
+
+.divider-double {
+    border-top: 1px solid rgba(9, 188, 138, 0.2);
+    border-bottom: 1px solid rgba(9, 188, 138, 0.2);
+    height: 4px;
+    margin: 3rem 0;
+}
+
+.divider-organic {
+    width: 100%;
+    height: 30px;
+    margin: 3rem 0;
+    color: var(--color-accent);
+    opacity: 0.3;
+}
+
 

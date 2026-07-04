@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Brainstorming visual companion
 .superpowers/
+
+# Local design scratch / references (mockups, screenshots, exploraciones)
+refs/

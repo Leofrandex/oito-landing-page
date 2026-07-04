@@ -1,9 +1,10 @@
-// src/app/desarrollo-web/page.tsx
 export default function DesarrolloWebPage() {
   return (
-    <main style={{ minHeight: '60vh', padding: '120px 24px', color: '#fff' }}>
-      <h1>Desarrollo web &amp; software</h1>
-      <p>Contenido en construcción (Plan 2c).</p>
+    <main className="section-dark" style={{ minHeight: '70vh', padding: '160px 24px 80px', textAlign: 'center' }}>
+      <h1 style={{ fontSize: 'clamp(32px,6vw,56px)' }}>
+        Desarrollo web &amp; software
+      </h1>
+      <p style={{ marginTop: '1rem', color: 'var(--on-dark-soft)' }}>En construcción.</p>
     </main>
   );
 }

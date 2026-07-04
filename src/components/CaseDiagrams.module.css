@@ -1,0 +1,72 @@
+.svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.thread {
+  stroke: rgba(9, 188, 138, 0.6);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.route {
+  stroke: rgba(9, 188, 138, 0.65);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 5 7;
+}
+
+.node {
+  fill: var(--mint);
+}
+
+.nodeSoft {
+  fill: rgba(9, 188, 138, 0.4);
+}
+
+.glow {
+  fill: var(--mint);
+  filter: drop-shadow(0 0 6px rgba(0, 255, 170, 0.85));
+}
+
+.box {
+  fill: rgba(9, 188, 138, 0.1);
+  stroke: rgba(9, 188, 138, 0.65);
+  stroke-width: 2;
+}
+
+.mark {
+  stroke: var(--forest-deep);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* One subtle living node per diagram. */
+.pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nodePulse 2.6s ease-in-out infinite;
+}
+
+@keyframes nodePulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+  }
+}

@@ -1,254 +1,83 @@
-/* ===================================================
-   WhyOito — condensed "antes→después" section
-   Light background (sectionLight utility from globals.css)
-   =================================================== */
-
-.whyOito {
-    padding: 6rem 4rem 0;
-    position: relative;
-    z-index: 20;
+.section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(5rem, 10vw, 9rem) 1.5rem;
 }
 
-/* ---- Text blocks ---- */
-.textArea {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    max-width: 1100px;
-    margin: 0 auto 5rem;
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(50% 45% at 80% 10%, rgba(9, 188, 138, 0.08), transparent 70%);
+  pointer-events: none;
 }
 
-.block {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+.inner {
+  position: relative;
+  max-width: 1040px;
+  margin: 0 auto;
 }
 
-.blockTitle {
-    font-family: var(--font-varela-round);
-    font-size: var(--text-h2);
-    font-weight: 400; /* Varela Round has built-in weight */
-    line-height: 1.2;
-    color: var(--color-hero-bg);
+.eyebrow {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mint);
+  text-align: center;
 }
 
-.blockText {
-    font-family: var(--font-dm-sans);
-    font-size: var(--text-body);
-    color: var(--color-text-charcoal);
-    line-height: 1.7;
+/* ===== Argument blocks ===== */
+.args {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
 }
 
-.highlight {
-    color: var(--color-accent);
-    font-weight: 700;
+.argTitle {
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  letter-spacing: -0.015em;
+  color: var(--forest-deep);
 }
 
-/* ---- GSAP pinned scroll section ---- */
-.scrollSection {
-    width: 100vw;
-    height: 100vh;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    background: #001a1c;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+.accent {
+  color: var(--mint);
 }
 
-.scrollContent {
-    position: relative;
-    width: 100%;
-    max-width: 1200px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.argBody {
+  margin-top: 1rem;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--ink-soft);
 }
 
-.stateBefore,
-.stateAfter {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    padding: 0 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1.5rem;
+/* ===== Before → After transformation ===== */
+/* ===== Scroll-reveal ===== */
+.eyebrow,
+.arg {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* reduced-motion: show both states stacked, no pin/scrub */
+.inner[data-revealed] .eyebrow,
+.inner[data-revealed] .arg {
+  opacity: 1;
+  transform: none;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 760px) {
+  .args {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-    .scrollSection {
-        height: auto;
-        min-height: 0;
-        padding: 4rem 2rem;
-    }
-
-    .scrollContent {
-        flex-direction: column;
-        gap: 4rem;
-        height: auto;
-    }
-
-    .stateBefore,
-    .stateAfter {
-        position: static;
-        transform: none;
-        opacity: 1 !important;
-        filter: none !important;
-    }
-}
-
-.stateTitle {
-    font-family: var(--font-dm-sans);
-    font-size: var(--text-h1);
-    color: #fff;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-.stateDesc {
-    font-family: var(--font-dm-sans);
-    font-size: var(--text-subtitle);
-    color: rgba(255, 255, 255, 0.7);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.brandName {
-    font-family: var(--font-varela-round);
-    color: var(--color-accent);
-    font-size: 1.15em;
-    font-weight: 400;
-}
-
-/* ---- Chaos visual ---- */
-.chaosVisual,
-.orderVisual {
-    position: relative;
-    width: 300px;
-    height: 160px;
-    margin-top: 2rem;
-}
-
-.chaosLine,
-.orderLine {
-    position: absolute;
-    height: 4px;
-    border-radius: 4px;
-}
-
-.chaosLine {
-    background: #ff4757;
-    box-shadow: 0 0 10px #ff4757;
-}
-
-.chaosLine1 {
-    top: 20%;
-    left: 0;
-    width: 60%;
-    transform: rotate(15deg);
-}
-
-.chaosLine2 {
-    top: 50%;
-    left: 20%;
-    width: 80%;
-    transform: rotate(-25deg);
-}
-
-.chaosLine3 {
-    top: 80%;
-    left: 10%;
-    width: 50%;
-    transform: rotate(45deg);
-}
-
-.chaosLine4 {
-    top: 40%;
-    left: 50%;
-    width: 70%;
-    transform: rotate(80deg);
-}
-
-.chaosLine5 {
-    top: 60%;
-    left: -10%;
-    width: 40%;
-    transform: rotate(-60deg);
-}
-
-/* ---- Order visual ---- */
-.orderLine {
-    background: var(--color-accent);
-    box-shadow: 0 0 10px var(--color-accent);
-}
-
-.orderLine1 {
-    top: 30%;
-    left: 10%;
-    width: 80%;
-}
-
-.orderLine2 {
-    top: 50%;
-    left: 10%;
-    width: 80%;
-}
-
-.orderLine3 {
-    top: 70%;
-    left: 10%;
-    width: 80%;
-}
-
-/* ---- Origin tagline ---- */
-.origin {
-    font-family: var(--font-dm-sans);
-    font-size: var(--text-body);
-    color: var(--color-text-charcoal);
-    text-align: center;
-    padding: 4rem 2rem 5rem;
-    font-style: italic;
-    opacity: 0.75;
-}
-
-/* ---- Responsive ---- */
-@media (max-width: 768px) {
-    .whyOito {
-        padding: 4rem 1.5rem 0;
-    }
-
-    .textArea {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-        margin-bottom: 3rem;
-    }
-
-    .blockTitle {
-        font-size: var(--text-subtitle);
-    }
-
-    .stateTitle {
-        font-size: var(--text-h2);
-    }
-
-    .stateDesc {
-        font-size: var(--text-body);
-    }
-}
-
-@media (max-width: 480px) {
-    .chaosVisual,
-    .orderVisual {
-        width: 220px;
-        height: 120px;
-    }
+  .eyebrow,
+  .arg {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

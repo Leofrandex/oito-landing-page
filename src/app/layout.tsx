@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Varela_Round, DM_Sans, Playfair_Display } from "next/font/google";
+import { Varela_Round, DM_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import StickyWhatsAppCTA from '@/components/StickyWhatsAppCTA';
-import ThreadsBackground from '@/components/ThreadsBackground';
+import ThreadsBackground from "@/components/ThreadsBackground";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import StickyWhatsAppCTA from "@/components/StickyWhatsAppCTA";
 import "./globals.css";
 
 const varelaRound = Varela_Round({
@@ -19,14 +19,10 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-serif",
-});
-
 export const metadata: Metadata = {
-  title: "oito | Automatización con IA",
-  description: "Aumenta la productividad de tu empresa con automatización inteligente.",
+  title: "oito | Desarrollo de software y automatización con IA",
+  description:
+    "Estudio digital para pymes de LatAm. Construimos software a medida y automatizamos tus procesos con IA. oito lo hace por ti.",
 };
 
 export default function RootLayout({
@@ -36,9 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${varelaRound.variable} ${dmSans.variable} ${playfair.variable} antialiased`}>
+      <body className={`${varelaRound.variable} ${dmSans.variable} antialiased`}>
         <ThreadsBackground />
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ position: "relative", zIndex: 1 }}>
           <Header />
           {children}
           <Footer />

@@ -7,8 +7,7 @@
     z-index: -1;
     pointer-events: none;
     background-color: transparent;
-    /* Base color comes from the ThreadsBackground wrapper (forest-deep).
-       Transparent here lets that dark base show through behind the mint threads. */
+    /* Dark base comes from body / ThreadsBackground wrapper (forest-deep). */
 }
 
 .threads-container canvas {

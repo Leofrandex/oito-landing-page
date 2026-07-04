@@ -1,4 +1,3 @@
-// src/components/StickyWhatsAppCTA.tsx
 import WhatsAppIcon from './WhatsAppIcon';
 import styles from './StickyWhatsAppCTA.module.css';
 

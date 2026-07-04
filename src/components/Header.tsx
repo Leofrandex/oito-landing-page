@@ -1,8 +1,6 @@
-// src/components/Header.tsx
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
 import GlassSurface from './GlassSurface';
@@ -19,7 +17,7 @@ export default function Header() {
   const pathname = usePathname();
 
   const navLinks = (onClick?: () => void) =>
-    links.map(l => (
+    links.map((l) => (
       <Link
         key={l.href}
         href={l.href}
@@ -45,18 +43,17 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <GlassSurface
-        height={62}
-        borderRadius={31}
+        height={60}
+        borderRadius={30}
         backgroundOpacity={0.18}
         saturation={1.6}
         distortionScale={-160}
-        blur={9}
         displace={3}
         className={styles.bar}
       >
         <div className={styles.container}>
-          <Link href="/" className={styles.logo} aria-label="oito inicio">
-            <Image src="/oito_logo_2.png" alt="oito" width={75} height={35} priority />
+          <Link href="/" className={styles.logo} aria-label="oito — inicio">
+            <span className="wordmark">oito</span>
           </Link>
 
           <nav className={styles.desktopNav}>
@@ -66,7 +63,7 @@ export default function Header() {
 
           <button
             className={styles.hamburger}
-            onClick={() => setOpen(v => !v)}
+            onClick={() => setOpen((v) => !v)}
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={open}
           >
@@ -75,8 +72,7 @@ export default function Header() {
         </div>
       </GlassSurface>
 
-      {/* Mobile overlay nav — kept OUTSIDE GlassSurface so its position:fixed
-          is relative to the viewport (backdrop-filter would otherwise trap it). */}
+      {/* Mobile overlay kept outside GlassSurface (backdrop-filter would trap fixed positioning). */}
       <nav className={clsx(styles.mobileNav, open && styles.open)}>
         {navLinks(() => setOpen(false))}
         {cta}

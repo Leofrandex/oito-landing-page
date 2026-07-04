@@ -15,6 +15,17 @@
   margin-bottom: 3.5rem;
 }
 
+/* Eyebrow (del worktree) sobre la sección clara */
+.eyebrow {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.9rem;
+}
+
 .title {
   font-family: var(--font-varela-round), sans-serif;
   font-size: var(--text-h2);

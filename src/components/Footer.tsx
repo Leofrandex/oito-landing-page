@@ -10,16 +10,13 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.grid}>
-          {/* Marca */}
           <div className={styles.col}>
-            <h2 className={styles.logo}>oito</h2>
+            <span className={`wordmark ${styles.logo}`}>oito</span>
             <p className={styles.tagline}>
-              oito lo hace por ti. Construimos software y automatizamos procesos
-              para pymes de LatAm.
+              Construimos software y automatizamos procesos para pymes de LatAm.
             </p>
           </div>
 
-          {/* Explorar */}
           <div className={styles.col}>
             <h3 className={styles.heading}>Explorar</h3>
             <ul className={styles.list}>
@@ -29,25 +26,18 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contacto */}
           <div className={styles.col}>
             <h3 className={styles.heading}>Contacto</h3>
             <ul className={styles.list}>
+              <li><a href="mailto:info@oitove.com" className={styles.link}>info@oitove.com</a></li>
               <li>
-                <a href="mailto:info@oitove.com" className={styles.link}>info@oitove.com</a>
-              </li>
-              <li className={styles.contactItem}>Hablemos por WhatsApp</li>
-              <li>
-                <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                  <button className={styles.ctaButton}>
-                    Hablemos <ArrowRight size={16} />
-                  </button>
+                <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.ctaLink}>
+                  <button className={styles.ctaButton}>Hablemos <ArrowRight size={16} /></button>
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Síguenos */}
           <div className={styles.col}>
             <h3 className={styles.heading}>Síguenos</h3>
             <div className={styles.socials}>
@@ -62,9 +52,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.bottomBar}>
-          <div className={styles.copyright}>
-            &copy; {new Date().getFullYear()} <span className={styles.brandName}>oito</span>. Nacimos en Venezuela, trabajamos para toda LatAm.
-          </div>
+          &copy; {new Date().getFullYear()} <span className="wordmark">oito</span>. Todos los derechos reservados.
         </div>
       </div>
     </footer>

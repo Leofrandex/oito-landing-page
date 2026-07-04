@@ -1,107 +1,84 @@
-// src/components/FeaturedCases.tsx
-'use client';
-
-import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import Link from 'next/link';
-import CaseStudy, { type CaseStudyProps } from './CaseStudy';
+import { ArrowRight } from 'lucide-react';
+import Reveal from './ui/Reveal';
+import CaseStudy, { type CaseStudyData } from './CaseStudy';
+import { RouteDiagram, ChainDiagram, FunnelDiagram, FanoutDiagram } from './CaseDiagrams';
 import styles from './FeaturedCases.module.css';
 
-const cases: CaseStudyProps[] = [
+/* Anonymized by sector — no client names, no invented metrics (CLAUDE.md §5/§7).
+ * Internal refs: Ponce-Benzo, Hospiwaste, SecureByte, Go To Truckers. */
+const CASES: CaseStudyData[] = [
   {
+    pillar: 'Desarrollo',
     title: 'App de rastreo de fuerza de campo',
-    pillar: 'Desarrollo',
-    sector: 'Distribución farmacéutica',
-    body: 'App móvil nativa + panel web para una distribuidora farmacéutica: GPS en tiempo real, modo offline y cámara anti-fraude para verificar visitas de mercaderistas en campo.',
+    description:
+      'App móvil nativa + panel web para una distribuidora farmacéutica: GPS en tiempo real, modo offline y cámara anti-fraude para verificar visitas de mercaderistas en campo.',
+    tags: ['App móvil', 'Dashboard', 'Offline-first'],
+    diagram: <RouteDiagram />,
   },
   {
-    title: 'App de trazabilidad de desechos peligrosos',
     pillar: 'Desarrollo',
-    sector: 'Gestión de desechos hospitalarios',
-    body: 'PWA para una planta de tratamiento de desechos hospitalarios: pesaje, evidencia fotográfica, firmas y reportes PDF regulatorios en automático.',
-    hasShots: true,
+    title: 'Trazabilidad de desechos peligrosos',
+    description:
+      'PWA para una planta de tratamiento de desechos hospitalarios: pesaje, evidencia fotográfica, firmas y reportes PDF regulatorios en automático.',
+    tags: ['PWA', 'Reportes PDF', 'Firmas'],
+    diagram: <ChainDiagram />,
   },
   {
+    pillar: 'Automatización',
     title: 'Calificación de leads con IA',
-    pillar: 'Automatización',
-    sector: 'Ciberseguridad',
-    body: 'Para un integrador de ciberseguridad: un flujo recibe cotizaciones por email, WhatsApp y web, extrae los datos (incluso de PDFs y adjuntos), califica con IA y los reparte en el CRM.',
+    description:
+      'Para un integrador de ciberseguridad: un flujo recibe cotizaciones por email, WhatsApp y web, extrae los datos (incluso de PDFs y adjuntos), califica con IA y los reparte en el CRM.',
+    tags: ['IA', 'CRM', 'Multicanal'],
+    diagram: <FunnelDiagram />,
   },
   {
-    title: 'Secuencias de venta con IA',
     pillar: 'Automatización',
-    sector: 'Logística B2B',
-    body: 'Para un bróker logístico B2B: agentes de IA con RAG generan correos de venta personalizados y los envían en automático desde el correo de cada vendedor.',
+    title: 'Secuencias de venta con IA',
+    description:
+      'Para un bróker logístico B2B: agentes de IA con RAG generan correos de venta personalizados y los envían en automático desde el correo de cada vendedor.',
+    tags: ['Agentes IA', 'RAG', 'Outbound'],
+    diagram: <FanoutDiagram />,
   },
 ];
 
 export default function FeaturedCases() {
-  const shouldReduceMotion = useReducedMotion();
-
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: shouldReduceMotion ? 0 : 0.55,
-        delay: shouldReduceMotion ? 0 : i * 0.12,
-        ease: [0.25, 0, 0, 1] as [number, number, number, number],
-      },
-    }),
-  };
-
   return (
-    <section className={`sectionLight ${styles.section}`}>
-      <div className={styles.container}>
-        {/* Header */}
-        <motion.div
-          className={styles.header}
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-        >
-          <h2 className={styles.title}>
-            Lo que <span className={styles.mintText}>oito</span> ya ha construido
-          </h2>
-          <p className={styles.subtitle}>
-            Proyectos reales para empresas reales. Sin cifras infladas — solo lo que hicimos.
+    <section className={`section-light ${styles.section}`}>
+      <Reveal className={styles.inner}>
+        <header className={styles.head}>
+          <p className={styles.eyebrow} style={{ transitionDelay: '0ms' }}>
+            Casos destacados
           </p>
-        </motion.div>
+          <h2 className={styles.title} style={{ transitionDelay: '70ms' }}>
+            Lo que <span className={`wordmark ${styles.brand}`}>oito</span> ya ha construido
+          </h2>
+          <p className={styles.lede} style={{ transitionDelay: '140ms' }}>
+            Proyectos reales para empresas reales.
+          </p>
+        </header>
 
-        {/* 2×2 grid */}
-        <div className={styles.grid}>
-          {cases.map((c, i) => (
-            <motion.div
+        <div className={styles.rows}>
+          {CASES.map((c, i) => (
+            <div
               key={c.title}
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-60px' }}
-              className={styles.cardWrapper}
+              className={styles.row}
+              style={{ transitionDelay: `${200 + i * 110}ms` }}
             >
-              <CaseStudy {...c} />
-            </motion.div>
+              <CaseStudy {...c} reverse={i % 2 === 1} />
+            </div>
           ))}
         </div>
 
-        {/* CTA links — one per pillar */}
-        <motion.div
-          className={styles.ctaWrap}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : 0.5 }}
-        >
+        <div className={styles.ctas} style={{ transitionDelay: '700ms' }}>
           <Link href="/desarrollo-web" className={styles.cta}>
-            Ver desarrollo →
+            Ver todo el desarrollo <ArrowRight size={18} strokeWidth={2} />
           </Link>
           <Link href="/automatizacion-ia" className={styles.cta}>
-            Ver automatización →
+            Ver toda la automatización <ArrowRight size={18} strokeWidth={2} />
           </Link>
-        </motion.div>
-      </div>
+        </div>
+      </Reveal>
     </section>
   );
 }

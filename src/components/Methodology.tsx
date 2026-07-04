@@ -1,12 +1,9 @@
 import { MessagesSquare, Blocks, TrendingUp, type LucideIcon } from 'lucide-react';
 import Reveal from './ui/Reveal';
-import styles from './HowWeWorkHome.module.css';
+import LiveCounter from './LiveCounter';
+import styles from './Methodology.module.css';
 
-type Step = {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-};
+type Step = { icon: LucideIcon; title: string; description: string };
 
 const STEPS: Step[] = [
   {
@@ -18,34 +15,36 @@ const STEPS: Step[] = [
   {
     icon: Blocks,
     title: 'Construcción & Implementación',
-    description:
-      'Diseñamos y desarrollamos la solución a medida, integrándola con lo que ya usas.',
+    description: 'Diseñamos y desarrollamos la solución a medida, integrándola con lo que ya usas.',
   },
   {
     icon: TrendingUp,
     title: 'Monitoreo & Mejora',
-    description:
-      'Medimos, ajustamos y escalamos para que los resultados se mantengan en el tiempo.',
+    description: 'Medimos, ajustamos y escalamos para que los resultados se mantengan en el tiempo.',
   },
 ];
 
-export default function HowWeWorkHome() {
+export default function Methodology() {
   return (
     <section className={`section-dark ${styles.section}`}>
       <Reveal className={styles.inner}>
         <header className={styles.head}>
           <p className={styles.eyebrow} style={{ transitionDelay: '0ms' }}>
-            Cómo trabajamos
+            Metodología
           </p>
           <h2 className={styles.title} style={{ transitionDelay: '70ms' }}>
-            Cómo <span className={`wordmark ${styles.brand}`}>oito</span> lo hace
+            Metodología <span className="wordmark">oito</span>
           </h2>
         </header>
 
         <ol className={styles.steps}>
           <span className={styles.thread} aria-hidden="true" />
           {STEPS.map(({ icon: Icon, title, description }, i) => (
-            <li key={title} className={styles.step} style={{ transitionDelay: `${220 + i * 140}ms` }}>
+            <li
+              key={title}
+              className={styles.step}
+              style={{ transitionDelay: `${220 + i * 140}ms` }}
+            >
               <div className={styles.node}>
                 <Icon size={26} strokeWidth={1.6} />
                 <span className={styles.num}>{String(i + 1).padStart(2, '0')}</span>
@@ -55,6 +54,8 @@ export default function HowWeWorkHome() {
             </li>
           ))}
         </ol>
+
+        <LiveCounter />
       </Reveal>
     </section>
   );

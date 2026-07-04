@@ -3,6 +3,23 @@
 @tailwind utilities;
 
 :root {
+    /* ===== Brand palette (worktree tokens — usados por los componentes del sitio) ===== */
+    --forest-deep: #002a2c;
+    --forest: #004346;
+    --mint: #09bc8a;
+    --mint-rgb: 9, 188, 138;
+    --neon: #00ffaa;
+    --cream: #f4fcf9;
+
+    /* Semantic (worktree) */
+    --bg-dark: var(--forest-deep);
+    --bg-light: var(--cream);
+    --ink: #14201f;
+    --ink-soft: #4a5a57;
+    --on-dark: #eafff6;
+    --on-dark-soft: rgba(234, 255, 246, 0.74);
+
+    /* ===== Tokens v5 / design-system (usados por Hero, SocialProof, TwoPillars y /design-system) ===== */
     --color-bg: #ffffff;
     --color-hero-bg: #004346;
     --color-hero-bg-rgb: 0, 67, 70;
@@ -15,7 +32,7 @@
     --color-text-charcoal: #333333;
     --color-mint-light: #f4fcf9;
 
-    /* Tailwind compatibility HSL variables */
+    /* Tailwind compatibility HSL variables (design-system) */
     --background: 183 100% 9%; /* #002a2c */
     --foreground: 0 0% 100%;
     --card: 183 100% 11%;
@@ -39,14 +56,9 @@
 
     /* Typography Standards */
     --text-h1: 4rem;
-    /* Mobile: 2.5rem */
     --text-h2: 2.5rem;
-    /* Mobile: 2rem */
     --text-subtitle: 1.5rem;
-    /* Mobile: 1.25rem */
     --text-body: 1.125rem;
-    /* Mobile: 1rem */
-
 }
 
 @media (max-width: 768px) {
@@ -73,78 +85,80 @@
     margin: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 html,
 body {
     max-width: 100%;
     overflow-x: hidden;
-    font-family: var(--font-dm-sans), sans-serif;
-    color: var(--color-text-dark);
-    background: transparent;
-    scroll-behavior: smooth;
+    font-family: var(--font-dm-sans), system-ui, sans-serif;
+    /* Dark base: where the fixed threads canvas is transparent, this shows through */
+    background-color: var(--forest-deep);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    /* Headings use DM Sans (body font). Varela Round is reserved for the "oito" wordmark only. */
-    line-height: 1.1;
+/* Headings use the body font (DM Sans) por ahora. La migración a Outfit es tarea de la fase Visual
+   (ver docs/design-system.md §1). Varela Round queda reservado al wordmark "oito". */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
 }
 
-/* The "oito" wordmark — the ONLY place Varela Round is used. */
+/* The ONLY place Varela Round is used: the "oito" wordmark. */
 .wordmark {
     font-family: var(--font-varela-round), sans-serif;
+    letter-spacing: 0;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
+/* Global accent utility — mint color for emphasis within server-rendered JSX. */
+.accent-mint { color: var(--mint); }
 
-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: inherit;
-}
+a { color: inherit; text-decoration: none; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
+img, svg, canvas { display: block; }
 
-/* ===== Glassmorphism (lenguaje visual oito) ===== */
-.glass {
-  background: rgba(255, 255, 255, 0.035);
-  backdrop-filter: blur(7px) saturate(1.35);
-  -webkit-backdrop-filter: blur(7px) saturate(1.35);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 26px;
-  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.20);
-}
-.glass-strong {
-  background: rgba(0, 38, 40, 0.20);
-  backdrop-filter: blur(11px) saturate(1.45);
-  -webkit-backdrop-filter: blur(11px) saturate(1.45);
-  border: 1px solid rgba(9, 188, 138, 0.26);
-  border-radius: 26px;
-  box-shadow: 0 10px 44px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.16);
-}
-.glass-hover { transition: transform .25s ease, box-shadow .25s ease; }
-.glass-hover:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(9,188,138,.20); }
-
-/* En móvil, reducir nº de capas con blur costoso: fallback sólido translúcido */
-@media (max-width: 768px) {
-  .glass { backdrop-filter: blur(5px) saturate(1.2); -webkit-backdrop-filter: blur(5px) saturate(1.2); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
-  .glass-hover:hover { transform: none; }
-}
-
-/* ===== Section utilities (hybrid dark/light layout) ===== */
+/* ===== Section backgrounds (hybrid: dark immersive / light editorial) ===== */
+/* Worktree (hyphen) — usados por WhyOito, FeaturedCases, HowWeWorkHome, FinalCTA, etc. */
+.section-dark { position: relative; color: var(--on-dark); }
+.section-light { position: relative; background: var(--cream); color: var(--ink); }
+/* v5 (camelCase) — usados por TwoPillars / SocialProof / Hero */
 .sectionDark { position: relative; color: #fff; }
 .sectionLight { position: relative; background: var(--color-mint-light, #f4fcf9); color: #1a1a1a; }
 
-/* ===== Glow Tech Bullets ===== */
+/* ===== Glassmorphism (piezas simples; GlassSurface maneja la refracción premium del header) ===== */
+.glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(7px) saturate(1.35);
+    -webkit-backdrop-filter: blur(7px) saturate(1.35);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 22px;
+}
+.glass-light {
+    background: rgba(0, 67, 70, 0.04);
+    border: 1px solid rgba(9, 188, 138, 0.20);
+    border-radius: 22px;
+}
+/* v5 — bloques con texto sobre oscuro (fill propio) + hover premium (GlassCard) */
+.glass-strong {
+    background: rgba(0, 38, 40, 0.20);
+    backdrop-filter: blur(11px) saturate(1.45);
+    -webkit-backdrop-filter: blur(11px) saturate(1.45);
+    border: 1px solid rgba(9, 188, 138, 0.26);
+    border-radius: 26px;
+    box-shadow: 0 10px 44px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+.glass-hover { transition: transform .25s ease, box-shadow .25s ease; }
+.glass-hover:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(9, 188, 138, .20); }
+
+@media (max-width: 768px) {
+    .glass { backdrop-filter: blur(5px) saturate(1.2); -webkit-backdrop-filter: blur(5px) saturate(1.2); }
+}
+
+/* ===== Glow Tech Bullets (design-system) ===== */
 .glow-circle {
     display: inline-block;
     width: 10px;
@@ -153,7 +167,6 @@ button {
     background-color: var(--color-accent);
     box-shadow: 0 0 12px var(--color-accent);
 }
-
 .glow-ring {
     display: inline-block;
     width: 12px;
@@ -163,16 +176,6 @@ button {
     box-shadow: 0 0 10px var(--color-accent);
     background-color: transparent;
 }
-
-.glow-diamond {
-    display: inline-block;
-    width: 9px;
-    height: 9px;
-    background-color: var(--color-accent);
-    transform: rotate(45deg);
-    box-shadow: 0 0 12px var(--color-accent);
-}
-
 .glow-arrow {
     display: inline-flex;
     align-items: center;
@@ -181,36 +184,18 @@ button {
     filter: drop-shadow(0 0 4px var(--color-accent));
 }
 
-.glow-cross {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-accent);
-    filter: drop-shadow(0 0 4px var(--color-accent));
-}
-
-.glow-sparkle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-accent);
-    filter: drop-shadow(0 0 5px var(--color-accent));
-}
-
-/* ===== Section Dividers ===== */
+/* ===== Section Dividers (design-system) ===== */
 .divider-dashed {
     border-top: 1px dashed rgba(9, 188, 138, 0.3);
     margin: 3rem 0;
     position: relative;
 }
-
 .divider-double {
     border-top: 1px solid rgba(9, 188, 138, 0.2);
     border-bottom: 1px solid rgba(9, 188, 138, 0.2);
     height: 4px;
     margin: 3rem 0;
 }
-
 .divider-organic {
     width: 100%;
     height: 30px;
@@ -219,4 +204,12 @@ button {
     opacity: 0.3;
 }
 
-
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+    .glass-hover:hover { transform: none; }
+}

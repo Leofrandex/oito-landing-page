@@ -50,6 +50,7 @@ export default function TwoPillars() {
           viewport={{ once: true }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
         >
+          <p className={styles.eyebrow}>Dos pilares · un equipo</p>
           <h2 className={styles.title}>
             Dos formas en que{' '}
             <span className={styles.mintText}>oito</span>{' '}

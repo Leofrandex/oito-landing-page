@@ -1,57 +1,43 @@
-'use client';
-
-import { motion, useReducedMotion } from 'framer-motion';
+import type { ReactNode } from 'react';
 import WhatsAppIcon from './WhatsAppIcon';
+import Reveal from './ui/Reveal';
 import styles from './FinalCTA.module.css';
 
-const FADE_UP_BASE = {
-    initial: { opacity: 0, y: 32 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.3 as const },
-} as const;
+type FinalCTAProps = {
+  title?: ReactNode;
+  lede?: string;
+};
 
-export default function FinalCTA() {
-    const shouldReduceMotion = useReducedMotion();
-
-    return (
-        <section id="final-cta" className={styles.section}>
-            <div className={styles.inner}>
-                <motion.h2
-                    className={styles.title}
-                    {...(shouldReduceMotion ? {} : {
-                        ...FADE_UP_BASE,
-                        transition: { duration: 0.7, delay: 0 },
-                    })}
-                >
-                    ¿Listo para que{' '}
-                    <span className={styles.brand}>oito</span>{' '}
-                    lo haga por ti?
-                </motion.h2>
-
-                <motion.p
-                    className={styles.subtitle}
-                    {...(shouldReduceMotion ? {} : {
-                        ...FADE_UP_BASE,
-                        transition: { duration: 0.7, delay: 0.15 },
-                    })}
-                >
-                    Cuéntanos qué tienes en mente. Te respondemos por WhatsApp, sin compromiso.
-                </motion.p>
-
-                <motion.a
-                    href="https://wa.me/584241344659"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.ctaButton}
-                    {...(shouldReduceMotion ? {} : {
-                        ...FADE_UP_BASE,
-                        transition: { duration: 0.7, delay: 0.3 },
-                    })}
-                >
-                    <WhatsAppIcon size={22} />
-                    Hablemos por WhatsApp
-                </motion.a>
-            </div>
-        </section>
-    );
+export default function FinalCTA({
+  title = (
+    <>
+      ¿Listo para que <span className={`wordmark ${styles.brand}`}>oito</span> lo haga por ti?
+    </>
+  ),
+  lede = 'Cuéntanos qué tienes en mente. Te respondemos por WhatsApp, sin compromiso.',
+}: FinalCTAProps = {}) {
+  return (
+    <section className={`section-dark ${styles.section}`}>
+      <div className={styles.glow} aria-hidden="true" />
+      <Reveal className={styles.inner}>
+        <h2 className={styles.title} style={{ transitionDelay: '0ms' }}>
+          {title}
+        </h2>
+        <p className={styles.lede} style={{ transitionDelay: '90ms' }}>
+          {lede}
+        </p>
+        <div className={styles.actions} style={{ transitionDelay: '180ms' }}>
+          <a
+            href="https://wa.me/584241344659"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.cta}
+          >
+            <WhatsAppIcon size={24} />
+            Hablemos por WhatsApp
+          </a>
+        </div>
+      </Reveal>
+    </section>
+  );
 }

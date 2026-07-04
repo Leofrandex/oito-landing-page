@@ -137,6 +137,7 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
     const animationFrameId = useRef<number | null>(null);
 
     useGSAP(() => {
+        // Reveal the threads on every route (not only pages that have an #hero).
         if (containerRef.current) {
             // Initial state: hidden
             gsap.set(containerRef.current, {

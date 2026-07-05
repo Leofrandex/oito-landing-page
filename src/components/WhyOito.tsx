@@ -9,7 +9,7 @@ export default function WhyOito() {
         <div className={styles.glow} aria-hidden="true" />
 
         <Reveal className={styles.inner}>
-          <p className={styles.eyebrow} style={{ transitionDelay: '0ms' }}>
+          <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>
             Por qué oito
           </p>
 

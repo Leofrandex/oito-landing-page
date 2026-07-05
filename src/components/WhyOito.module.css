@@ -17,15 +17,6 @@
   margin: 0 auto;
 }
 
-.eyebrow {
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--mint);
-  text-align: center;
-}
-
 /* ===== Argument blocks ===== */
 .args {
   display: grid;

@@ -29,7 +29,7 @@ export default function Methodology() {
     <section className={`section-dark ${styles.section}`}>
       <Reveal className={styles.inner}>
         <header className={styles.head}>
-          <p className={styles.eyebrow} style={{ transitionDelay: '0ms' }}>
+          <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>
             Metodología
           </p>
           <h2 className={styles.title} style={{ transitionDelay: '70ms' }}>

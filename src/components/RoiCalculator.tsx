@@ -58,7 +58,7 @@ export default function RoiCalculator() {
     <section className={`section-light ${styles.section}`}>
       <Reveal className={styles.inner}>
         <header className={styles.head} style={{ transitionDelay: '0ms' }}>
-          <p className={styles.eyebrow}>Calculadora</p>
+          <p className={`badge ${styles.eyebrow}`}>Calculadora</p>
           <h2 className={styles.title}>
             Calcula el costo real de <span className={styles.accent}>no automatizar</span>
           </h2>

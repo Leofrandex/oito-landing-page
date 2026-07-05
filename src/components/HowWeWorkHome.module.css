@@ -15,14 +15,6 @@
   margin: 0 auto clamp(2.75rem, 5vw, 4.5rem);
 }
 
-.eyebrow {
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--mint);
-}
-
 .title {
   margin-top: 1rem;
   font-size: clamp(2rem, 4.6vw, 3.2rem);

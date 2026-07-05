@@ -100,9 +100,9 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Headings use the body font (DM Sans) por ahora. La migración a Outfit es tarea de la fase Visual
-   (ver docs/design-system.md §1). Varela Round queda reservado al wordmark "oito". */
+/* Titulares en Outfit (design-system §1). Varela Round queda reservado al wordmark "oito". */
 h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-outfit), var(--font-dm-sans), sans-serif;
     font-weight: 700;
     line-height: 1.08;
     letter-spacing: -0.01em;

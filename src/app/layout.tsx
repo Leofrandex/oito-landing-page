@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Varela_Round, DM_Sans } from "next/font/google";
+import { Varela_Round, DM_Sans, Outfit } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ThreadsBackground from "@/components/ThreadsBackground";
@@ -19,6 +19,12 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
+const outfit = Outfit({
+  weight: ["600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-outfit",
+});
+
 export const metadata: Metadata = {
   title: "oito | Desarrollo de software y automatización con IA",
   description:
@@ -32,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${varelaRound.variable} ${dmSans.variable} antialiased`}>
+      <body className={`${varelaRound.variable} ${dmSans.variable} ${outfit.variable} antialiased`}>
         <ThreadsBackground />
         <div style={{ position: "relative", zIndex: 1 }}>
           <Header />

@@ -30,8 +30,14 @@ export default function Header() {
       </Link>
     ));
 
-  const cta = (
+  const desktopCta = (
     <Button variant="primary" size="sm" external href={WHATSAPP_URL} onClick={() => setOpen(false)}>
+      WhatsApp
+    </Button>
+  );
+
+  const mobileCta = (
+    <Button variant="primary" external href={WHATSAPP_URL} onClick={() => setOpen(false)}>
       WhatsApp
     </Button>
   );
@@ -54,7 +60,7 @@ export default function Header() {
 
           <nav className={styles.desktopNav}>
             {navLinks()}
-            {cta}
+            {desktopCta}
           </nav>
 
           <button
@@ -71,7 +77,7 @@ export default function Header() {
       {/* Mobile overlay kept outside GlassSurface (backdrop-filter would trap fixed positioning). */}
       <nav className={clsx(styles.mobileNav, open && styles.open)}>
         {navLinks(() => setOpen(false))}
-        {cta}
+        {mobileCta}
       </nav>
     </header>
   );

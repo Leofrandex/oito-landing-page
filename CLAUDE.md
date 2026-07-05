@@ -91,11 +91,27 @@ WhatsApp actual: `https://wa.me/584241344659`. Esto simplifica el sitio y mejora
 **Una rama:** `oito-page-v5` → se fusiona a `main` una sola vez al final.
 
 **Tres iniciativas, secuenciales, cada una con su spec + plan:**
-1. **Contenido** — mensaje, estructura de secciones, copy, keywords *(cimiento)*. ← EN CURSO
+1. **Contenido** — mensaje, estructura, copy, keywords *(cimiento)*.
 2. **Visual** — reconstrucción de componentes con el nuevo look + integración del copy.
 3. **SEO** — técnico (SSR, metadata, OG, sitemap, robots, datos estructurados, rendimiento) + on-page final.
 
-Specs en `docs/superpowers/specs/`.
+Specs/planes en `docs/superpowers/specs/` y `docs/superpowers/plans/`.
+
+**📍 Roadmap re-planificado (2026-07-05) — secuencia A → B → C:**
+- **A. Terminar Visual** ← EN CURSO. Fase 1 ✅ (tipografía Outfit + escala de pesos 700/600/500 +
+  SocialProof oscuro), Fase 2a ✅ (badge §4 + unificar clases de sección). **Fase 2b** (sistema
+  Button §3) con spec listo, pendiente plan + build. *Backlog no bloqueante:* unificar tokens de
+  `TwoPillars` (usa set "v5"), glow bullets (cuando haya listas), nodos §7 (requiere crear assets).
+  **Gate de revisión UX/diseño** con `ui-ux-pro-max` + `frontend-design` (ver §8).
+- **B. Construir página `/desarrollo-web`** — hoy es **stub**; el copy YA existe (copy-deck PÁGINA 2:
+  Hero, Servicios, Cómo trabajamos, Casos, Tecnologías, CTA). Reutilizar los patrones maduros del
+  Automatización. Cierra la iniciativa Contenido.
+- **C. Iniciativa SEO** (sin empezar): C1 refactor SSR (quitar `'use client'` de páginas → islas),
+  C2 metadata/OG/canonical por página, C3 robots + sitemap, C4 JSON-LD, C5 CWV + on-page.
+  *Dependencias:* SSR toca componentes Visual (hacerlo con Visual estable); sitemap/metadata final
+  necesita que exista Desarrollo-web.
+
+Estado detallado y acuerdos: `.superpowers/sdd/progress.md` (ledger de ejecución) y los specs por fase.
 
 **✅ FIJADO — Glassmorphism sobre hilos:** Lenguaje visual central. Paneles de vidrio
 esmerilado (`backdrop-filter: blur ~7px saturate(1.35)`, fill translúcido ~3-4%, borde de luz
@@ -153,4 +169,10 @@ pero falta data que el usuario aportará después:
 
 - Responder e interactuar con el usuario en **español**.
 - Cada iniciativa: brainstorming → spec aprobado → plan → implementación → verificación.
+- Ejecución de planes con **subagent-driven-development** (implementer + reviewer por tarea).
+- **✅ Gate de revisión UX/diseño (2026-07-05):** usar `ui-ux-pro-max` + `frontend-design` como
+  **lente de revisión/crítica** (no de generación — la dirección la fija `docs/design-system.md`)
+  al cierre de cada fase Visual y como catch-up de lo ya construido. Auditar estados de interacción,
+  accesibilidad (contraste/targets/foco), jerarquía de CTAs y consistencia; triar hallazgos contra
+  el design-system.
 - No fusionar a `main` sin aprobación explícita.

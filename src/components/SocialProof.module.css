@@ -17,10 +17,10 @@
 }
 
 .title {
-  font-family: var(--font-varela-round, sans-serif);
   font-size: 2rem;
   font-weight: 700;
-  color: var(--color-text-dark);
+  color: var(--on-dark);
+  text-shadow: 0 2px 18px rgba(0, 20, 22, 0.55);
   text-align: center;
   line-height: 1.2;
   max-width: 600px;
@@ -48,18 +48,21 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: rgba(0, 67, 70, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(9, 188, 138, 0.22);
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 67, 70, 0.06);
+  border-radius: 22px;
+  backdrop-filter: blur(7px) saturate(1.2);
+  -webkit-backdrop-filter: blur(7px) saturate(1.2);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.10);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: default;
 }
 
 .logoPlaceholder:hover {
-  background: rgba(0, 67, 70, 0.09);
-  border-color: rgba(9, 188, 138, 0.38);
-  box-shadow: 0 8px 28px rgba(0, 67, 70, 0.1);
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(9, 188, 138, 0.42);
+  box-shadow: 0 16px 40px rgba(9, 188, 138, 0.16);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -67,16 +70,17 @@
     transition: none;
   }
   .logoPlaceholder:hover {
-    background: rgba(0, 67, 70, 0.05);
+    transform: none;
+    background: rgba(255, 255, 255, 0.04);
     border-color: rgba(9, 188, 138, 0.22);
-    box-shadow: 0 4px 16px rgba(0, 67, 70, 0.06);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.10);
   }
 }
 
 .placeholderIcon {
   font-size: 3rem;
-  color: var(--color-text-charcoal);
-  opacity: 0.3;
+  color: var(--on-dark-soft);
+  opacity: 0.6;
   font-weight: 300;
   line-height: 1;
 }

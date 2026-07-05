@@ -34,7 +34,7 @@ export default function SocialProof() {
   };
 
   return (
-    <section className={`sectionLight ${styles.section}`}>
+    <section className={`section-dark ${styles.section}`}>
       <div className={styles.container}>
         {/* Title with mint accent on "oito" */}
         <motion.h2
@@ -44,7 +44,7 @@ export default function SocialProof() {
           viewport={{ once: true }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
         >
-          Negocios que ya dejaron que <span className={styles.mintText}>oito</span> lo haga por ellos
+          Negocios que ya dejaron que <span className={`${styles.mintText} wordmark`}>oito</span> lo haga por ellos
         </motion.h2>
 
         {/* Neutral logo placeholders */}

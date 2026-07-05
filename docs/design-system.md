@@ -24,16 +24,21 @@ Resuelve la discrepancia previa: **manda `agents.md` (Outfit)**. Eliminar Playfa
 
 | Rol | Fuente | Pesos |
 |---|---|---|
-| Titulares (hero, secciones, tarjetas) | **Outfit** | 800 hero · 600 secciones · 500 tarjetas |
+| Titulares (hero, secciones, tarjetas) | **Outfit** | 700 hero · 600 secciones · 500 tarjetas |
 | Cuerpo / UI | **DM Sans** | 400 / 500 |
 | Wordmark `oito` + CTA lúdico `oitomatiza` | **Varela Round** | 400 |
 
 - El wordmark `oito` va **siempre en minúscula**.
 - El CTA **funcional** (WhatsApp) va en **DM Sans 700**, NO Varela Round (mejor legibilidad a tamaño chico; coincide con el código v5).
 - La palabra rotante del hero usa `.mint-shine` (ya en `effects.css`).
-- **Actualización 2026-07-04 (decisión del usuario):** se aligeran los titulares —
-  secciones **700 → 600** y tarjetas **600/700 → 500**. El hero se mantiene en **800**
-  (sigue siendo el punto de mayor peso/contraste). Busca un tono más editorial y menos "bold".
+- **Actualización 2026-07-04 (decisión del usuario):** se aligeran los titulares a una
+  escala que baja de 100 en 100 — **hero 700 · secciones 600 · tarjetas 500** (antes era
+  800 / 700 / 600-700). El hero se apoya en tamaño + color mint + glow para destacar, así
+  que 700 basta. Tono más editorial, menos "bold".
+- **Mapeo a niveles HTML** (según nuestro markup): `h1` = hero → **700** · `h2` = título de
+  sección → **600** · `h3` = título de tarjeta / sub-item → **500** · `h4` = sub-encabezado
+  menor → **500** (el spec no lo define; se alinea con tarjetas) · `h5`/`h6` no se usan.
+  Implementar el peso **por nivel** (no una regla única `h1–h6`).
 
 ---
 

@@ -95,7 +95,7 @@
 /* ── Card text ── */
 .cardTitle {
   font-family: var(--font-outfit), var(--font-dm-sans), sans-serif;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 1.25rem;
   line-height: 1.25;
   color: var(--color-text-dark);

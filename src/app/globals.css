@@ -128,9 +128,6 @@ img, svg, canvas { display: block; }
 /* Worktree (hyphen) — usados por WhyOito, FeaturedCases, HowWeWorkHome, FinalCTA, etc. */
 .section-dark { position: relative; color: var(--on-dark); }
 .section-light { position: relative; background: var(--cream); color: var(--ink); }
-/* v5 (camelCase) — usados por TwoPillars / SocialProof / Hero */
-.sectionDark { position: relative; color: #fff; }
-.sectionLight { position: relative; background: var(--color-mint-light, #f4fcf9); color: #1a1a1a; }
 
 /* ===== Glassmorphism (piezas simples; GlassSurface maneja la refracción premium del header) ===== */
 .glass {

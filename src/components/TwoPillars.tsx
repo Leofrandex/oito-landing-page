@@ -40,7 +40,7 @@ export default function TwoPillars() {
   };
 
   return (
-    <section className={`sectionLight ${styles.section}`}>
+    <section className={`section-light ${styles.section}`}>
       <div className={styles.container}>
         {/* Header */}
         <motion.div

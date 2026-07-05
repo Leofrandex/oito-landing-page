@@ -11,8 +11,9 @@ consolida en un componente compartido `<Button>` con las 3 variantes en uso.
 ## Alcance
 
 - **En alcance:** componente `<Button>` (variantes primary/secondary/tertiary, tamaños default/sm,
-  render polimórfico link/`<a>`/`<button>`), reemplazo en 7 componentes, y centralizar la URL de
-  WhatsApp.
+  render polimórfico link/`<a>`/`<button>`), reemplazo en 7 componentes, centralizar la URL de
+  WhatsApp, y los **fixes de accesibilidad de la revisión UX** (2026-07-05): `--mint-ink` para
+  texto mint sobre claro, `:focus-visible` global + en el Button, y `sm` a 44px (ver §Accesibilidad).
 - **Fuera de alcance:** `StickyWhatsAppCTA` (FAB flotante, verde WhatsApp, persistente — queda como
   componente aparte, pero usará la constante de URL). Variante `oitomatiza` (§3, sin consumidor).
   Estado `disabled` (ningún CTA lo usa hoy; se añade cuando haga falta).
@@ -55,7 +56,8 @@ transition: transform .2s cubic-bezier(.175,.885,.32,1.275), background-color .2
   · hover: `background:#fff; color:var(--forest-deep); transform:translateY(-2px); box-shadow:0 0 44px rgba(0,255,170,.55);`
 - **secondary:** `background:rgba(9,188,138,.12); border:1px solid rgba(9,188,138,.40); color:var(--forest-deep);`
   · hover: `background:var(--mint); color:var(--forest-deep); transform:translateY(-2px);`
-- **tertiary:** `background:none; color:var(--mint); padding:0;` (link) · flecha final: `.button.tertiary svg:last-child`
+- **tertiary:** `background:none; color:var(--mint-ink); padding:0;` (link; `--mint-ink` pasa AA sobre
+  claro. En `.section-dark` el color sube a `var(--mint)`.) · flecha final: `.button.tertiary svg:last-child`
   con `transition:transform .2s ease`, hover → `transform:translateX(4px)`. hover del texto: `opacity:.85`.
 
 Deslizamiento de flecha también en **secondary** (flecha final desliza en hover), no en primary (ícono es líder).
@@ -63,7 +65,7 @@ Deslizamiento de flecha también en **secondary** (flecha final desliza en hover
 ## Tamaños
 
 - **default:** `min-height:52px; padding:0 1.9rem; font-size:1rem;` (preserva el tamaño actual sustancial; ≥44px de §3).
-- **sm:** `min-height:40px; padding:0 1.25rem; font-size:0.9rem;` (para el CTA del Header).
+- **sm:** `min-height:44px; padding:0 1.25rem; font-size:0.9rem;` (para el CTA del Header; ≥44px por §2 táctil).
 - **tertiary** ignora min-height/padding de tamaño (es un link inline).
 
 `@media (prefers-reduced-motion: reduce)`: sin `transform` en hover (ni lift ni deslizamiento).
@@ -90,6 +92,20 @@ export const WHATSAPP_URL = 'https://wa.me/584241344659';
 Reemplazar el literal `https://wa.me/584241344659` en todos los componentes que lo usan (los CTAs
 primarios, `Footer`, y `StickyWhatsAppCTA`) por el import de `WHATSAPP_URL`.
 
+## Accesibilidad (de la revisión UX 2026-07-05)
+
+Hallazgos de la revisión con `ui-ux-pro-max`/`frontend-design`, triados contra el design-system:
+
+1. **`--mint-ink` (contraste mint-texto sobre claro).** Añadir el token `--mint-ink: #0c8060` a
+   `globals.css` (ver design-system §0.4). Aplicar como color de **texto/ícono mint sobre secciones
+   claras** — badges, links terciarios, spans de acento (`.accent-mint`, `.mintText`, `.accent`) —
+   con override a `var(--mint)` dentro de `.section-dark` (donde el mint sí pasa AA). Es un **fix
+   catch-up** de Fase 1/2a además del Button.
+2. **`:focus-visible` de marca.** Añadir un anillo de foco visible y consistente:
+   - Global (fallback) en `globals.css`: `:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; border-radius: inherit; }`
+   - En `.button`: `:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }` (sobre oscuro el mint resalta; sobre claro basta el offset — verificar).
+3. **Touch target `sm` = 44px** (ya reflejado en §Tamaños).
+
 ## Criterios de éxito / verificación
 
 - `npm run build` limpio (0 errores, TypeScript OK).
@@ -106,3 +122,7 @@ primarios, `Footer`, y `StickyWhatsAppCTA`) por el import de `WHATSAPP_URL`.
 - Modificar (JSX → `<Button>` + quitar CSS del CTA viejo + usar `WHATSAPP_URL`):
   `Hero`, `FinalCTA`, `ServiceHero`, `RoiCalculator`, `Header`, `FeaturedCases`, `TwoPillars`, `Footer`
 - Modificar (solo constante): `StickyWhatsAppCTA`
+- **Accesibilidad:** `src/app/globals.css` (token `--mint-ink`, `:focus-visible` global, y regla
+  para texto/acento mint sobre claro → `--mint-ink`, con override `--mint` en `.section-dark`).
+  El badge global (`.badge`) y las clases de acento sobre secciones claras heredan el arreglo;
+  verificar contraste en TwoPillars/WhyOito/FeaturedCases.

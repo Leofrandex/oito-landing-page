@@ -15,6 +15,12 @@
 1. **`base.css` fija `h1–h6 { color: var(--color-text-dark) }`.** Todo título sobre fondo **oscuro** DEBE llevar override a color claro (`#eafff6`). Recomendado: clase utilitaria `.on-dark` que fuerce `color:#eafff6` en headings, o que cada componente de sección oscura ya traiga el color claro. Sin esto → títulos dark-on-dark invisibles.
 2. **El efecto glass depende de que haya textura detrás.** `.glass` casi no tiene relleno propio (3.5% blanco): solo difumina lo que hay atrás. En secciones oscuras donde uses `.glass`, mantené los hilos visibles (opacity ~0.6–0.9). Si la sección es plana, usá `.glass-strong` (tiene fill propio) o `.glass-light`.
 3. **Un solo `.glass`.** Hay una única definición en `tokens/effects.css`; no dupliques variantes.
+4. **✅ Contraste del mint como TEXTO (accesibilidad, 2026-07-05).** El mint `#09bc8a` como **texto/ícono**
+   solo pasa WCAG AA sobre **fondo oscuro** (~6.3:1). Sobre **fondo claro** falla (~2.3:1). Regla:
+   sobre claro, el texto/ícono mint (badges, links terciarios, spans de acento) usa **Mint Ink
+   `#0c8060`** (`--mint-ink`, ~4.7:1 sobre cream). El `#09bc8a` de texto queda reservado a fondos
+   oscuros; los rellenos/bordes/fondos mint no cambian. Implementación típica: `.badge`/acentos por
+   defecto en `--mint-ink`, y override a `--mint` dentro de `.section-dark`.
 
 ---
 
@@ -127,7 +133,7 @@ Referencia: `refs/glowbullet-nodos.html`.
 
 ## 8. Paleta e íconos (recordatorio)
 
-- Mint `#09bc8a` (acento único) · Forest `#004346` · Deep `#002a2c`/`#001a1c` · Cream `#f4fcf9` · Neon `#00ffaa` (glow) · Charcoal `#333` (cuerpo).
+- Mint `#09bc8a` (acento único) · **Mint Ink `#0c8060`** (`--mint-ink`, mint oscuro SOLO para texto/ícono mint sobre fondo claro — pasa AA; ver §0.4) · Forest `#004346` · Deep `#002a2c`/`#001a1c` · Cream `#f4fcf9` · Neon `#00ffaa` (glow) · Charcoal `#333` (cuerpo).
 - Íconos: **Lucide**, `stroke-width: 1.5`.
 - Hilos: shader WebGL innegociable (protagonista del hero); PNG estáticos (`hilos-fondo`, `bg-content-*`) como acentos en el resto.
 

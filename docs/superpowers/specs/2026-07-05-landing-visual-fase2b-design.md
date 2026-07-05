@@ -102,7 +102,7 @@ Hallazgos de la revisión con `ui-ux-pro-max`/`frontend-design`, triados contra 
    con override a `var(--mint)` dentro de `.section-dark` (donde el mint sí pasa AA). Es un **fix
    catch-up** de Fase 1/2a además del Button.
 2. **`:focus-visible` de marca.** Añadir un anillo de foco visible y consistente:
-   - Global (fallback) en `globals.css`: `:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; border-radius: inherit; }`
+   - Global (fallback) en `globals.css`, con `:where(...)` (especificidad 0): `:where(a, button, [tabindex]):focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }` (sin `border-radius`: redondearía el elemento).
    - En `.button`: `:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }` (sobre oscuro el mint resalta; sobre claro basta el offset — verificar).
 3. **Touch target `sm` = 44px** (ya reflejado en §Tamaños).
 

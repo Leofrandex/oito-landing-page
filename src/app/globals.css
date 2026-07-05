@@ -18,6 +18,7 @@
     --ink-soft: #4a5a57;
     --on-dark: #eafff6;
     --on-dark-soft: rgba(234, 255, 246, 0.74);
+    --mint-ink: #0c8060; /* mint oscuro para texto/ícono mint sobre fondo claro (WCAG AA) */
 
     /* ===== Tokens v5 / design-system (usados por Hero, SocialProof, TwoPillars y /design-system) ===== */
     --color-bg: #ffffff;
@@ -133,13 +134,18 @@ h3, h4, h5, h6 { font-weight: 500; }
     line-height: 1;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--mint);
+    color: var(--mint-ink);
     background: rgba(9, 188, 138, 0.14);
     border: 1px solid rgba(9, 188, 138, 0.30);
 }
+.section-dark .badge { color: var(--mint); }
 
 a { color: inherit; text-decoration: none; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
+:where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid var(--mint);
+    outline-offset: 2px;
+}
 img, svg, canvas { display: block; }
 
 /* ===== Section backgrounds (hybrid: dark immersive / light editorial) ===== */

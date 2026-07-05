@@ -56,21 +56,6 @@
 }
 .link:hover { color: var(--mint); }
 
-.ctaLink { text-decoration: none; }
-
-.ctaButton {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.3rem;
-    padding: 0.6rem 1.2rem;
-    border-radius: 30px;
-    background: var(--mint);
-    color: var(--forest-deep);
-    font-weight: 700;
-    cursor: pointer;
-}
-
 .socials { display: flex; gap: 0.9rem; }
 
 .socialLink {

@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import Button from './ui/Button';
 import Reveal from './ui/Reveal';
 import CaseStudy, { type CaseStudyData } from './CaseStudy';
 import { RouteDiagram, ChainDiagram, FunnelDiagram, FanoutDiagram } from './CaseDiagrams';
@@ -71,12 +71,12 @@ export default function FeaturedCases() {
         </div>
 
         <div className={styles.ctas} style={{ transitionDelay: '700ms' }}>
-          <Link href="/desarrollo-web" className={styles.cta}>
+          <Button variant="secondary" href="/desarrollo-web">
             Ver todo el desarrollo <ArrowRight size={18} strokeWidth={2} />
-          </Link>
-          <Link href="/automatizacion-ia" className={styles.cta}>
+          </Button>
+          <Button variant="secondary" href="/automatizacion-ia">
             Ver toda la automatización <ArrowRight size={18} strokeWidth={2} />
-          </Link>
+          </Button>
         </div>
       </Reveal>
     </section>

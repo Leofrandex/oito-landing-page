@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { Instagram, ArrowRight } from 'lucide-react';
+import { WHATSAPP_URL } from '@/lib/constants';
+import Button from './ui/Button';
 import WhatsAppIcon from './WhatsAppIcon';
 import styles from './Footer.module.css';
 
-const WHATSAPP = 'https://wa.me/584241344659';
-
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
+    <footer className={`section-dark ${styles.footer}`}>
       <div className={styles.container}>
         <div className={styles.grid}>
           <div className={styles.col}>
@@ -31,9 +31,9 @@ export default function Footer() {
             <ul className={styles.list}>
               <li><a href="mailto:info@oitove.com" className={styles.link}>info@oitove.com</a></li>
               <li>
-                <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.ctaLink}>
-                  <button className={styles.ctaButton}>Hablemos <ArrowRight size={16} /></button>
-                </a>
+                <Button variant="tertiary" external href={WHATSAPP_URL}>
+                  Hablemos <ArrowRight size={16} />
+                </Button>
               </li>
             </ul>
           </div>
@@ -41,7 +41,7 @@ export default function Footer() {
           <div className={styles.col}>
             <h3 className={styles.heading}>Síguenos</h3>
             <div className={styles.socials}>
-              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="WhatsApp">
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="WhatsApp">
                 <WhatsAppIcon size={20} />
               </a>
               <a href="https://www.instagram.com/oito.vee/" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="Instagram">

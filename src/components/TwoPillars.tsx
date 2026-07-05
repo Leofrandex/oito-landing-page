@@ -1,8 +1,8 @@
 'use client';
 
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import Link from 'next/link';
 import { Code2, Workflow } from 'lucide-react';
+import Button from './ui/Button';
 import GlassCard from './ui/GlassCard';
 import styles from './TwoPillars.module.css';
 
@@ -87,9 +87,9 @@ export default function TwoPillars() {
                   <h3 className={styles.cardTitle}>{pillar.title}</h3>
                   <p className={styles.cardText}>{pillar.text}</p>
 
-                  <Link href={pillar.href} className={styles.cardLink}>
+                  <Button variant="tertiary" href={pillar.href} className={styles.cardCta}>
                     {pillar.linkLabel}
-                  </Link>
+                  </Button>
                 </GlassCard>
               </motion.div>
             );

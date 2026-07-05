@@ -54,39 +54,6 @@
   margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
-.cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 52px;
-  padding: 0 1.6rem;
-  border-radius: 50px;
-  font-weight: 700;
-  color: var(--forest-deep);
-  background: rgba(9, 188, 138, 0.12);
-  border: 1px solid rgba(9, 188, 138, 0.4);
-  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.cta svg {
-  transition: transform 0.25s ease;
-}
-
-.cta:hover {
-  background: var(--mint);
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(9, 188, 138, 0.4);
-}
-
-.cta:hover svg {
-  transform: translateX(4px);
-}
-
-.cta:focus-visible {
-  outline: 2px solid var(--mint);
-  outline-offset: 3px;
-}
-
 /* ===== Scroll-reveal ===== */
 .eyebrow,
 .title,

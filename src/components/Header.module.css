@@ -49,21 +49,6 @@
 .navLink:hover { color: var(--mint); }
 .active { color: var(--mint); }
 
-.cta {
-    display: inline-flex;
-    align-items: center;
-    min-height: 42px;
-    padding: 0 1.3rem;
-    border-radius: 30px;
-    background: var(--mint);
-    color: var(--forest-deep);
-    font-weight: 700;
-    text-decoration: none;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.cta:hover { transform: translateY(-2px); background: #fff; }
-
 .hamburger {
     display: none;
     flex-direction: column;
@@ -111,5 +96,4 @@
     }
 
     .mobileNav .navLink { font-size: 1.5rem; font-weight: 700; }
-    .mobileNav .cta { font-size: 1.1rem; min-height: 50px; padding: 0 2rem; }
 }

@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import WhatsAppIcon from './WhatsAppIcon';
 import Reveal from './ui/Reveal';
+import Button from '@/components/ui/Button';
+import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './RoiCalculator.module.css';
 
 const fmt = new Intl.NumberFormat('es', {
@@ -103,15 +105,10 @@ export default function RoiCalculator() {
               {fmt.format(costoAnual)} al año · ~{horasRecuperables} h/mes recuperables
             </span>
             <span className={styles.estimateTag}>Cálculo estimado · ~70% potencial recuperable</span>
-            <a
-              href="https://wa.me/584241344659"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.cta}
-            >
+            <Button variant="primary" external href={WHATSAPP_URL}>
               <WhatsAppIcon size={20} />
               Hablemos de tu caso
-            </a>
+            </Button>
           </div>
         </div>
       </Reveal>

@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
 import WhatsAppIcon from './WhatsAppIcon';
 import Reveal from './ui/Reveal';
+import Button from '@/components/ui/Button';
+import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './FinalCTA.module.css';
 
 type FinalCTAProps = {
@@ -27,15 +29,10 @@ export default function FinalCTA({
           {lede}
         </p>
         <div className={styles.actions} style={{ transitionDelay: '180ms' }}>
-          <a
-            href="https://wa.me/584241344659"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.cta}
-          >
+          <Button variant="primary" external href={WHATSAPP_URL}>
             <WhatsAppIcon size={24} />
             Hablemos por WhatsApp
-          </a>
+          </Button>
         </div>
       </Reveal>
     </section>

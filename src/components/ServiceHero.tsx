@@ -5,6 +5,8 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import WhatsAppIcon from './WhatsAppIcon';
 import TextType from './TextType';
+import Button from '@/components/ui/Button';
+import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './ServiceHero.module.css';
 
 type ServiceHeroProps = { title: ReactNode; subtitle: string; rotating: string[] };
@@ -43,10 +45,10 @@ export default function ServiceHero({ title, subtitle, rotating }: ServiceHeroPr
           {subtitle}
         </p>
         <div className={styles.actions} data-anim>
-          <a href="https://wa.me/584241344659" target="_blank" rel="noopener noreferrer" className={styles.cta}>
+          <Button variant="primary" external href={WHATSAPP_URL}>
             <WhatsAppIcon size={22} />
             Hablemos por WhatsApp
-          </a>
+          </Button>
         </div>
       </div>
     </section>

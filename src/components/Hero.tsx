@@ -6,6 +6,8 @@ import { useGSAP } from '@gsap/react';
 import { ArrowDown } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
 import TextType from './TextType';
+import Button from '@/components/ui/Button';
+import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './Hero.module.css';
 
 const ROTATING = [
@@ -73,15 +75,10 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
         </p>
 
         <div className={styles.actions} data-anim>
-          <a
-            href="https://wa.me/584241344659"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.cta}
-          >
+          <Button variant="primary" external href={WHATSAPP_URL}>
             <WhatsAppIcon size={22} />
             Hablemos por WhatsApp
-          </a>
+          </Button>
         </div>
 
         <button type="button" className={styles.skip} data-anim onClick={skipIntro}>

@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
 import GlassSurface from './GlassSurface';
+import Button from '@/components/ui/Button';
+import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './Header.module.css';
 
 const links = [
@@ -29,15 +31,9 @@ export default function Header() {
     ));
 
   const cta = (
-    <a
-      href="https://wa.me/584241344659"
-      target="_blank"
-      rel="noopener noreferrer"
-      className={styles.cta}
-      onClick={() => setOpen(false)}
-    >
+    <Button variant="primary" size="sm" external href={WHATSAPP_URL} onClick={() => setOpen(false)}>
       WhatsApp
-    </a>
+    </Button>
   );
 
   return (

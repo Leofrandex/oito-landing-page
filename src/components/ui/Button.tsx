@@ -29,14 +29,14 @@ export default function Button({
 
   if (href && external) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={cls} {...rest}>
+      <a href={href} target="_blank" rel="noopener noreferrer" className={cls} onClick={onClick} {...rest}>
         {children}
       </a>
     );
   }
   if (href) {
     return (
-      <Link href={href} className={cls} {...rest}>
+      <Link href={href} className={cls} onClick={onClick} {...rest}>
         {children}
       </Link>
     );

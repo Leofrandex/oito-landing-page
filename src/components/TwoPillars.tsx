@@ -53,7 +53,7 @@ export default function TwoPillars() {
           <p className={styles.eyebrow}>Dos pilares · un equipo</p>
           <h2 className={styles.title}>
             Dos formas en que{' '}
-            <span className={styles.mintText}>oito</span>{' '}
+            <span className={`${styles.mintText} wordmark`}>oito</span>{' '}
             lo resuelve
           </h2>
           <p className={styles.subtitle}>

@@ -21,6 +21,10 @@
    `#0c8060`** (`--mint-ink`, ~4.7:1 sobre cream). El `#09bc8a` de texto queda reservado a fondos
    oscuros; los rellenos/bordes/fondos mint no cambian. Implementación típica: `.badge`/acentos por
    defecto en `--mint-ink`, y override a `--mint` dentro de `.section-dark`.
+   **⚠️ Excepción deliberada (decisión usuario 2026-07-05):** el **wordmark "oito"** se mantiene en
+   mint brillante `#09bc8a` en TODOS los fondos, incluidos los claros (~2.3:1), priorizando la
+   vibración de marca. Excepción consciente a WCAG AA — NO cambiar el color del wordmark a
+   `--mint-ink`. Aplica solo al wordmark; el resto del texto mint sí sigue la regla de arriba.
 
 ---
 

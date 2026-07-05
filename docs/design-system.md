@@ -24,13 +24,16 @@ Resuelve la discrepancia previa: **manda `agents.md` (Outfit)**. Eliminar Playfa
 
 | Rol | Fuente | Pesos |
 |---|---|---|
-| Titulares (hero, secciones, tarjetas) | **Outfit** | 800 hero · 700 secciones · 600/700 tarjetas |
+| Titulares (hero, secciones, tarjetas) | **Outfit** | 800 hero · 600 secciones · 500 tarjetas |
 | Cuerpo / UI | **DM Sans** | 400 / 500 |
 | Wordmark `oito` + CTA lúdico `oitomatiza` | **Varela Round** | 400 |
 
 - El wordmark `oito` va **siempre en minúscula**.
 - El CTA **funcional** (WhatsApp) va en **DM Sans 700**, NO Varela Round (mejor legibilidad a tamaño chico; coincide con el código v5).
 - La palabra rotante del hero usa `.mint-shine` (ya en `effects.css`).
+- **Actualización 2026-07-04 (decisión del usuario):** se aligeran los titulares —
+  secciones **700 → 600** y tarjetas **600/700 → 500**. El hero se mantiene en **800**
+  (sigue siendo el punto de mayor peso/contraste). Busca un tono más editorial y menos "bold".
 
 ---
 
@@ -87,7 +90,7 @@ Todos `white-space:nowrap`, altura 34px (tag/filter) / 28px (badge).
 
 ## 5. GlassCard  ✅ FIJADO
 
-**Anatomía única:** chip de ícono (46px, `radius 13`, `bg rgba(9,188,138,.14)`, borde mint 30%, ícono Lucide mint `stroke 1.6`) → título Outfit 700 20px → cuerpo DM Sans 13.5px → acción link con flecha. Footer anclado abajo (`margin-top:auto`) para alinear CTAs entre tarjetas de distinto largo. Padding 24, `radius var(--radius-lg)` (26px), `display:flex; flex-direction:column; gap:12px`.
+**Anatomía única:** chip de ícono (46px, `radius 13`, `bg rgba(9,188,138,.14)`, borde mint 30%, ícono Lucide mint `stroke 1.6`) → título Outfit 500 20px → cuerpo DM Sans 13.5px → acción link con flecha. Footer anclado abajo (`margin-top:auto`) para alinear CTAs entre tarjetas de distinto largo. Padding 24, `radius var(--radius-lg)` (26px), `display:flex; flex-direction:column; gap:12px`.
 
 - Superficie según fondo: `.glass-strong` (texto sobre oscuro) · `.glass` (acento oscuro) · `.glass-light` (claro).
 - Hover: `.glass-hover` (levanta 6px + glow mint) + la flecha del link se desliza.

@@ -9,9 +9,9 @@ import Button from '@/components/ui/Button';
 import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './ServiceHero.module.css';
 
-type ServiceHeroProps = { title: ReactNode; subtitle: string; rotating: string[] };
+type ServiceHeroProps = { title: ReactNode; subtitle: string; rotating: string[]; verb?: string };
 
-export default function ServiceHero({ title, subtitle, rotating }: ServiceHeroProps) {
+export default function ServiceHero({ title, subtitle, rotating, verb = 'automatiza' }: ServiceHeroProps) {
   const root = useRef<HTMLElement>(null);
   useGSAP(
     () => {
@@ -38,7 +38,7 @@ export default function ServiceHero({ title, subtitle, rotating }: ServiceHeroPr
           {title}
         </h1>
         <p className={styles.rotatingLine} data-anim>
-          automatiza{' '}
+          {verb}{' '}
           <TextType text={rotating} as="span" className={styles.rotating} typingSpeed={50} deletingSpeed={30} pauseDuration={1800} />
         </p>
         <p className={styles.subtitle} data-anim>

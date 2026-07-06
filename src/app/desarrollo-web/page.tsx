@@ -18,6 +18,7 @@ export default function DesarrolloWebPage() {
         title={<>Construimos el <span className="accent-mint">software</span> que tu empresa necesita</>}
         subtitle="Sitios web, apps móviles y sistemas a medida. De la idea al producto, rápido y bien hecho."
         rotating={['tu página web', 'tu app', 'tu sistema interno', 'tu dashboard']}
+        verb="construye"
       />
       <DevServices />
       <DevProcess />

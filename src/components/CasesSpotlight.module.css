@@ -36,22 +36,24 @@
   gap: 0.5rem;
   text-align: left;
   padding: 0.85rem 1rem;
-  border-radius: 14px;
-  border: 1px solid rgba(0, 67, 70, 0.14);
-  background: rgba(255, 255, 255, 0.55);
   color: var(--ink-soft);
   cursor: pointer;
-  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Compuesto para ganar a la especificidad de .glass-light (radio y estado activo). */
+.rail .thumb {
+  border-radius: 14px;
 }
 
 .thumb:hover {
-  background: rgba(255, 255, 255, 0.85);
   transform: translateY(-2px);
 }
 
-.thumbOn {
+.rail .thumbOn {
   border-color: var(--mint);
-  background: rgba(9, 188, 138, 0.1);
+  background: linear-gradient(160deg, rgba(9, 188, 138, 0.2), rgba(9, 188, 138, 0.1));
+  box-shadow: 0 0 0 1px var(--mint), 0 12px 28px -12px rgba(9, 188, 138, 0.45);
 }
 
 .thumbTitle {

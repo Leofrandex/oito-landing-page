@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import CaseStudy, { type CaseStudyData } from './CaseStudy';
 import styles from './CasesSpotlight.module.css';
@@ -9,6 +9,7 @@ import styles from './CasesSpotlight.module.css';
  *  Patrón tabs WAI-ARIA: riel = tablist, miniaturas = tab, foco = tabpanel. */
 export default function CasesSpotlight({ cases }: { cases: CaseStudyData[] }) {
   const [active, setActive] = useState(0);
+  const uid = useId();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const select = (i: number) => {
@@ -20,12 +21,10 @@ export default function CasesSpotlight({ cases }: { cases: CaseStudyData[] }) {
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     switch (e.key) {
       case 'ArrowRight':
-      case 'ArrowDown':
         e.preventDefault();
         select(active + 1);
         break;
       case 'ArrowLeft':
-      case 'ArrowUp':
         e.preventDefault();
         select(active - 1);
         break;
@@ -48,9 +47,10 @@ export default function CasesSpotlight({ cases }: { cases: CaseStudyData[] }) {
     <div className={styles.wrap}>
       <div
         role="tabpanel"
-        id="caso-panel"
-        aria-labelledby={`caso-tab-${active}`}
+        id={`${uid}-panel`}
+        aria-labelledby={`${uid}-tab-${active}`}
         className={styles.panel}
+        tabIndex={0}
         key={active}
       >
         <CaseStudy {...current} />
@@ -67,11 +67,11 @@ export default function CasesSpotlight({ cases }: { cases: CaseStudyData[] }) {
               }}
               type="button"
               role="tab"
-              id={`caso-tab-${i}`}
+              id={`${uid}-tab-${i}`}
               aria-selected={selected}
-              aria-controls="caso-panel"
+              aria-controls={`${uid}-panel`}
               tabIndex={selected ? 0 : -1}
-              className={`${styles.thumb} ${selected ? styles.thumbOn : ''}`}
+              className={`glass-light ${styles.thumb} ${selected ? styles.thumbOn : ''}`}
               onClick={() => setActive(i)}
             >
               <span className={`${styles.pill} ${styles[c.pillar === 'Desarrollo' ? 'dev' : 'auto']}`}>

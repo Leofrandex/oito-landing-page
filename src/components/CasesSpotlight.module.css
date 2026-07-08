@@ -93,4 +93,10 @@
   .panel {
     animation: none;
   }
+  .thumb {
+    transition: none;
+  }
+  .thumb:hover {
+    transform: none;
+  }
 }

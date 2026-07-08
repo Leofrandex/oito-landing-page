@@ -19,6 +19,7 @@ export default function CasesCarousel({ cases }: { cases: CaseStudyData[] }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const dragStart = useRef<number | null>(null);
+  const dragged = useRef(false);
 
   const clamp = useCallback(
     (i: number) => Math.max(0, Math.min(cases.length - 1, i)),
@@ -76,13 +77,21 @@ export default function CasesCarousel({ cases }: { cases: CaseStudyData[] }) {
 
   // Drag con umbral (solo cover).
   const onPointerDown = (e: React.PointerEvent) => {
-    if (mode === 'cover') dragStart.current = e.clientX;
+    if (mode !== 'cover') return;
+    dragStart.current = e.clientX;
+    dragged.current = false;
+    e.currentTarget.setPointerCapture?.(e.pointerId);
   };
   const onPointerUp = (e: React.PointerEvent) => {
     if (mode !== 'cover' || dragStart.current === null) return;
     const dx = e.clientX - dragStart.current;
-    if (dx > 60) goTo(active - 1);
-    else if (dx < -60) goTo(active + 1);
+    if (dx > 60) {
+      dragged.current = true;
+      goTo(active - 1);
+    } else if (dx < -60) {
+      dragged.current = true;
+      goTo(active + 1);
+    }
     dragStart.current = null;
   };
 
@@ -142,17 +151,27 @@ export default function CasesCarousel({ cases }: { cases: CaseStudyData[] }) {
         <div ref={trackRef} className={styles.track} onScroll={onScroll}>
           {cases.map((c, i) => {
             const isActive = i === active;
-            const asButton = mode === 'cover' && !isActive;
+            const canCenter = mode === 'cover' && !isActive;
             return (
               <div
                 key={c.title}
                 className={styles.slide}
                 style={slideStyle(i)}
+                role="group"
+                aria-roledescription="slide"
                 aria-label={`Caso ${i + 1} de ${cases.length}: ${c.title}`}
                 aria-hidden={mode === 'cover' && !isActive ? true : undefined}
-                role={asButton ? 'button' : undefined}
-                tabIndex={asButton ? -1 : undefined}
-                onClick={asButton ? () => goTo(i) : undefined}
+                onClick={
+                  canCenter
+                    ? () => {
+                        if (dragged.current) {
+                          dragged.current = false;
+                          return;
+                        }
+                        goTo(i);
+                      }
+                    : undefined
+                }
               >
                 <CaseCard {...c} />
               </div>

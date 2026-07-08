@@ -1,0 +1,94 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Panel de foco: entra con un fundido suave cada vez que cambia (key={active} lo remonta). */
+.panel {
+  animation: fadeSwap 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes fadeSwap {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Riel de miniaturas */
+.rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.thumb {
+  flex: 1 1 200px;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 67, 70, 0.14);
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.thumb:hover {
+  background: rgba(255, 255, 255, 0.85);
+  transform: translateY(-2px);
+}
+
+.thumbOn {
+  border-color: var(--mint);
+  background: rgba(9, 188, 138, 0.1);
+}
+
+.thumbTitle {
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  color: var(--forest-deep);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.dev {
+  background: rgba(0, 67, 70, 0.1);
+  color: var(--forest);
+}
+
+.auto {
+  background: rgba(9, 188, 138, 0.16);
+  color: #066b4d;
+}
+
+.thumb:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: none;
+  }
+}

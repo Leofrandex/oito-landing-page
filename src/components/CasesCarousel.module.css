@@ -1,0 +1,140 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+}
+
+/* ===== Coverflow (desktop, sin reduced-motion) ===== */
+.cover {
+  height: 460px;
+  perspective: 1600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover .track {
+  position: relative;
+  width: 320px;
+  height: 420px;
+  transform-style: preserve-3d;
+}
+
+.cover .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  cursor: pointer;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+/* ===== Fallback plano (móvil / reduced-motion): scroll-snap horizontal ===== */
+.flat .track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0.5rem 1rem 1.25rem;
+  scrollbar-width: none;
+}
+
+.flat .track::-webkit-scrollbar {
+  display: none;
+}
+
+.flat .slide {
+  flex: 0 0 300px;
+  scroll-snap-align: center;
+}
+
+.flat .slide > * {
+  width: 100%;
+}
+
+/* ===== Controles ===== */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.nav {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(9, 188, 138, 0.28);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--forest);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.nav:hover:not(:disabled) {
+  background: var(--mint);
+  color: #022;
+  border-color: var(--mint);
+  transform: scale(1.06);
+}
+
+.nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Área de toque ampliada (content-box + padding) manteniendo el punto pequeño. */
+.dot {
+  width: 8px;
+  height: 8px;
+  padding: 8px;
+  box-sizing: content-box;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 67, 70, 0.2);
+  background-clip: content-box;
+  cursor: pointer;
+  transition: width 0.25s ease, background-color 0.25s ease, border-radius 0.25s ease;
+}
+
+.dotOn {
+  width: 26px;
+  border-radius: 8px;
+  background: var(--mint);
+  background-clip: content-box;
+}
+
+.live {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.nav:focus-visible,
+.dot:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover .slide {
+    transition: none;
+  }
+}

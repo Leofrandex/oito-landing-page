@@ -1,11 +1,12 @@
 import { ArrowRight } from 'lucide-react';
 import Button from './ui/Button';
 import Reveal from './ui/Reveal';
-import CaseStudy, { type CaseStudyData } from './CaseStudy';
+import { type CaseStudyData } from './CaseStudy';
 import { RouteDiagram, ChainDiagram, FunnelDiagram, FanoutDiagram } from './CaseDiagrams';
+import CasesCarousel from './CasesCarousel';
 import styles from './FeaturedCases.module.css';
 
-/* Anonymized by sector — no client names, no invented metrics (CLAUDE.md §5/§7).
+/* Anonymized by sector, no client names, no invented metrics (CLAUDE.md §5/§7).
  * Internal refs: Ponce-Benzo, Hospiwaste, SecureByte, Go To Truckers. */
 const CASES: CaseStudyData[] = [
   {
@@ -58,19 +59,11 @@ export default function FeaturedCases() {
           </p>
         </header>
 
-        <div className={styles.rows}>
-          {CASES.map((c, i) => (
-            <div
-              key={c.title}
-              className={styles.row}
-              style={{ transitionDelay: `${200 + i * 110}ms` }}
-            >
-              <CaseStudy {...c} reverse={i % 2 === 1} />
-            </div>
-          ))}
+        <div className={styles.carousel} style={{ transitionDelay: '200ms' }}>
+          <CasesCarousel cases={CASES} />
         </div>
 
-        <div className={styles.ctas} style={{ transitionDelay: '700ms' }}>
+        <div className={styles.ctas} style={{ transitionDelay: '400ms' }}>
           <Button variant="secondary" href="/desarrollo-web">
             Ver todo el desarrollo <ArrowRight size={18} strokeWidth={2} />
           </Button>

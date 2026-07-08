@@ -31,17 +31,7 @@
   color: var(--ink-soft);
 }
 
-.rows {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1.25rem, 3vw, 2rem);
-}
-
-.row {
-  display: flex;
-}
-
-.row > * {
+.carousel {
   width: 100%;
 }
 
@@ -58,7 +48,7 @@
 .eyebrow,
 .title,
 .lede,
-.row,
+.carousel,
 .ctas {
   opacity: 0;
   transform: translateY(30px);
@@ -68,7 +58,7 @@
 .inner[data-revealed] .eyebrow,
 .inner[data-revealed] .title,
 .inner[data-revealed] .lede,
-.inner[data-revealed] .row,
+.inner[data-revealed] .carousel,
 .inner[data-revealed] .ctas {
   opacity: 1;
   transform: none;
@@ -78,7 +68,7 @@
   .eyebrow,
   .title,
   .lede,
-  .row,
+  .carousel,
   .ctas {
     opacity: 1;
     transform: none;

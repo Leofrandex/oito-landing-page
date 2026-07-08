@@ -1,7 +1,11 @@
-# Spec — Carrusel Coverflow para "Casos destacados" (home)
+# Spec — Carrusel de "Casos destacados" (home)
 
 > Fecha: 2026-07-08 · Rama: `oito-page-v5` · Iniciativa: Visual (A)
-> Estado: aprobado en brainstorming, pendiente de plan de implementación.
+> **⚠️ SUPERSEDED (2026-07-08b):** tras probar el coverflow implementado, el usuario lo
+> descartó y eligió **Spotlight + riel** (opción 3 de los mockups). El diseño vigente está
+> en la sección **"Revisión 2026-07-08b"** al final de este documento. Las secciones §1-§7
+> siguientes describen el coverflow (historial); leerlas solo como referencia de contexto,
+> constraints y decisiones compartidas (fondo claro, `.glass-light`, alcance home, a11y).
 
 ## 1. Objetivo
 
@@ -138,3 +142,47 @@ Sigue siendo **server component**.
    region anuncia el caso activo.
 5. El header y los 2 CTAs se conservan; `CaseStudy` (editorial) sigue intacto.
 6. `npm run build` y `npm run lint` pasan.
+
+---
+
+## Revisión 2026-07-08b — DISEÑO VIGENTE: Spotlight + riel
+
+El coverflow se implementó y se descartó (no convenció al usuario). Se adopta **Spotlight +
+riel** (opción 3 de los mockups; referencia viva `.superpowers/mockups/casos-carrusel-mockups-claro.html`).
+
+**Se conserva de §1-§7:** fondo claro (`section-light`), header + 2 CTAs de `FeaturedCases`,
+copy/diagramas de los 4 casos, alcance (home ahora, internas después), y las reglas de a11y
+(contraste, foco, reduced-motion, sin em dash).
+
+**Cambia el patrón de interacción y los componentes:**
+
+### Arquitectura
+- **`CasesSpotlight.tsx`** (nuevo, `'use client'`): un caso **en foco** a lo grande +
+  un **riel de miniaturas** para saltar entre casos. Patrón **tabs WAI-ARIA** (riel =
+  `tablist`, cada miniatura = `tab`, panel de foco = `tabpanel`).
+- **Panel de foco = reutiliza `CaseStudy`** (la tarjeta editorial existente, media oscuro +
+  cuerpo, sin `reverse`) renderizando el caso activo. DRY, componente ya maduro.
+- **`FeaturedCases.tsx`**: monta `<CasesSpotlight cases={CASES} />` (reemplaza al carrusel).
+- **Se eliminan** `CaseCard.tsx`/`.module.css` y `CasesCarousel.tsx`/`.module.css` (del coverflow).
+
+### Interacción
+- Clic en miniatura → cambia el foco. El panel hace un **fundido/entrada suave** al cambiar.
+- **Teclado (tabs):** en el riel, ←/→ (y ↑/↓) mueven la selección con envoltura, `Home`/`End`
+  saltan a extremos; el foco sigue a la selección (activación automática). Roving `tabindex`
+  (solo el tab activo es `tabIndex=0`).
+- **ARIA:** `tablist` con `aria-label`; cada `tab` con `id`, `aria-selected`, `aria-controls`;
+  el `tabpanel` con `id` y `aria-labelledby` al tab activo. (El patrón tabs se autoanuncia; no
+  hace falta live region aparte.)
+
+### Reduced-motion / móvil
+- `prefers-reduced-motion` → sin fundido (swap instantáneo), vía CSS.
+- Móvil: el riel se envuelve (`flex-wrap`) y el `CaseStudy` ya apila a 1 columna (≤760px). Sin 3D.
+
+### Criterios de aceptación (reemplazan §7 para el diseño vigente)
+1. El home muestra un caso en foco (vía `CaseStudy`) + riel de 4 miniaturas; clic en una
+   miniatura cambia el foco con fundido.
+2. Teclado: patrón tabs completo (←/→/↑/↓/Home/End, roving tabindex, activación automática).
+3. `prefers-reduced-motion` → sin fundido; móvil → riel envuelto y foco apilado, sin errores.
+4. Contraste AA en pills/miniaturas; foco visible; ARIA de tabs correcto (`tablist`/`tab`/`tabpanel`).
+5. Header y 2 CTAs conservados; `CaseStudy` reutilizado sin romper su uso editorial.
+6. `npm run build` y `npm run lint` (a nivel de archivos tocados) pasan.

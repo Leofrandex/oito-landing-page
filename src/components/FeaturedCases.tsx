@@ -3,7 +3,7 @@ import Button from './ui/Button';
 import Reveal from './ui/Reveal';
 import { type CaseStudyData } from './CaseStudy';
 import { RouteDiagram, ChainDiagram, FunnelDiagram, FanoutDiagram } from './CaseDiagrams';
-import CasesCarousel from './CasesCarousel';
+import CasesSpotlight from './CasesSpotlight';
 import styles from './FeaturedCases.module.css';
 
 /* Anonymized by sector, no client names, no invented metrics (CLAUDE.md §5/§7).
@@ -60,7 +60,7 @@ export default function FeaturedCases() {
         </header>
 
         <div className={styles.carousel} style={{ transitionDelay: '200ms' }}>
-          <CasesCarousel cases={CASES} />
+          <CasesSpotlight cases={CASES} />
         </div>
 
         <div className={styles.ctas} style={{ transitionDelay: '400ms' }}>

@@ -155,7 +155,7 @@ export default function CasesCarousel({ cases }: { cases: CaseStudyData[] }) {
             return (
               <div
                 key={c.title}
-                className={styles.slide}
+                className={`${styles.slide} ${canCenter ? styles.clickable : ''}`}
                 style={slideStyle(i)}
                 role="group"
                 aria-roledescription="slide"

@@ -13,7 +13,7 @@ const PILLAR_ICON: Record<Pillar, LucideIcon> = {
 export default function CaseCard({ pillar, title, description, tags, diagram }: CaseStudyData) {
   const PillarIcon = PILLAR_ICON[pillar];
   return (
-    <article className={`glass-light ${styles.card}`}>
+    <article className={`glass-light glass-hover ${styles.card}`}>
       <div className={styles.media} aria-hidden="true">
         <span className={styles.mediaGrid} />
         <div className={styles.diagram}>{diagram}</div>

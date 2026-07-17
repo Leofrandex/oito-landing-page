@@ -24,21 +24,25 @@ Actualmente en rediseño completo (rama `oito-page-v5`).
 
 ---
 
-## 2. Posicionamiento ✅ FIJADO (en brainstorming 2026-06)
+## 2. Posicionamiento ✅ FIJADO (pivote 2026-07-17)
 
-oito es un **estudio digital con dos líneas de servicio independientes**:
-1. **Desarrollo web/software** (páginas, apps, sistemas a medida)
-2. **Automatización / IA** (flujos, agentes, integraciones)
+oito es un **estudio de automatización e IA para pymes hispanohablantes de LatAm**.
+Un solo servicio público: **automatización / IA** (flujos, agentes, integraciones).
 
-Un cliente puede contratar solo una. No somos "solo IA".
-
+- **Desarrollo web/software** deja de ser pilar del sitio: queda como capacidad interna
+  con **mención secundaria** (una entrada en el FAQ + el caso Hospiwaste en el spotlight
+  de casos) y como línea de crecimiento futuro. Su página (`/desarrollo-web`) y
+  componentes (`Dev*`, `TwoPillars`, `ServiceHero`) quedan congelados en el historial
+  de git; no se borran ni se reescriben.
 - **Voz de marca:** se mantiene el tagline *"oito LO HACE POR TI"* (firma, no se cambia).
-  Lo que se amplía son las **subfrases**: además de "automatiza tu [X]" ahora también
-  "construye tu [web/app/sistema]". Cubre los dos pilares sin tocar el tagline.
+  Subfrases solo de automatización ("automatiza tu [X]"); se retiran las de construir
+  web/app/sistema.
 - **🔒 Efecto de marca (se conserva):** el efecto TextType de palabras que se escriben/borran
-  (`TextType.jsx`) sigue en el Hero, ampliado para rotar frases de ambos pilares.
+  (`TextType.jsx`) sigue en el Hero, rotando SOLO frases de automatización.
 - **Cliente:** pymes LatAm, español, varios países. SEO en español amplio (no local).
-- **Estructura:** mostrar los dos pilares por separado (más superficie SEO).
+- **Estructura:** una sola landing (`/`); sin páginas de servicio separadas.
+
+Spec del pivote: `docs/superpowers/specs/2026-07-17-pivote-automatizacion-design.md`.
 
 ---
 
@@ -76,7 +80,9 @@ Tareas de código (fase visual): quitar **Playfair** de `layout.tsx`, añadir Ou
 guion largo `—`. Reescribir con coma, punto, dos puntos o paréntesis según corresponda. Aplica a
 todo el copy, `aria-label`s y contenido renderizado (los comentarios de código quedan fuera).
 
-**⚠️ Pendiente:** `agents.md` aún describe a oito como "Automatización e IA" → actualizar al nuevo posicionamiento (§2).
+**⚠️ Pendiente:** revisar `agents.md`: su descripción "Automatización e IA" vuelve a ser
+casi correcta tras el pivote 2026-07-17; solo falta reflejar que desarrollo queda como
+capacidad congelada (§2).
 
 ---
 
@@ -101,19 +107,22 @@ WhatsApp actual: `https://wa.me/584241344659`. Esto simplifica el sitio y mejora
 
 Specs/planes en `docs/superpowers/specs/` y `docs/superpowers/plans/`.
 
-**📍 Roadmap re-planificado (2026-07-05) — secuencia A → B → C:**
-- **A. Terminar Visual** ← EN CURSO. Fase 1 ✅ (tipografía Outfit + escala de pesos 700/600/500 +
-  SocialProof oscuro), Fase 2a ✅ (badge §4 + unificar clases de sección). **Fase 2b** (sistema
-  Button §3) con spec listo, pendiente plan + build. *Backlog no bloqueante:* unificar tokens de
-  `TwoPillars` (usa set "v5"), glow bullets (cuando haya listas), nodos §7 (requiere crear assets).
-  **Gate de revisión UX/diseño** con `ui-ux-pro-max` + `frontend-design` (ver §8).
-- **B. Construir página `/desarrollo-web`** — hoy es **stub**; el copy YA existe (copy-deck PÁGINA 2:
-  Hero, Servicios, Cómo trabajamos, Casos, Tecnologías, CTA). Reutilizar los patrones maduros del
-  Automatización. Cierra la iniciativa Contenido.
-- **C. Iniciativa SEO** (sin empezar): C1 refactor SSR (quitar `'use client'` de páginas → islas),
-  C2 metadata/OG/canonical por página, C3 robots + sitemap, C4 JSON-LD, C5 CWV + on-page.
-  *Dependencias:* SSR toca componentes Visual (hacerlo con Visual estable); sitemap/metadata final
-  necesita que exista Desarrollo-web.
+**📍 Roadmap re-planificado (2026-07-17, pivote a solo automatización):**
+- **A. Contenido v2** ← SIGUIENTE. Brainstorm de mensaje desde cero para la landing
+  única: a quién le hablamos, qué dolor, qué promesa, frases del TextType, estructura de
+  secciones. Entregable: copy deck v2 + resolución de duplicados (HowWeWorkHome vs
+  Methodology; FeaturedCases vs AutomationCases vs CasesSpotlight).
+- **B. Recomposición** — cirugía de rutas (eliminar `/desarrollo-web` y
+  `/automatizacion-ia`, todo se fusiona en `/`) + montar la landing única con los
+  componentes maduros vestidos con el copy nuevo. Header pasa a anclas de sección.
+  No se construyen componentes nuevos salvo que Contenido v2 lo pida.
+- **C. Iniciativa SEO** (sin empezar), simplificada a una sola URL: C1 refactor SSR
+  (quitar `'use client'` → islas), C2 metadata/OG/canonical, C3 robots + sitemap,
+  C4 JSON-LD, C5 CWV + on-page. Title orientado a automatización con IA.
+
+*Backlog visual heredado:* glow bullets (cuando haya listas), nodos §7 (requiere crear
+assets), gate de revisión UX/diseño al cierre de cada fase. El pendiente "unificar tokens
+v5 de TwoPillars" queda obsoleto: el componente se retira del sitio.
 
 Estado detallado y acuerdos: `.superpowers/sdd/progress.md` (ledger de ejecución) y los specs por fase.
 

@@ -131,6 +131,12 @@
 
 # PÁGINA 2 — DESARROLLO WEB & SOFTWARE (`/desarrollo-web`)
 
+> **🧊 CONGELADA (pivote 2026-07-17):** oito pivota a solo automatización y esta página
+> sale del sitio. El copy se conserva intacto para cuando se retome la línea de
+> desarrollo. No usar en la landing única, salvo el caso Hospiwaste (que pasa al
+> spotlight de casos como guiño de desarrollo). Ver
+> `docs/superpowers/specs/2026-07-17-pivote-automatizacion-design.md`.
+
 ## 1. Hero
 
 **Título:** Construimos el **software** que tu empresa necesita

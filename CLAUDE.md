@@ -174,7 +174,7 @@ velocidad/SEO** — efectos con `transform`/`opacity`, degradación en móvil, r
 - `metadata` mínimo en `layout.tsx` (solo title + description). Falta OG, Twitter, canonical, robots, JSON-LD.
 - Todo el sitio es `'use client'` detrás de un `LoadingScreen` con animación pesada → mala indexación y Core Web Vitals.
 - No hay sitemap.xml ni robots.txt. Una sola página (SPA).
-- Title actual ("oito | Automatización con IA") encierra el posicionamiento viejo.
+- Title actual ("oito | Automatización con IA") coincide con el posicionamiento del pivote 2026-07-17, pero falta afinarlo en la iniciativa SEO (C2: metadata por página).
 
 ---
 

@@ -29,7 +29,6 @@
 > Tu equipo técnico que **construye software** y **automatiza procesos** — para que tú no tengas que lidiar con lo técnico.
 
 **CTA principal:** `Hablemos por WhatsApp`
-**Micro-link:** `saltar intro` (para impacientes)
 
 ---
 

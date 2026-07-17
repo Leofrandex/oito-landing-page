@@ -70,7 +70,11 @@ Tareas de código (fase visual): quitar **Playfair** de `layout.tsx`, añadir Ou
 
 **✅ FIJADO — Copy a eliminar (feedback usuario):**
 - Quitar "Nacimos en Venezuela, trabajamos para toda LatAm" del sitio.
-- Quitar "Sin cifras infladas — solo lo que hicimos."
+- Quitar "Sin cifras infladas, solo lo que hicimos."
+
+**✅ FIJADO — Sin em dash (`—`) en el copy (2026-07-07):** Ningún texto visible del sitio usa el
+guion largo `—`. Reescribir con coma, punto, dos puntos o paréntesis según corresponda. Aplica a
+todo el copy, `aria-label`s y contenido renderizado (los comentarios de código quedan fuera).
 
 **⚠️ Pendiente:** `agents.md` aún describe a oito como "Automatización e IA" → actualizar al nuevo posicionamiento (§2).
 
@@ -113,21 +117,37 @@ Specs/planes en `docs/superpowers/specs/` y `docs/superpowers/plans/`.
 
 Estado detallado y acuerdos: `.superpowers/sdd/progress.md` (ledger de ejecución) y los specs por fase.
 
-**✅ FIJADO — Glassmorphism sobre hilos:** Lenguaje visual central. Paneles de vidrio
-esmerilado (`backdrop-filter: blur ~7px saturate(1.35)`, fill translúcido ~3-4%, borde de luz
-sutil, esquinas redondeadas) sobre los hilos animados, que se ven y "distorsionan" a través.
-Se aplica al **header**, hero, tarjetas, chips y CTAs. Dos variantes: `glass` (translúcida,
-tarjetas) y `glass-strong` (algo más opaca + blur ~11px, para bloques con mucho texto, para no
-perder contraste). Texto con leve sombra para legibilidad. Cuidar rendimiento (dosificar
-`backdrop-filter` en móvil) y contraste (WCAG AA). Receta de referencia:
-`.superpowers/mockups/glassmorphism-v2.html`.
+**✅ FIJADO — Glassmorphism sobre hilos (liquid glass, 2026-07-08):** Lenguaje visual central.
+Solo **dos** clases, elegidas por el tono del fondo:
+- **`.glass` (fondos oscuros) = estilo "Liquid mint":** degradado translúcido teñido de mint
+  (`120deg, mint 30%→5%→15%`), `blur(11px) saturate(1.5)`, brillo superior + luz interior mint.
+- **`.glass-light` (fondos claros) = estilo "Liquid sheen":** mismo tratamiento glossy en blanco
+  translúcido (`120deg, blanco 30%→5%→12%`), `blur(11px) saturate(1.4)`.
+- **Ambas usan "Rim suave":** el borde es un **canto de luz en degradado enmascarado**
+  (pseudo-elemento `::after`), no un `border` sólido de color. Da aspecto de vidrio real.
+
+Valores exactos + receta del rim en `docs/design-system.md` §2 y §2.1. Se aplica al header (vía
+`GlassSurface`, refracción SVG aparte), hero, tarjetas, chips y CTAs. **Pendiente:** llevar estas
+recetas a `globals.css` y a los componentes (se decidió hacerlo después de fijar los docs).
+
+**⚠️ Verdad técnica clave (2026-07-08, comprobado):** el `backdrop-filter` **NO refracta los hilos
+del fondo**. `ThreadsBackground` es un canvas **WebGL `position:fixed`** (capa GPU) y Chromium no
+incluye esas capas fijas aceleradas en el "backdrop" → los hilos **pasan por el vidrio sin
+difuminarse** (idénticos dentro y fuera). Por eso: **(1)** `.glass` tiene **cuerpo propio** (fill
+translúcido tipo liquid glass + rim de luz, ver `design-system.md` §2; móvil ≤768px `blur(8px)`)
+para leer como vidrio en cualquier sección oscura sin depender del fondo; **(2)** la refracción
+visible se logra con un **glow LOCAL** por sección (`.section::before`, misma capa que sí capta el
+filtro) — aplicado en `EasyStart`, `AutomationPillars`, `SolutionsGrid`; los logos de `SocialProof`
+también usan `.glass`. *`.glass-strong` se eliminó (2026-07-07).* **No prometer
+(en web ni en propuestas/PDF) que el vidrio distorsiona los hilos animados: es imposible con esta
+arquitectura.** Valores exactos en `docs/design-system.md` §2.
 
 **✅ FIJADO — Glass premium (GlassSurface):** Para vidrio de alta calidad con **refracción SVG
 real** (distorsiona el fondo, no solo blur) se usa `src/components/GlassSurface.jsx` (de React
 Bits). Ya aplicado al **Header** (`displace=3`, `distortionScale=-160`, `backgroundOpacity=0.18`,
 `color-scheme: dark` para legibilidad sobre oscuro, texto claro con sombra). ⚠️ La refracción SVG
 solo funciona en **Chromium**; en Safari/Firefox cae a blur normal (fallback automático). Las
-utilidades `.glass`/`.glass-strong` y `GlassCard` siguen para vidrio simple/ligero. Nota: el
+utilidades `.glass`/`.glass-light` y `GlassCard` siguen para vidrio simple/ligero. Nota: el
 `backdrop-filter` crea containing block → elementos `position:fixed` hijos (ej. overlay de menú
 móvil) deben ir FUERA del GlassSurface.
 

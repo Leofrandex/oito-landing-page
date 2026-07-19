@@ -20,9 +20,9 @@ const PILLARS = [
   },
 ];
 
-/* Fila de 3 pilares (fuera del circuito, ver docs/decisiones-fijadas.md 2026-07-19):
- * los nodos glass en una misma fila, sin cables ni layout triangular. Única vida =
- * glow secuencial 1 -> 2 -> 3 en la capa ::after de cada nodo. */
+/* Fila de 3 pilares (fuera del circuito, ver docs/superpowers/plans/2026-07-19-experiencia-fase-e-pulido.md,
+ * decision del preview de pulido): los nodos glass en una misma fila, sin cables ni layout
+ * triangular. Única vida = glow secuencial 1 -> 2 -> 3 en la capa ::after de cada nodo. */
 export default function AutomationPillars() {
   return (
     <section className={`section-dark ${styles.section}`}>

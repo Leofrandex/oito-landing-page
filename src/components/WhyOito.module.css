@@ -41,7 +41,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
   gap: clamp(1.5rem, 4vh, 2.5rem);
@@ -49,41 +49,152 @@
 }
 
 .arg {
+  position: relative;
+  z-index: 1;
   max-width: 56ch;
 }
 
 .belt {
-  list-style: none;
+  position: relative;
+  z-index: 2;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 0.7rem;
+  width: 100%;
   max-width: 640px;
 }
 
-.chip {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #6b4a3f;
-  background: #fff;
+/* ===== Piezas de interfaz (portadas de preview/PreviewDolor, variante modulos) ===== */
+.panel {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: min-content;
+  gap: 11px;
+  width: min(300px, 84%);
+}
+
+.piece {
   border: 1px solid rgba(180, 84, 62, 0.4);
-  border-radius: 10px;
-  padding: 0.45rem 0.85rem;
+  background: #fff;
+  border-radius: 9px;
   box-shadow: 0 6px 14px -6px rgba(0, 67, 70, 0.22);
   will-change: transform;
   transition:
-    color 0.5s ease,
-    border-color 0.5s ease;
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
 }
 
-.narrative[data-ordered] .chip {
-  color: var(--ink, #0c8060);
-  border-color: rgba(9, 188, 138, 0.55);
+.mTitle {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
 }
+
+.mChart {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 86px;
+  padding: 10px;
+}
+
+.mCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 86px;
+  padding: 12px;
+}
+
+.mChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 999px;
+  padding: 7px 12px;
+  align-self: start;
+  justify-self: start;
+}
+
+.mList {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 11px 12px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba(180, 84, 62, 0.85);
+  transition: background 0.5s ease;
+}
+
+.dotSm {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba(180, 84, 62, 0.75);
+  transition: background 0.5s ease;
+}
+
+.bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: rgba(180, 84, 62, 0.7);
+  transition: background 0.5s ease;
+}
+
+.lineWide,
+.lineFill,
+.lineSm,
+.lineXs {
+  display: block;
+  height: 7px;
+  border-radius: 4px;
+  background: rgba(180, 84, 62, 0.5);
+  transition: background 0.5s ease;
+}
+
+.lineWide { flex: 1; }
+.lineFill { flex: 1; }
+.lineSm { width: 62%; }
+.lineXs { width: 90%; height: 6px; }
+
+.listRow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* Estado ensamblado (mint) — piezas y acentos vía data-ordered en el contenedor */
+.narrative[data-ordered] .piece {
+  border-color: rgba(9, 188, 138, 0.55);
+  box-shadow: 0 6px 16px -6px rgba(9, 188, 138, 0.3);
+}
+.narrative[data-ordered] .dot,
+.narrative[data-ordered] .dotSm { background: var(--mint); }
+.narrative[data-ordered] .bar { background: var(--mint); }
+.narrative[data-ordered] .lineWide,
+.narrative[data-ordered] .lineFill,
+.narrative[data-ordered] .lineSm,
+.narrative[data-ordered] .lineXs { background: rgba(9, 188, 138, 0.6); }
+
+/* stagger del color por posición de pieza */
+.panel .piece:nth-child(1) { transition-delay: 0s; }
+.panel .piece:nth-child(2) { transition-delay: 0.08s; }
+.panel .piece:nth-child(3) { transition-delay: 0.16s; }
+.panel .piece:nth-child(4) { transition-delay: 0.24s; }
+.panel .piece:nth-child(5) { transition-delay: 0.32s; }
 
 /* ===== Fallback estático (móvil / reduced motion) ===== */
 .narrative[data-static] .stage {
   min-height: 0;
+  justify-content: center;
 }
 
 .narrative[data-static] [data-arg2] {
@@ -91,8 +202,25 @@
   transform: none;
 }
 
-.narrative[data-static] .chip {
-  color: var(--ink, #0c8060);
+.narrative[data-static] [data-arg1] {
+  opacity: 1;
+  transform: none;
+}
+
+.narrative[data-static] .piece {
   border-color: rgba(9, 188, 138, 0.55);
+  box-shadow: 0 6px 16px -6px rgba(9, 188, 138, 0.3);
   transform: none !important;
+}
+
+.narrative[data-static] .dot,
+.narrative[data-static] .dotSm { background: var(--mint); }
+.narrative[data-static] .bar { background: var(--mint); }
+.narrative[data-static] .lineWide,
+.narrative[data-static] .lineFill,
+.narrative[data-static] .lineSm,
+.narrative[data-static] .lineXs { background: rgba(9, 188, 138, 0.6); }
+
+@media (max-width: 560px) {
+  .panel { width: 100%; }
 }

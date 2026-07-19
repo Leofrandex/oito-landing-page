@@ -10,26 +10,17 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-/* Tareas reales de pyme: el caos que se ordena (spec v3 3.2). */
-const TASKS = [
-  '23 correos sin responder',
-  'Copiar pedido al Excel',
-  'Recordar cobro vencido',
-  'Pasar datos al CRM',
-  'Armar reporte del lunes',
-  'Confirmar citas de mañana',
-];
-
 /* Posiciones dispersas (caos), en % del escenario. El layout base (CSS) ya
- * es la fila ordenada; estos offsets se usan solo para el `gsap.set` inicial
- * que desplaza cada chip desde su slot en fila hacia su punto de caos. */
+ * es la composición ensamblada (panel); estos offsets se usan solo para el
+ * `gsap.set` inicial que desplaza cada pieza desde su slot en el panel hacia
+ * su punto de caos. Scatter amplio: cubre ~90% del stage, incluida la zona
+ * de los argumentos (las piezas pasan por encima del texto en el caos). */
 const SCATTER = [
-  { left: '6%', top: '12%', rot: -7 },
-  { left: '38%', top: '4%', rot: 5 },
-  { left: '66%', top: '16%', rot: -4 },
-  { left: '18%', top: '58%', rot: 8 },
-  { left: '48%', top: '66%', rot: -6 },
-  { left: '74%', top: '54%', rot: 4 },
+  { left: '4%', top: '5%', rot: -12 },
+  { left: '60%', top: '3%', rot: 10 },
+  { left: '84%', top: '34%', rot: -8 },
+  { left: '6%', top: '80%', rot: 9 },
+  { left: '54%', top: '88%', rot: -6 },
 ];
 
 export default function WhyOito() {
@@ -43,25 +34,25 @@ export default function WhyOito() {
         const arg1 = container.current?.querySelector<HTMLElement>('[data-arg1]') ?? null;
         const arg2 = container.current?.querySelector<HTMLElement>('[data-arg2]') ?? null;
         const belt = container.current?.querySelector<HTMLElement>('[data-belt]') ?? null;
-        const chips = gsap.utils.toArray<HTMLElement>('[data-chip]');
+        const pieces = gsap.utils.toArray<HTMLElement>('[data-piece]');
         const stage = container.current?.querySelector<HTMLElement>(`.${styles.stage}`) ?? null;
 
         gsap.set(arg2, { autoAlpha: 0, y: 30 });
         gsap.set(belt, { autoAlpha: 0 });
 
-        /* Los chips arrancan en su posición de caos; el layout base (fila)
-         * define su slot final, así que el desplazamiento inicial se mide
-         * contra el rect real de cada chip ANTES de crear el ScrollTrigger
-         * (que insertará el spacer del pin y alteraría el layout). */
+        /* Las piezas arrancan en su posición de caos; el layout base (panel
+         * ensamblado) define su slot final, así que el desplazamiento inicial
+         * se mide contra el rect real de cada pieza ANTES de crear el
+         * ScrollTrigger (que insertará el spacer del pin y alteraría el layout). */
         if (stage) {
           const stageRect = stage.getBoundingClientRect();
-          chips.forEach((chip, i) => {
+          pieces.forEach((piece, i) => {
             const scatter = SCATTER[i];
             if (!scatter) return;
-            const rect = chip.getBoundingClientRect();
+            const rect = piece.getBoundingClientRect();
             const targetX = (parseFloat(scatter.left) / 100) * stageRect.width;
             const targetY = (parseFloat(scatter.top) / 100) * stageRect.height;
-            gsap.set(chip, {
+            gsap.set(piece, {
               x: targetX - (rect.left - stageRect.left),
               y: targetY - (rect.top - stageRect.top),
               rotation: scatter.rot,
@@ -81,11 +72,11 @@ export default function WhyOito() {
 
         /* 1) El argumento 1 ya está visible; entra el caos */
         tl.to(belt, { autoAlpha: 1, duration: 0.3 })
-          /* 2) El argumento 1 cede el foco */
-          .to(arg1, { autoAlpha: 0.25, y: -24, duration: 0.5 }, '<')
-          /* 3) Las tareas se ordenan en fila (transform hacia su slot base) */
+          /* 2) El argumento 1 se dockea arriba (salida más intensa) */
+          .to(arg1, { autoAlpha: 0.15, y: -60, duration: 0.5 }, '<')
+          /* 3) Las piezas viajan al centro y se ensamblan (transform hacia su slot base) */
           .to(
-            chips,
+            pieces,
             {
               x: 0,
               y: 0,
@@ -125,13 +116,42 @@ export default function WhyOito() {
           </p>
         </div>
 
-        <ul className={styles.belt} data-belt aria-hidden="true">
-          {TASKS.map((task) => (
-            <li key={task} className={styles.chip} data-chip>
-              {task}
-            </li>
-          ))}
-        </ul>
+        <div className={styles.belt} data-belt aria-hidden="true">
+          <div className={styles.panel}>
+            {/* barra de título */}
+            <div className={`${styles.piece} ${styles.mTitle}`} data-piece>
+              <span className={styles.dot} />
+              <span className={styles.lineWide} />
+            </div>
+            {/* mini gráfica de barras */}
+            <div className={`${styles.piece} ${styles.mChart}`} data-piece>
+              <span className={styles.bar} style={{ height: '38%' }} />
+              <span className={styles.bar} style={{ height: '64%' }} />
+              <span className={styles.bar} style={{ height: '48%' }} />
+              <span className={styles.bar} style={{ height: '82%' }} />
+            </div>
+            {/* tarjeta pequeña */}
+            <div className={`${styles.piece} ${styles.mCard}`} data-piece>
+              <span className={styles.lineSm} />
+              <span className={styles.lineXs} />
+              <span className={styles.lineXs} />
+            </div>
+            {/* chip */}
+            <div className={`${styles.piece} ${styles.mChip}`} data-piece>
+              <span className={styles.dot} />
+              <span className={styles.lineSm} />
+            </div>
+            {/* fila de lista */}
+            <div className={`${styles.piece} ${styles.mList}`} data-piece>
+              {[0, 1, 2].map((r) => (
+                <span key={r} className={styles.listRow}>
+                  <span className={styles.dotSm} />
+                  <span className={styles.lineFill} />
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
 
         <div className={styles.arg} data-arg2>
           <h2 className={styles.argTitle}>

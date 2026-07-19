@@ -11,20 +11,7 @@
   pointer-events: none;
 }
 
-.inner {
-  position: relative;
-  max-width: 1040px;
-  margin: 0 auto;
-}
-
 /* ===== Argument blocks ===== */
-.args {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(2rem, 5vw, 4rem);
-  margin-top: clamp(1.75rem, 3vw, 2.5rem);
-}
-
 .argTitle {
   font-size: clamp(1.6rem, 3.2vw, 2.3rem);
   letter-spacing: -0.015em;
@@ -42,33 +29,70 @@
   color: var(--ink-soft);
 }
 
-/* ===== Before → After transformation ===== */
-/* ===== Scroll-reveal ===== */
-.eyebrow,
-.arg {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+/* ===== Narrativa intercalada (fase D) ===== */
+.narrative {
+  overflow: hidden;
 }
 
-.inner[data-revealed] .eyebrow,
-.inner[data-revealed] .arg {
+.stage {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: clamp(1.5rem, 4vh, 2.5rem);
+  padding: clamp(3rem, 8vh, 5rem) 1rem;
+}
+
+.arg {
+  max-width: 56ch;
+}
+
+.belt {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+  max-width: 640px;
+}
+
+.chip {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b4a3f;
+  background: #fff;
+  border: 1px solid rgba(180, 84, 62, 0.4);
+  border-radius: 10px;
+  padding: 0.45rem 0.85rem;
+  box-shadow: 0 6px 14px -6px rgba(0, 67, 70, 0.22);
+  will-change: transform;
+  transition:
+    color 0.5s ease,
+    border-color 0.5s ease;
+}
+
+.narrative[data-ordered] .chip {
+  color: var(--ink, #0c8060);
+  border-color: rgba(9, 188, 138, 0.55);
+}
+
+/* ===== Fallback estático (móvil / reduced motion) ===== */
+.narrative[data-static] .stage {
+  min-height: 0;
+}
+
+.narrative[data-static] [data-arg2] {
   opacity: 1;
   transform: none;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 760px) {
-  .args {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .eyebrow,
-  .arg {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+.narrative[data-static] .chip {
+  color: var(--ink, #0c8060);
+  border-color: rgba(9, 188, 138, 0.55);
+  transform: none !important;
 }

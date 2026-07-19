@@ -1,0 +1,252 @@
+.section {
+  position: relative;
+  padding: clamp(4rem, 8vw, 6rem) 1.5rem 0;
+}
+
+.head {
+  text-align: center;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.title {
+  margin-top: 0.9rem;
+  font-size: clamp(1.75rem, 4vw, 2.8rem);
+  letter-spacing: -0.02em;
+  color: var(--on-dark);
+}
+
+/* ===== Escenario ===== */
+.stage {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  height: 100vh;
+  max-height: 720px;
+  display: grid;
+  grid-template-columns: 1.15fr 40px 1fr;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
+  padding-bottom: 3rem;
+}
+
+.visual {
+  position: relative;
+  height: min(62vh, 460px);
+}
+
+.pane {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(120deg, rgba(9, 188, 138, 0.16), rgba(9, 188, 138, 0.03) 55%, rgba(9, 188, 138, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.22), 0 24px 48px -20px rgba(0, 0, 0, 0.6);
+  will-change: transform, opacity;
+}
+
+.diagram {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.diagram > * {
+  width: 100%;
+  height: 100%;
+}
+
+.caption {
+  padding: 0.7rem 1.1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mint);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Línea de recorrido ===== */
+.route {
+  position: relative;
+  height: min(62vh, 460px);
+  width: 40px;
+}
+
+.track {
+  position: absolute;
+  left: 50%;
+  top: 2%;
+  bottom: 2%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    rgba(9, 188, 138, 0.05),
+    rgba(9, 188, 138, 0.35),
+    rgba(9, 188, 138, 0.05)
+  );
+}
+
+.fill {
+  position: absolute;
+  left: 50%;
+  top: 2%;
+  height: 96%;
+  width: 2px;
+  transform: translateX(-50%);
+  transform-origin: top;
+  background: var(--mint);
+  box-shadow: 0 0 10px rgba(9, 188, 138, 0.8);
+  will-change: transform;
+}
+
+.dot {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--mint);
+  will-change: transform, opacity;
+}
+
+.arrow {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  color: var(--mint);
+  font-size: 12px;
+  animation: arrow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes arrow-pulse {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, 4px);
+    opacity: 1;
+  }
+}
+
+/* ===== Titulares flotantes ===== */
+.titles {
+  height: min(62vh, 460px);
+  display: flex;
+  align-items: center;
+}
+
+.beltMask {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+}
+
+.belt {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 400%;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.sector {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mint);
+  font-weight: 600;
+}
+
+.itemTitle {
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--on-dark);
+}
+
+.itemDesc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--on-dark-soft);
+  max-width: 40ch;
+}
+
+/* ===== Lista accesible / fallback ===== */
+.staticList {
+  list-style: none;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.staticCase {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.staticDiagram {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(9, 188, 138, 0.08);
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+/* Desktop con motion: el escenario manda y la lista sale del flujo visual
+ * pero sigue disponible para lectores de pantalla. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 861px) {
+  .staticList {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+/* Móvil / reduced motion: el escenario se oculta y manda la lista */
+@media (prefers-reduced-motion: reduce), (max-width: 860px) {
+  .stage {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .staticCase {
+    grid-template-columns: 1fr;
+  }
+}

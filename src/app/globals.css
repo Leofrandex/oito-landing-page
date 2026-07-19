@@ -252,6 +252,11 @@ img, svg, canvas { display: block; }
     opacity: 0.3;
 }
 
+/* Anclas de sección: compensa el header fijo */
+.anchor-target {
+  scroll-margin-top: 90px;
+}
+
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {

@@ -38,13 +38,6 @@
   right: 16%;
   height: 2px;
   background: linear-gradient(90deg, rgba(9, 188, 138, 0.5), rgba(9, 188, 138, 0.25));
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 1s ease 0.35s;
-}
-
-.inner[data-revealed] .thread {
-  transform: scaleX(1);
 }
 
 .step {
@@ -168,22 +161,6 @@
   opacity: 0.8;
 }
 
-/* ===== Scroll-reveal ===== */
-.eyebrow,
-.title,
-.step {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.inner[data-revealed] .eyebrow,
-.inner[data-revealed] .title,
-.inner[data-revealed] .step {
-  opacity: 1;
-  transform: none;
-}
-
 /* ===== Responsive: vertical timeline ===== */
 @media (max-width: 720px) {
   .steps {
@@ -200,11 +177,6 @@
     width: 2px;
     height: auto;
     background: linear-gradient(rgba(9, 188, 138, 0.5), rgba(9, 188, 138, 0.25));
-    transform: scaleY(0);
-    transform-origin: top center;
-  }
-  .inner[data-revealed] .thread {
-    transform: scaleY(1);
   }
   .step {
     flex-direction: row;
@@ -220,15 +192,58 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .eyebrow,
-  .title,
-  .step {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  .thread {
-    transform: none;
-  }
+/* ===== Workflow ejecutándose (fase D) ===== */
+/* Degradado invertido: luz desde abajo (ritmo del bloque oscuro, spec v3 §4) */
+.workflow {
+  background: linear-gradient(to top, rgba(9, 188, 138, 0.06), transparent 55%);
+}
+
+.progress {
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  background: var(--mint);
+  box-shadow: 0 0 12px rgba(9, 188, 138, 0.7);
+  border-radius: inherit;
+  will-change: transform;
+}
+
+.nodeGlow {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 30px rgba(9, 188, 138, 0.5), inset 0 0 0 2px rgba(9, 188, 138, 0.7);
+  opacity: 0;
+}
+
+.check {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--mint);
+  color: #032a20;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+/* Fallback estático: todo completado */
+.workflow[data-static] .progress {
+  transform: scaleX(1);
+}
+
+.workflow[data-static] .check {
+  opacity: 1;
+  transform: none;
+}
+
+.workflow[data-static] [data-step] {
+  opacity: 1;
 }

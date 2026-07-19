@@ -59,7 +59,7 @@ const SOLUTIONS: Solution[] = [
     name: 'Reportes',
     note: 'reportes listos sin armarlos a mano',
     detail:
-      'Los números de tu negocio llegan armados y a tiempo: ventas, operacion o lo que midas, sin abrir una hoja de cálculo.',
+      'Los números de tu negocio llegan armados y a tiempo: ventas, operación o lo que midas, sin abrir una hoja de cálculo.',
   },
   {
     icon: Star,

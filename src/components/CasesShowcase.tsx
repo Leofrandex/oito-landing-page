@@ -110,7 +110,7 @@ export default function CasesShowcase({ id }: { id?: string }) {
   );
 
   return (
-    <section id={id} className={`section-dark anchor-target ${styles.section}`}>
+    <section ref={container} id={id} className={`section-dark anchor-target ${styles.section}`}>
       <header className={styles.head}>
         <p className="badge">Casos</p>
         <h2 className={styles.title}>

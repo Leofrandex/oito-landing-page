@@ -3,10 +3,27 @@
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import styles from './SocialProof.module.css';
 
+/* Sectores REALES de los casos del copy deck (anonimizados, sin nombres de cliente).
+ * Señales neutras verificables; sin métricas inventadas (CLAUDE.md / copy deck). */
+const SECTORS = [
+  'Ciberseguridad',
+  'Logística',
+  'Salud',
+  'Farmacéutica',
+  'Gestión de desechos',
+  'Transporte B2B',
+];
+
+const SIGNALS = [
+  { value: '6+', label: 'proyectos entregados' },
+  { value: '6', label: 'sectores distintos' },
+  { value: '24/7', label: 'operando en automático' },
+  { value: '100%', label: 'remoto y en español' },
+];
+
 export default function SocialProof() {
   const shouldReduceMotion = useReducedMotion();
 
-  // Neutral placeholder count (4-6 placeholders for balance)
   const placeholderCount = 5;
   const placeholders = Array.from({ length: placeholderCount }, (_, i) => i);
 
@@ -26,17 +43,13 @@ export default function SocialProof() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: shouldReduceMotion ? 0 : 0.4,
-        ease: 'easeOut',
-      },
+      transition: { duration: shouldReduceMotion ? 0 : 0.4, ease: 'easeOut' },
     },
   };
 
   return (
     <section className={`section-dark ${styles.section}`}>
       <div className={styles.container}>
-        {/* Title with mint accent on "oito" */}
         <motion.h2
           className={styles.title}
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
@@ -44,10 +57,27 @@ export default function SocialProof() {
           viewport={{ once: true }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
         >
-          Negocios que ya dejaron que <span className={`${styles.mintText} wordmark`}>oito</span> lo haga por ellos
+          Negocios que ya dejaron que <span className={`${styles.mintText} wordmark`}>oito</span> lo
+          haga por ellos
         </motion.h2>
 
-        {/* Neutral logo placeholders */}
+        {/* Franja 1: sectores reales atendidos */}
+        <motion.ul
+          className={styles.sectors}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-40px' }}
+          role="list"
+        >
+          {SECTORS.map((sector) => (
+            <motion.li key={sector} className={styles.sectorChip} variants={itemVariants}>
+              {sector}
+            </motion.li>
+          ))}
+        </motion.ul>
+
+        {/* Franja 2: placeholders de logos (se vuelven logos reales cuando haya permiso) */}
         <motion.div
           className={styles.logosGrid}
           variants={containerVariants}
@@ -62,15 +92,28 @@ export default function SocialProof() {
               variants={itemVariants}
               aria-label={`Client logo placeholder ${idx + 1}`}
             >
-              {/* Neutral icon: horizontal dash */}
               <div className={styles.placeholderIcon} aria-hidden="true" />
-
             </motion.div>
           ))}
         </motion.div>
 
-        {/* TODO: Extension marker for real assets */}
-        {/* TODO: reemplazar con logos/testimonios reales cuando el usuario los aporte (ver CLAUDE.md §7) */}
+        {/* Franja 3: señales neutras */}
+        <motion.dl
+          className={styles.signals}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-40px' }}
+        >
+          {SIGNALS.map(({ value, label }) => (
+            <motion.div key={label} className={styles.signal} variants={itemVariants}>
+              <dt className={styles.signalLabel}>{label}</dt>
+              <dd className={styles.signalValue}>{value}</dd>
+            </motion.div>
+          ))}
+        </motion.dl>
+
+        {/* TODO: slot de testimonio (1) cuando haya permiso del cliente */}
       </div>
     </section>
   );

@@ -41,7 +41,7 @@ const TOOLS: { icon: IconType; label: string }[] = [
 
 export default function BuiltWith() {
   return (
-    <section className={`section-light ${styles.section}`}>
+    <section className={`section-dark ${styles.section}`}>
       <p className={styles.label}>Sistemas construidos con</p>
       <div className={styles.viewport}>
         {/* Two identical groups → track animates 0 → -50% for a seamless loop. */}

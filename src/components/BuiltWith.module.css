@@ -11,7 +11,7 @@
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: var(--on-dark-soft);
 }
 
 /* Edges fade out so logos appear/disappear softly. */
@@ -44,14 +44,14 @@
 .logo {
   width: 40px;
   height: 40px;
-  color: var(--ink-soft);
+  color: var(--on-dark);
   opacity: 0.55;
   transition: color 0.25s ease, opacity 0.25s ease;
 }
 
 .group li:hover .logo {
-  color: var(--forest);
-  opacity: 1;
+  color: var(--on-dark);
+  opacity: 0.8;
 }
 
 @keyframes scroll {

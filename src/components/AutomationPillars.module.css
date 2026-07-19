@@ -219,6 +219,7 @@
     position: relative;
     width: 100%;
     transform: none;
+    inset: auto;
   }
 }
 

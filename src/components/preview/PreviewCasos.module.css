@@ -1,5 +1,6 @@
-/* Bloque 3 — Casos. Header real de CasesShowcase con menos aire; bento a la
- * izquierda, línea de recorrido al centro, solo titulares a la derecha. */
+/* Bloque 3 — Casos. Header real apretado; a la izquierda bloques cuyo tamaño lo
+ * pide su contenido (fit-content / auto) y que se reacomodan con Flip al cambiar
+ * de caso; al centro la línea de recorrido; a la derecha solo titulares. */
 .section {
   position: relative;
   padding: clamp(4rem, 8vw, 6rem) 1.5rem;
@@ -27,53 +28,60 @@
   align-items: center;
 }
 
-/* ===== Izquierda: bento ===== */
+/* ===== Izquierda: bloques fluidos ===== */
 .left {
   position: relative;
-  min-height: 380px;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
 }
 
-.pane {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  will-change: opacity;
+/* mosaico compacto de dos columnas fluidas */
+.mosaic {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 11px;
+  max-width: 440px;
 }
 
-.paneCard {
+/* columna única */
+.column {
   display: flex;
   flex-direction: column;
-  border-radius: 16px;
-  overflow: hidden;
+  align-items: flex-start;
+  gap: 11px;
+  max-width: 360px;
+}
+
+/* ===== Bloque base: mide lo que su contenido pide ===== */
+.block {
+  width: fit-content;
+  max-width: 100%;
+  border-radius: 14px;
   background: linear-gradient(120deg, rgba(9, 188, 138, 0.16), rgba(9, 188, 138, 0.03) 55%, rgba(9, 188, 138, 0.08));
   border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.22), 0 24px 48px -20px rgba(0, 0, 0, 0.6);
 }
 
-/* bento4: tarjeta ancha + 2 tiles */
-.bento {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8rem;
-  height: 100%;
-}
-
-.wide {
-  grid-column: 1 / -1;
-  padding: 1.1rem 1.25rem;
-}
-
-.wideMedia {
-  height: 120px;
-  margin-bottom: 0.9rem;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(9, 188, 138, 0.08);
+/* tarjeta descripción: ancho acotado, alto según el texto */
+.desc {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: 250px;
+  padding: 0.9rem 1.05rem;
+}
+
+.column .desc {
+  max-width: 340px;
+}
+
+.descText {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--on-dark-soft);
 }
 
 .sector {
@@ -84,84 +92,70 @@
   font-weight: 600;
 }
 
-.paneDesc {
-  margin-top: 0.4rem;
-  font-size: 0.92rem;
-  line-height: 1.55;
-  color: var(--on-dark-soft);
-}
-
-.statTile {
-  padding: 1rem 1.1rem;
+/* dato neutro */
+.dato {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  gap: 0.25rem;
+  gap: 0.2rem;
+  padding: 0.85rem 1.05rem;
 }
 
-.statBig {
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
+.datoBig {
+  font-size: clamp(1.4rem, 3.6vw, 1.9rem);
   font-weight: 700;
   line-height: 1;
   color: var(--mint);
   letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
-.statLabel {
-  font-size: 0.78rem;
+.datoLabel {
+  font-size: 0.74rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--on-dark-soft);
 }
 
-.tagsTile {
-  padding: 1rem 1.1rem;
+/* chips de stack */
+.stack {
   display: flex;
   flex-wrap: wrap;
-  align-content: center;
   gap: 0.4rem;
+  padding: 0.8rem 0.95rem;
+  max-width: 250px;
 }
 
-.tag {
-  font-size: 0.75rem;
+.column .stack {
+  max-width: 340px;
+}
+
+.chip {
+  font-size: 0.74rem;
   font-weight: 600;
   color: var(--on-dark);
-  padding: 0.3rem 0.6rem;
+  padding: 0.28rem 0.6rem;
   border-radius: 999px;
   background: rgba(9, 188, 138, 0.12);
   border: 1px solid rgba(9, 188, 138, 0.35);
+  white-space: nowrap;
 }
 
-/* cardstats: tarjeta de descripción + fila de 3 stats */
-.cardStack {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  height: 100%;
-}
-
-.cardMain {
-  padding: 1.1rem 1.25rem;
-  flex: 1;
-}
-
-.statsRow {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.8rem;
-}
-
-.statsRow .statTile {
-  align-items: center;
-  text-align: center;
+/* sector como pastilla compacta */
+.sectorTile {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--mint);
 }
 
 /* ===== Centro: línea de recorrido (copia de CasesShowcase) ===== */
 .route {
   position: relative;
   height: 100%;
-  min-height: 380px;
+  min-height: 300px;
   width: 40px;
 }
 
@@ -208,7 +202,7 @@
 /* ===== Derecha: solo titulares ===== */
 .titles {
   height: 100%;
-  min-height: 380px;
+  min-height: 300px;
   display: flex;
   align-items: center;
 }
@@ -260,9 +254,6 @@
   .left,
   .titles {
     min-height: 0;
-  }
-  .left {
-    height: 360px;
   }
   .titles {
     height: 220px;

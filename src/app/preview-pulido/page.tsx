@@ -42,70 +42,62 @@ export default function PreviewPulidoPage() {
 
       {/* ===== Bloque 1 — Dolor ===== */}
       <BlockHead
-        title="Bloque 1 — Dolor: visual compacto antes/después"
-        desc="Mismo texto real de arg1 y arg2; cambia solo el visual del medio."
+        title="Bloque 1 — Dolor: piezas desordenadas que se van construyendo"
+        desc="Mismo texto real de arg1 y arg2; en la banda del medio, fragmentos rojizos sueltos se ensamblan pieza a pieza en una composición ordenada mint y luego se desarman (loop)."
       />
       <div className={styles.variantWrap}>
-        <LabelBar id="dolor-morph" note="crossfade + blur hoy→con oito (lenguaje BeforeAfter)" />
-        <PreviewDolor variant="morph" />
+        <LabelBar id="dolor-modulos" note="fragmentos de UI que se ensamblan en un mini panel/dashboard" />
+        <PreviewDolor variant="modulos" />
       </div>
       <div className={styles.variantWrap}>
-        <LabelBar id="dolor-gemelas" note="dos tarjetas glass-light espejadas" />
-        <PreviewDolor variant="gemelas" />
+        <LabelBar id="dolor-pipeline" note="bloques con icono que encajan en un riel formando una cadena" />
+        <PreviewDolor variant="pipeline" />
       </div>
       <div className={styles.variantWrap}>
-        <LabelBar id="dolor-cortina" note="cortina mint que revela el orden (clip-path)" />
-        <PreviewDolor variant="cortina" />
+        <LabelBar id="dolor-torre" note="ladrillos que caen y construyen una estructura" />
+        <PreviewDolor variant="torre" />
       </div>
 
       {/* ===== Bloque 2 — Pilares ===== */}
       <BlockHead
-        title="Bloque 2 — Pilares: tratamiento de las conexiones"
-        desc="Nodos, iconos y textos reales de AutomationPillars; cambia solo cómo se conectan."
+        title="Bloque 2 — Pilares: DECIDIDO, montar para confirmación"
+        desc="Los 3 nodos reales en una misma fila (grid 3 columnas, diseño pre-circuito). Sin conectores ni SVG; única vida = glow secuencial 1→2→3."
       />
       <div className={styles.variantWrap}>
-        <LabelBar id="pilares-sinlineas" note="sin SVG, solo glow secuencial 1→2→3" />
-        <PreviewPilares variant="sinlineas" />
-      </div>
-      <div className={styles.variantWrap}>
-        <LabelBar id="pilares-pcb" note="trazas PCB en ángulo recto + pads + pulsos" />
-        <PreviewPilares variant="pcb" />
-      </div>
-      <div className={styles.variantWrap}>
-        <LabelBar id="pilares-anillo" note="anillo elíptico punteado + punto orbitando" />
-        <PreviewPilares variant="anillo" />
+        <LabelBar id="pilares-fila" note="DECIDIDO: confirmar" />
+        <PreviewPilares />
       </div>
 
       {/* ===== Bloque 3 — Casos ===== */}
       <BlockHead
-        title="Bloque 3 — Casos: bento izquierda + titulares derecha"
-        desc="Header real con menos aire; a la derecha solo sector + titular (sin descripción). Avanza solo cada ~3s."
+        title="Bloque 3 — Casos: bento con tamaño según contenido + resize fluido (Flip)"
+        desc="Cada bloque mide lo que su contenido pide; al cambiar de caso los bloques crecen/encogen y se reacomodan con el plugin Flip de GSAP. Avanza solo cada ~3.5s."
       />
       <div className={styles.variantWrap}>
-        <LabelBar id="casos-bento4" note="bento por caso: tarjeta ancha + stat neutral + tags" />
-        <PreviewCasos variant="bento4" />
+        <LabelBar id="casos-flip-mosaico" note="dos columnas fluidas tipo masonry compacto" />
+        <PreviewCasos variant="mosaico" />
       </div>
       <div className={styles.variantWrap}>
-        <LabelBar id="casos-cardstats" note="tarjeta de descripción + fila de 3 stats neutrales" />
-        <PreviewCasos variant="cardstats" />
+        <LabelBar id="casos-flip-columna" note="una sola columna con fila de chips/mini-tiles que refluyen" />
+        <PreviewCasos variant="columna" />
       </div>
 
       {/* ===== Bloque 4 — Soluciones ===== */}
       <BlockHead
-        title="Bloque 4 — Soluciones: tratamiento del detalle"
-        desc="Píldoras reales; cambia cómo se muestra el detalle. Interactivas de verdad (hover / click)."
+        title="Bloque 4 — Soluciones: la marquesina se queda; alternativas del destacado"
+        desc="La marquesina real en movimiento (8 píldoras + notas); cambia solo el destacado de abajo. La solución activa rota cada ~4s (o al hacer click en una píldora)."
       />
       <div className={styles.variantWrap}>
-        <LabelBar id="soluciones-popover" note="popover flotante anclado a la píldora" />
-        <PreviewSoluciones variant="popover" />
+        <LabelBar id="destacado-flujo" note="mini-diagrama de flujo entrada → oito → resultado" />
+        <PreviewSoluciones variant="flujo" />
       </div>
       <div className={styles.variantWrap}>
-        <LabelBar id="soluciones-expandir" note="la píldora se expande inline con el detalle" />
-        <PreviewSoluciones variant="expandir" />
+        <LabelBar id="destacado-chat" note="mini conversación WhatsApp en loop" />
+        <PreviewSoluciones variant="chat" />
       </div>
       <div className={styles.variantWrap}>
-        <LabelBar id="soluciones-sindetalle" note="solo píldoras, sin bloque de detalle" />
-        <PreviewSoluciones variant="sindetalle" />
+        <LabelBar id="destacado-cta" note="detail + botón contextual 'Automatiza esto →' (WhatsApp real)" />
+        <PreviewSoluciones variant="cta" />
       </div>
 
       {/* ===== Bloque 5 — BorderGlow ===== */}

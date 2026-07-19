@@ -1,27 +1,25 @@
 'use client';
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import {
-  RouteDiagram,
-  ChainDiagram,
-  FunnelDiagram,
-  FanoutDiagram,
-} from '@/components/CaseDiagrams';
+import { Flip } from 'gsap/all';
 import styles from './PreviewCasos.module.css';
 
-type Variant = 'bento4' | 'cardstats';
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(Flip);
+}
 
+type Variant = 'mosaico' | 'columna';
+
+/* Datos NEUTROS (canales, 24/7, PWA, GPS, sector). Nunca métricas de resultado. */
 type CaseData = {
   pillar: 'Automatización' | 'Desarrollo';
   title: string;
   description: string;
-  diagram: ReactNode;
-  statBig: string; // stat NEUTRAL, nunca resultado
-  statLabel: string;
-  tags: string[];
-  stats3: Array<{ big: string; label: string }>;
+  dato: string;
+  datoLabel: string;
+  chips: string[];
 };
 
 const CASES: CaseData[] = [
@@ -29,61 +27,37 @@ const CASES: CaseData[] = [
     pillar: 'Automatización',
     title: 'Calificación de leads con IA',
     description:
-      'Para un integrador de ciberseguridad: un flujo recibe cotizaciones por email, WhatsApp y web, extrae los datos (incluso de PDFs y adjuntos), califica con IA y los reparte en el CRM.',
-    diagram: <FunnelDiagram />,
-    statBig: '3 canales',
-    statLabel: 'Entradas unificadas',
-    tags: ['Email', 'WhatsApp', 'Web', 'PDF', 'CRM', 'IA'],
-    stats3: [
-      { big: '3 canales', label: 'Entradas' },
-      { big: 'IA', label: 'Calificación' },
-      { big: 'CRM', label: 'Reparto' },
-    ],
+      'Un flujo recibe cotizaciones por email, WhatsApp y web, extrae los datos (incluso de PDFs) y los reparte en el CRM.',
+    dato: '3 canales',
+    datoLabel: 'Entradas',
+    chips: ['Email', 'WhatsApp', 'Web', 'CRM'],
   },
   {
     pillar: 'Automatización',
     title: 'Secuencias de venta con IA',
     description:
-      'Para un bróker logístico B2B: agentes de IA con RAG generan correos de venta personalizados y los envían en automático desde el correo de cada vendedor.',
-    diagram: <FanoutDiagram />,
-    statBig: '24/7',
-    statLabel: 'Envío automático',
-    tags: ['IA', 'RAG', 'Email', 'Ventas', 'B2B'],
-    stats3: [
-      { big: '24/7', label: 'Operación' },
-      { big: 'RAG', label: 'Contexto' },
-      { big: '1:1', label: 'Personalizado' },
-    ],
+      'Agentes con RAG generan correos de venta personalizados y los envían desde el correo de cada vendedor.',
+    dato: '24/7',
+    datoLabel: 'Operación',
+    chips: ['IA', 'RAG', 'Email'],
   },
   {
     pillar: 'Desarrollo',
-    title: 'Trazabilidad de desechos peligrosos',
+    title: 'Trazabilidad de desechos',
     description:
-      'PWA para una planta de tratamiento de desechos hospitalarios: pesaje, evidencia fotográfica, firmas y reportes PDF regulatorios en automático.',
-    diagram: <ChainDiagram />,
-    statBig: 'PWA',
-    statLabel: 'App instalable',
-    tags: ['PWA', 'Pesaje', 'Firmas', 'PDF', 'Fotos'],
-    stats3: [
-      { big: 'PWA', label: 'Plataforma' },
-      { big: 'PDF', label: 'Reportes' },
-      { big: 'Firmas', label: 'Evidencia' },
-    ],
+      'PWA para una planta de tratamiento: pesaje, evidencia fotográfica, firmas y reportes PDF regulatorios.',
+    dato: 'PWA',
+    datoLabel: 'Instalable',
+    chips: ['PWA', 'Firmas', 'PDF', 'Fotos'],
   },
   {
     pillar: 'Desarrollo',
-    title: 'App de rastreo de fuerza de campo',
+    title: 'Rastreo de fuerza de campo',
     description:
-      'App móvil nativa + panel web para una distribuidora farmacéutica: GPS en tiempo real, modo offline y cámara anti-fraude para verificar visitas en campo.',
-    diagram: <RouteDiagram />,
-    statBig: 'GPS',
-    statLabel: 'Tiempo real',
-    tags: ['GPS', 'Offline', 'Cámara', 'Móvil', 'Panel web'],
-    stats3: [
-      { big: 'GPS', label: 'Ubicación' },
-      { big: 'Offline', label: 'Sin señal' },
-      { big: 'Anti-fraude', label: 'Cámara' },
-    ],
+      'App móvil + panel web para una distribuidora: GPS en tiempo real, modo offline y cámara anti-fraude.',
+    dato: 'GPS',
+    datoLabel: 'Tiempo real',
+    chips: ['GPS', 'Offline', 'Cámara'],
   },
 ];
 
@@ -91,33 +65,45 @@ const STEPS = CASES.length;
 
 export default function PreviewCasos({ variant }: { variant: Variant }) {
   const container = useRef<HTMLDivElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const flipState = useRef<ReturnType<typeof Flip.getState> | null>(null);
   const [active, setActive] = useState(0);
 
-  /* Auto-avance cada ~3s (salvo reduced motion). */
+  /* Auto-avance cada ~3.5s: captura el estado Flip ANTES del re-render. */
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const id = window.setInterval(() => {
+      const left = leftRef.current;
+      if (left) flipState.current = Flip.getState(left.querySelectorAll('[data-flip]'));
       setActive((a) => (a + 1) % STEPS);
-    }, 3000);
+    }, 3500);
     return () => window.clearInterval(id);
   }, []);
 
+  /* Tras pintar el nuevo caso, Flip anima el cambio de tamaño/posición fluido. */
+  useLayoutEffect(() => {
+    if (flipState.current) {
+      Flip.from(flipState.current, {
+        duration: 0.6,
+        ease: 'power2.inOut',
+        absolute: true,
+      });
+      flipState.current = null;
+    }
+  }, [active]);
+
+  /* Línea de recorrido, puntos y cinta de titulares (idéntico al bloque real). */
   useGSAP(
     () => {
       const root = container.current;
       if (!root) return;
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      const panes = gsap.utils.toArray<HTMLElement>('[data-pane]');
       const dots = gsap.utils.toArray<HTMLElement>('[data-dot]');
       const fill = root.querySelector<HTMLElement>('[data-fill]');
       const belt = root.querySelector<HTMLElement>('[data-belt]');
-
       const dur = reduce ? 0 : 0.5;
 
-      panes.forEach((p, i) => {
-        gsap.to(p, { autoAlpha: i === active ? 1 : 0, duration: dur, ease: 'power2.out' });
-      });
       dots.forEach((d, i) => {
         gsap.to(d, {
           opacity: i === active ? 1 : 0.4,
@@ -131,6 +117,8 @@ export default function PreviewCasos({ variant }: { variant: Variant }) {
     { scope: container, dependencies: [active] },
   );
 
+  const c = CASES[active];
+
   return (
     <section className={`section-dark ${styles.section}`}>
       <header className={styles.head}>
@@ -141,56 +129,37 @@ export default function PreviewCasos({ variant }: { variant: Variant }) {
       </header>
 
       <div className={styles.stage} ref={container}>
-        {/* ===== Izquierda: bento ===== */}
-        <div className={styles.left}>
-          {CASES.map((c) => (
-            <div key={c.title} className={styles.pane} data-pane aria-hidden="true">
-              {variant === 'bento4' ? (
-                <div className={styles.bento}>
-                  <div className={`${styles.paneCard} ${styles.wide}`}>
-                    <div className={styles.wideMedia}>{c.diagram}</div>
-                    <span className={styles.sector}>{c.pillar}</span>
-                    <p className={styles.paneDesc}>{c.description}</p>
-                  </div>
-                  <div className={`${styles.paneCard} ${styles.statTile}`}>
-                    <span className={styles.statBig}>{c.statBig}</span>
-                    <span className={styles.statLabel}>{c.statLabel}</span>
-                  </div>
-                  <div className={`${styles.paneCard} ${styles.tagsTile}`}>
-                    {c.tags.map((t) => (
-                      <span key={t} className={styles.tag}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className={styles.cardStack}>
-                  <div className={`${styles.paneCard} ${styles.cardMain}`}>
-                    <span className={styles.sector}>{c.pillar}</span>
-                    <p className={styles.paneDesc}>{c.description}</p>
-                  </div>
-                  <div className={styles.statsRow}>
-                    {c.stats3.map((s) => (
-                      <div key={s.big} className={`${styles.paneCard} ${styles.statTile}`}>
-                        <span className={styles.statBig}>{s.big}</span>
-                        <span className={styles.statLabel}>{s.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+        {/* ===== Izquierda: bloques con tamaño según contenido (Flip) ===== */}
+        <div className={styles.left} ref={leftRef}>
+          <div className={variant === 'mosaico' ? styles.mosaic : styles.column}>
+            <div className={`${styles.block} ${styles.desc}`} data-flip data-flip-id="desc">
+              <span className={styles.sector}>{c.pillar}</span>
+              <p className={styles.descText}>{c.description}</p>
             </div>
-          ))}
+            <div className={`${styles.block} ${styles.dato}`} data-flip data-flip-id="dato">
+              <span className={styles.datoBig}>{c.dato}</span>
+              <span className={styles.datoLabel}>{c.datoLabel}</span>
+            </div>
+            <div className={`${styles.block} ${styles.stack}`} data-flip data-flip-id="stack">
+              {c.chips.map((chip) => (
+                <span key={chip} className={styles.chip}>
+                  {chip}
+                </span>
+              ))}
+            </div>
+            <div className={`${styles.block} ${styles.sectorTile}`} data-flip data-flip-id="sector">
+              {c.pillar}
+            </div>
+          </div>
         </div>
 
         {/* ===== Centro: línea de recorrido ===== */}
         <div className={styles.route} aria-hidden="true">
           <span className={styles.track} />
           <span className={styles.fill} data-fill />
-          {CASES.map((c, i) => (
+          {CASES.map((cs, i) => (
             <span
-              key={c.title}
+              key={cs.title}
               className={styles.dot}
               data-dot
               style={{ top: `${((i + 0.5) / STEPS) * 100}%` }}
@@ -202,10 +171,10 @@ export default function PreviewCasos({ variant }: { variant: Variant }) {
         <div className={styles.titles} aria-hidden="true">
           <div className={styles.beltMask}>
             <div className={styles.belt} data-belt>
-              {CASES.map((c) => (
-                <div key={c.title} className={styles.item}>
-                  <span className={styles.sector}>{c.pillar}</span>
-                  <h3 className={styles.itemTitle}>{c.title}</h3>
+              {CASES.map((cs) => (
+                <div key={cs.title} className={styles.item}>
+                  <span className={styles.sector}>{cs.pillar}</span>
+                  <h3 className={styles.itemTitle}>{cs.title}</h3>
                 </div>
               ))}
             </div>

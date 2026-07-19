@@ -1,20 +1,14 @@
-/* Bloque 4 — Soluciones. Sobre section-light. .pill copiado exacto de
- * SolutionsGrid.module.css; cambia solo el tratamiento del detalle. */
+/* Bloque 4 — Soluciones. La marquesina se reusa 1:1 de SolutionsGrid (import sg);
+ * aquí solo el cromo de sección y las alternativas de destacado (flujo/chat/cta). */
 .section {
   position: relative;
-  padding: clamp(4rem, 8vw, 6rem) 1.5rem;
-}
-
-.inner {
-  position: relative;
-  max-width: 1080px;
-  margin: 0 auto;
+  padding: clamp(4.5rem, 9vw, 8rem) 1.5rem;
 }
 
 .head {
   text-align: center;
   max-width: 640px;
-  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  margin: 0 auto clamp(2.5rem, 5vw, 3.5rem);
 }
 
 .title {
@@ -24,146 +18,192 @@
   color: var(--forest-deep);
 }
 
-.rowWrap {
+.disclaimer {
+  margin: 0.9rem auto 0;
+  max-width: 540px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ===== Destacado (base) ===== */
+.featured {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.2rem 1.4rem;
+}
+
+.featuredMain {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  position: relative;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
-/* Ancla para el popover flotante */
-.pillAnchor {
-  position: relative;
-  display: inline-flex;
-}
-
-/* ===== Píldora (copia exacta de SolutionsGrid) ===== */
-.pill {
+.featuredIcon {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
-  border-radius: 999px;
-  padding: 0.6rem 1.1rem;
-  font: inherit;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  color: var(--mint);
+  background: rgba(9, 188, 138, 0.12);
+  border: 1px solid rgba(9, 188, 138, 0.35);
+}
+
+.featuredName {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+  color: var(--forest-deep);
+}
+
+.featuredDetail {
   font-size: 0.92rem;
-  font-weight: 500;
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.6);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ===== Variante flujo: mini-diagrama entrada -> oito -> resultado ===== */
+.featuredFlow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.flow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.4rem 0.2rem;
+}
+
+.flowNode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--forest-deep);
+  background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(0, 67, 70, 0.14);
-  box-shadow: 0 8px 18px -10px rgba(0, 67, 70, 0.18);
-  cursor: pointer;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
 }
 
-.pill:hover {
-  border-color: rgba(9, 188, 138, 0.55);
-  transform: translateY(-2px);
-}
-
-.pill[aria-pressed='true'],
-.pill[aria-expanded='true'] {
-  border-color: rgba(9, 188, 138, 0.7);
+.flowCore {
+  color: var(--mint);
+  border-color: rgba(9, 188, 138, 0.6);
   background: rgba(9, 188, 138, 0.1);
 }
 
-.pill svg { color: var(--mint); flex-shrink: 0; }
-
-.pillNote {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--mint);
+.flowThread {
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(9, 188, 138, 0.3), rgba(9, 188, 138, 0.6));
 }
 
-/* ===== Variante popover ===== */
-.popover {
+.flowPulse {
   position: absolute;
-  bottom: calc(100% + 12px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(300px, 78vw);
-  z-index: 5;
-  background: #ffffff;
-  border: 1px solid rgba(9, 188, 138, 0.55);
-  border-radius: 14px;
-  padding: 0.9rem 1rem;
-  box-shadow: 0 20px 44px -20px rgba(0, 67, 70, 0.35);
-  text-align: left;
+  left: 0;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 12px rgba(9, 188, 138, 0.9);
+  pointer-events: none;
+  will-change: transform;
 }
 
-.popoverName {
-  font-size: 0.98rem;
-  font-weight: 600;
-  color: var(--forest-deep);
-  margin-bottom: 0.2rem;
-}
-
-.popoverDetail {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: var(--ink-soft);
-}
-
-.popoverArrow {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) rotate(45deg);
-  width: 12px;
-  height: 12px;
-  margin-top: -6px;
-  background: #ffffff;
-  border-right: 1px solid rgba(9, 188, 138, 0.55);
-  border-bottom: 1px solid rgba(9, 188, 138, 0.55);
-}
-
-/* ===== Variante expandir (inline) ===== */
-.rowExpand {
-  align-items: flex-start;
-}
-
-.pillExpandable {
-  flex-direction: column;
-  align-items: flex-start;
-  white-space: normal;
-  overflow: hidden;
-  max-width: 220px;
-  max-height: 46px;
-  transition:
-    max-width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.2s ease,
-    background 0.2s ease;
-}
-
-.pillExpandable[aria-expanded='true'] {
-  max-width: min(360px, 82vw);
-  max-height: 220px;
-}
-
-.pillHeadRow {
-  display: inline-flex;
+/* ===== Variante chat: mini conversación WhatsApp ===== */
+.featuredChat {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
   align-items: center;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
-.expandDetail {
-  margin-top: 0.6rem;
+.bubble {
+  max-width: 90%;
+  padding: 0.55rem 0.8rem;
+  border-radius: 14px;
   font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--ink-soft);
-  opacity: 0;
-  transition: opacity 0.25s ease 0.1s;
+  line-height: 1.4;
+  will-change: transform, opacity;
 }
 
-.pillExpandable[aria-expanded='true'] .expandDetail {
-  opacity: 1;
+.bubbleIn {
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 67, 70, 0.12);
+}
+
+.bubbleOut {
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  color: var(--forest-deep);
+  background: rgba(9, 188, 138, 0.16);
+  border: 1px solid rgba(9, 188, 138, 0.35);
+}
+
+/* ===== Variante cta: detalle + botón secundario contextual ===== */
+.featuredCta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.featuredCtaBody {
+  flex: 1;
+  min-width: 200px;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--mint);
+  background: rgba(9, 188, 138, 0.1);
+  border: 1px solid rgba(9, 188, 138, 0.55);
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.ctaBtn:hover {
+  border-color: rgba(9, 188, 138, 0.8);
+  background: rgba(9, 188, 138, 0.16);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 560px) {
+  .featuredChat {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pillExpandable,
-  .expandDetail {
+  .ctaBtn {
     transition: none;
   }
 }

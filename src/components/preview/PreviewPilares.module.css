@@ -1,5 +1,6 @@
-/* Bloque 2 — Pilares. Copia exacta de AutomationPillars.module.css; la capa de
- * brillo se hace con un hijo (.nodeGlow) para poder controlarla con GSAP. */
+/* Bloque 2 — Pilares (DECIDIDO). Estilos reales de AutomationPillars.module.css,
+ * pero los 3 nodos en una MISMA FILA (grid 3 columnas, diseño pre-circuito). Sin
+ * SVG ni conectores; la capa .nodeGlow se controla con GSAP (solo opacity). */
 .section {
   position: relative;
   padding: clamp(4.5rem, 9vw, 8rem) 1.5rem;
@@ -36,76 +37,22 @@
   text-shadow: 0 2px 18px rgba(0, 20, 22, 0.55);
 }
 
-/* ===== Circuito ===== */
-.circuit {
-  position: relative;
-  min-height: 520px;
-}
-
-.wires {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.wire {
-  fill: none;
-  stroke: rgba(9, 188, 138, 0.25);
-  stroke-width: 1.5;
-}
-
-.pad {
-  fill: var(--forest-deep);
-  stroke: rgba(9, 188, 138, 0.5);
-  stroke-width: 1.5;
-}
-
-.pulse {
-  fill: none;
-  stroke: var(--mint);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  filter: drop-shadow(0 0 5px rgba(9, 188, 138, 0.8));
-}
-
-/* anillo elíptico punteado */
-.ring {
-  fill: none;
-  stroke: rgba(9, 188, 138, 0.25);
-  stroke-width: 1.5;
-  stroke-dasharray: 6 10;
-}
-
-.orbit {
-  fill: none;
-  stroke: var(--mint);
-  stroke-width: 3;
-  stroke-linecap: round;
-  filter: drop-shadow(0 0 6px rgba(9, 188, 138, 0.9));
-}
-
-/* ===== Nodos ===== */
+/* ===== Nodos en una misma fila (grid 3 columnas) ===== */
 .nodes {
   list-style: none;
-  position: relative;
-  height: 100%;
-  min-height: 520px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  align-items: stretch;
 }
 
 .node {
-  position: absolute;
-  width: min(320px, 34%);
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
   padding: clamp(1.4rem, 2.6vw, 2rem);
 }
-
-.n1 { left: 2%; top: 0; }
-.n3 { right: 2%; top: 0; }
-.n2 { left: 50%; transform: translateX(-50%); bottom: 0; }
 
 .nodeGlow {
   content: "";
@@ -145,47 +92,15 @@
   color: var(--on-dark-soft);
 }
 
-/* ===== Responsive: en movil el circuito se apila con linea vertical ===== */
+/* ===== Responsive: se apila en columna ===== */
 @media (max-width: 760px) {
-  .circuit { min-height: 0; }
-  .wires { display: none; }
-
   .nodes {
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 1.25rem;
-    padding-left: 18px;
-  }
-
-  .nodes::before {
-    content: "";
-    position: absolute;
-    left: 4px;
-    top: 8px;
-    bottom: 8px;
-    width: 2px;
-    background: linear-gradient(
-      to bottom,
-      rgba(9, 188, 138, 0.05),
-      rgba(9, 188, 138, 0.4),
-      rgba(9, 188, 138, 0.05)
-    );
-  }
-
-  .node,
-  .n1,
-  .n2,
-  .n3 {
-    position: relative;
-    width: 100%;
-    transform: none;
-    inset: auto;
   }
 }
 
 /* ===== Reduced motion: nodos encendidos, sin animación ===== */
 @media (prefers-reduced-motion: reduce) {
   .nodeGlow { opacity: 1; }
-  .pulse, .orbit { opacity: 0; }
 }

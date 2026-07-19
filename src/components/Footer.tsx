@@ -22,7 +22,7 @@ export default function Footer() {
             <ul className={styles.list}>
               <li><Link href="/" className={styles.link}>Inicio</Link></li>
               <li><Link href="/desarrollo-web" className={styles.link}>Desarrollo web</Link></li>
-              <li><Link href="/automatizacion-ia" className={styles.link}>Automatización &amp; IA</Link></li>
+              <li><Link href="/#soluciones" className={styles.link}>Automatización &amp; IA</Link></li>
             </ul>
           </div>
 

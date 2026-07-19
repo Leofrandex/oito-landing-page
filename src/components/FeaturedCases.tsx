@@ -67,7 +67,7 @@ export default function FeaturedCases() {
           <Button variant="secondary" href="/desarrollo-web">
             Ver todo el desarrollo <ArrowRight size={18} strokeWidth={2} />
           </Button>
-          <Button variant="secondary" href="/automatizacion-ia">
+          <Button variant="secondary" href="/#soluciones">
             Ver toda la automatización <ArrowRight size={18} strokeWidth={2} />
           </Button>
         </div>

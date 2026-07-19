@@ -112,7 +112,7 @@ export default function CasesShowcase({ id }: { id?: string }) {
   return (
     <section id={id} className={`section-dark anchor-target ${styles.section}`}>
       <header className={styles.head}>
-        <p className={`badge ${styles.eyebrow}`}>Casos</p>
+        <p className="badge">Casos</p>
         <h2 className={styles.title}>
           Lo que <span className="wordmark">oito</span> ya ha construido
         </h2>

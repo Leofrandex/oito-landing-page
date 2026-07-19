@@ -1,0 +1,97 @@
+/* BorderGlow adaptado a oito. Glow de borde rastreado por el puntero
+ * con mascaras (rim + spotlight). Malla mint monocroma.
+ * Guardado sin consumidores (2026-07-19), ver comentario en BorderGlow.tsx. */
+
+/* ===== Tarjeta con glow ===== */
+.card {
+  --mx: 50%;
+  --my: 50%;
+  --op: 0;
+  position: relative;
+  border-radius: 22px;
+  padding: 1.5rem 1.4rem;
+  background-color: #06231e;
+  color: var(--on-dark);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cardLight {
+  background-color: #faf7ef;
+  color: var(--ink);
+}
+
+/* rim base: malla conica mint tenue, siempre visible */
+.rimBase {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from 120deg, #09bc8a, #6fffd2, #067a5a, #09bc8a);
+  opacity: 0.28;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* spotlight: radial mint en la posicion del puntero, limitado al rim */
+.rimSpot {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.8px;
+  background: radial-gradient(
+    220px circle at var(--mx) var(--my),
+    rgba(111, 255, 210, 0.95),
+    rgba(9, 188, 138, 0.55) 42%,
+    transparent 70%
+  );
+  opacity: var(--op);
+  transition: opacity 0.3s ease;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* halo suave interior siguiendo al puntero */
+.halo {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    260px circle at var(--mx) var(--my),
+    rgba(9, 188, 138, 0.16),
+    transparent 60%
+  );
+  opacity: var(--op);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cardLight .rimSpot {
+  background: radial-gradient(
+    220px circle at var(--mx) var(--my),
+    rgba(9, 188, 138, 0.7),
+    rgba(6, 122, 90, 0.4) 42%,
+    transparent 70%
+  );
+}
+
+.cardLight .halo {
+  background: radial-gradient(
+    240px circle at var(--mx) var(--my),
+    rgba(9, 188, 138, 0.1),
+    transparent 60%
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}

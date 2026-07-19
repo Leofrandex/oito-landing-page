@@ -113,7 +113,7 @@ export default function WhyOito() {
       <div className={styles.glow} aria-hidden="true" />
 
       <div className={styles.stage}>
-        <p className={`badge ${styles.eyebrow}`}>Por qué oito</p>
+        <p className="badge">Por qué oito</p>
 
         <div className={styles.arg} data-arg1>
           <h2 className={styles.argTitle}>

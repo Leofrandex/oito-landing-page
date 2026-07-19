@@ -4,6 +4,7 @@ import { useState } from 'react';
 import WhatsAppIcon from './WhatsAppIcon';
 import Reveal from './ui/Reveal';
 import Button from '@/components/ui/Button';
+import useCountUp from './ui/useCountUp';
 import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './RoiCalculator.module.css';
 
@@ -12,6 +13,11 @@ const fmt = new Intl.NumberFormat('es', {
   currency: 'USD',
   maximumFractionDigits: 0,
 });
+
+/* Máximo teórico de horas/mes con los sliders al tope (20 personas x 40 h x 4.33).
+ * Escala sqrt para que las columnas se muevan de forma visible en todo el rango. */
+const MAX_HORAS_MES = 20 * 40 * 4.33;
+const colPct = (horas: number) => 8 + 84 * Math.sqrt(horas / MAX_HORAS_MES);
 
 type FieldProps = {
   label: string;
@@ -24,6 +30,7 @@ type FieldProps = {
 
 function Field({ label, value, min, max, onChange, prefix }: FieldProps) {
   const id = label.replace(/\s+/g, '-').toLowerCase();
+  const pct = ((value - min) / (max - min)) * 100;
   return (
     <div className={styles.field}>
       <label htmlFor={id} className={styles.fieldLabel}>
@@ -41,39 +48,49 @@ function Field({ label, value, min, max, onChange, prefix }: FieldProps) {
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         className={styles.range}
+        style={{
+          background: `linear-gradient(to right, var(--mint) ${pct}%, rgba(255, 255, 255, 0.12) ${pct}%)`,
+        }}
       />
     </div>
   );
 }
 
-type RoiCalculatorProps = {
-  id?: string;
-};
-
-export default function RoiCalculator({ id }: RoiCalculatorProps) {
+export default function RoiCalculator({ id }: { id?: string }) {
   const [personas, setPersonas] = useState(2);
   const [horasSemana, setHorasSemana] = useState(10);
   const [costoHora, setCostoHora] = useState(8);
 
   const horasMes = personas * horasSemana * 4.33;
-  const costoMensual = Math.round(horasMes * costoHora);
-  const costoAnual = costoMensual * 12;
-  const horasRecuperables = Math.round(horasMes * 0.7);
+  const costoMensual = horasMes * costoHora;
+  const horasRecuperables = horasMes * 0.7;
+  const horasRestantes = horasMes - horasRecuperables;
+
+  /* Todos los números y las columnas persiguen su objetivo con tween fluido. */
+  const costoAnim = useCountUp(costoMensual);
+  const horasHoyAnim = useCountUp(horasMes);
+  const horasOitoAnim = useCountUp(horasRestantes);
+  const deltaAnim = useCountUp(horasRecuperables);
+
+  const hoyScale = colPct(horasHoyAnim) / 100;
+  const oitoScale = colPct(horasOitoAnim) / 100;
 
   return (
-    <section id={id} className={`section-light anchor-target ${styles.section}`}>
+    <section id={id} className={`section-dark anchor-target ${styles.section}`}>
       <Reveal className={styles.inner}>
-        <header className={styles.head} style={{ transitionDelay: '0ms' }}>
-          <p className={`badge ${styles.eyebrow}`}>Calculadora</p>
-          <h2 className={styles.title}>
+        <header className={styles.head}>
+          <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>
+            Calculadora
+          </p>
+          <h2 className={styles.title} style={{ transitionDelay: '70ms' }}>
             Calcula el costo real de <span className={styles.accent}>no automatizar</span>
           </h2>
-          <p className={styles.lede}>
-            Analiza cuánto pierde tu equipo en tareas repetitivas y el impacto de automatizarlas.
+          <p className={styles.lede} style={{ transitionDelay: '130ms' }}>
+            Ajusta los tres valores a tu operación. El resto lo hace la página.
           </p>
         </header>
 
-        <div className={`glass-light ${styles.panel}`} style={{ transitionDelay: '120ms' }}>
+        <div className={styles.layout} style={{ transitionDelay: '200ms' }}>
           <div className={styles.controls}>
             <Field
               label="Personas en tareas repetitivas"
@@ -97,22 +114,51 @@ export default function RoiCalculator({ id }: RoiCalculatorProps) {
               onChange={setCostoHora}
               prefix="$"
             />
-          </div>
 
-          <div className={styles.result} aria-live="polite">
-            <span className={styles.resultLabel}>Costo mensual de esas tareas</span>
-            <span className={styles.resultValue}>
-              {fmt.format(costoMensual)}
-              <span className={styles.per}>/mes</span>
-            </span>
-            <span className={styles.resultSub}>
-              {fmt.format(costoAnual)} al año · ~{horasRecuperables} h/mes recuperables
-            </span>
-            <span className={styles.estimateTag}>Cálculo estimado · ~70% potencial recuperable</span>
+            <div className={styles.verdict} aria-live="polite">
+              <span className={styles.money}>
+                {fmt.format(Math.round(costoAnim))}
+                <span className={styles.per}>/mes en trabajo manual</span>
+              </span>
+              <span className={styles.note}>Cálculo estimado · ~70% del tiempo es recuperable</span>
+            </div>
+
             <Button variant="primary" external href={WHATSAPP_URL}>
               <WhatsAppIcon size={20} />
               Hablemos de tu caso
             </Button>
+          </div>
+
+          <div className={styles.plot} aria-hidden="true">
+            <div className={styles.baseline} />
+            <div className={styles.colWrap}>
+              <div className={styles.colTrack}>
+                <div
+                  className={`${styles.col} ${styles.colHoy}`}
+                  style={{ transform: `scaleY(${hoyScale})` }}
+                />
+              </div>
+              <span className={styles.colNum}>{Math.round(horasHoyAnim)} h</span>
+              <span className={styles.colLab}>Hoy</span>
+            </div>
+            <div className={styles.colWrap}>
+              <div className={styles.colTrack}>
+                <div
+                  className={`${styles.col} ${styles.colOito}`}
+                  style={{ transform: `scaleY(${oitoScale})` }}
+                />
+              </div>
+              <span className={styles.colNum}>{Math.round(horasOitoAnim)} h</span>
+              <span className={styles.colLab}>Con oito</span>
+            </div>
+            <div className={styles.delta}>
+              <span className={styles.deltaArrow} />
+              <span className={styles.deltaText}>
+                {Math.round(deltaAnim)} h<br />
+                vuelven
+                <br />a ti /mes
+              </span>
+            </div>
           </div>
         </div>
       </Reveal>

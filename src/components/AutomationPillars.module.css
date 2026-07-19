@@ -56,70 +56,22 @@
   transform: none;
 }
 
-/* ===== Circuito ===== */
-.circuit {
-  position: relative;
-  min-height: 520px;
-}
-
-.wires {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.wire {
-  fill: none;
-  stroke: rgba(9, 188, 138, 0.22);
-  stroke-width: 1.5;
-}
-
-.pulse {
-  fill: none;
-  stroke: var(--mint);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-dasharray: 40 900;
-  stroke-dashoffset: 940;
-  filter: drop-shadow(0 0 5px rgba(9, 188, 138, 0.8));
-  opacity: 0;
-}
-
-/* p1=A (n1->n2) @0s, p2=B (n2->n3) @1.5s, p3=C (n3->n1) @3s */
-.inner[data-revealed] .p1 { animation: pulse-travel 4.5s linear infinite; }
-.inner[data-revealed] .p2 { animation: pulse-travel 4.5s linear infinite 1.5s; }
-.inner[data-revealed] .p3 { animation: pulse-travel 4.5s linear infinite 3s; }
-
-@keyframes pulse-travel {
-  0% { stroke-dashoffset: 940; opacity: 0; }
-  4% { opacity: 1; }
-  30% { opacity: 1; }
-  33% { stroke-dashoffset: 0; opacity: 0; }
-  100% { stroke-dashoffset: 0; opacity: 0; }
-}
-
-/* ===== Nodos ===== */
+/* ===== Nodos en fila (grid de 3 columnas, fuera del circuito) ===== */
 .nodes {
   list-style: none;
-  position: relative;
-  height: 100%;
-  min-height: 520px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: stretch;
 }
 
 .node {
-  position: absolute;
-  width: min(320px, 34%);
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
   padding: clamp(1.4rem, 2.6vw, 2rem);
 }
-
-.n1 { left: 2%; top: 0; }
-.n3 { right: 2%; top: 0; }
-.n2 { left: 50%; transform: translateX(-50%); bottom: 0; }
 
 /* Capa de brillo separada del nodo: se anima solo opacity, nunca box-shadow/border
  * directamente (evita repaint costoso y jank en el filtro/backdrop del glass). */
@@ -133,17 +85,15 @@
   opacity: 0;
 }
 
-/* Encendido secuencial sincronizado con la llegada de cada pulso: A (n1->n2) llega a
- * n2 a los ~1.5s -> n2 delay 0s; B (n2->n3) llega a n3 a los ~3s -> n3 delay 1.5s;
- * C (n3->n1) llega a n1 a los ~4.5s (=0s del siguiente ciclo) -> n1 delay 3s. */
-.inner[data-revealed] .n2::after { animation: node-glow 4.5s ease-in-out infinite 0s; }
-.inner[data-revealed] .n3::after { animation: node-glow 4.5s ease-in-out infinite 1.5s; }
-.inner[data-revealed] .n1::after { animation: node-glow 4.5s ease-in-out infinite 3s; }
+/* Encendido secuencial 1 -> 2 -> 3, gateado en Reveal (.inner[data-revealed]). */
+.inner[data-revealed] .node:nth-child(1)::after { animation: node-glow 3.6s ease-in-out infinite 0s; }
+.inner[data-revealed] .node:nth-child(2)::after { animation: node-glow 3.6s ease-in-out infinite 1.2s; }
+.inner[data-revealed] .node:nth-child(3)::after { animation: node-glow 3.6s ease-in-out infinite 2.4s; }
 
 @keyframes node-glow {
-  0%, 28% { opacity: 0; }
-  33%, 55% { opacity: 1; }
-  70%, 100% { opacity: 0; }
+  0%, 20% { opacity: 0; }
+  28%, 42% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 .iconWrap {
@@ -184,42 +134,11 @@
   opacity: 1;
 }
 
-/* ===== Responsive: en movil el circuito se apila con linea vertical ===== */
+/* ===== Responsive: columna apilada, sin linea vertical ===== */
 @media (max-width: 760px) {
-  .circuit { min-height: 0; }
-  .wires { display: none; }
-
   .nodes {
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 1.25rem;
-    padding-left: 18px;
-  }
-
-  .nodes::before {
-    content: "";
-    position: absolute;
-    left: 4px;
-    top: 8px;
-    bottom: 8px;
-    width: 2px;
-    background: linear-gradient(
-      to bottom,
-      rgba(9, 188, 138, 0.05),
-      rgba(9, 188, 138, 0.4),
-      rgba(9, 188, 138, 0.05)
-    );
-  }
-
-  .node,
-  .n1,
-  .n2,
-  .n3 {
-    position: relative;
-    width: 100%;
-    transform: none;
-    inset: auto;
   }
 }
 
@@ -234,15 +153,9 @@
 
   .node { opacity: 1; transition: none; }
 
-  .inner[data-revealed] .p1,
-  .inner[data-revealed] .p2,
-  .inner[data-revealed] .p3 { animation: none; }
-
   .node::after { animation: none; opacity: 0; }
 
-  .inner[data-revealed] .n1,
-  .inner[data-revealed] .n2,
-  .inner[data-revealed] .n3 {
+  .inner[data-revealed] .node {
     border-color: rgba(9, 188, 138, 0.45);
   }
 }

@@ -20,6 +20,21 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
+  const handleHashClick =
+    (href: string, onClick?: () => void) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (href.startsWith('/#') && pathname === '/') {
+        e.preventDefault();
+        const id = href.split('#')[1];
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.getElementById(id)?.scrollIntoView({
+          behavior: prefersReducedMotion ? 'auto' : 'smooth',
+          block: 'start',
+        });
+        history.pushState(null, '', href.slice(1));
+      }
+      onClick?.();
+    };
+
   const navLinks = (onClick?: () => void) =>
     links.map((l) => (
       <Link
@@ -29,7 +44,7 @@ export default function Header() {
           styles.navLink,
           !l.href.includes('#') && pathname === l.href && styles.active
         )}
-        onClick={onClick}
+        onClick={handleHashClick(l.href, onClick)}
       >
         {l.label}
       </Link>

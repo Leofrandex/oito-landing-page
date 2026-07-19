@@ -1,3 +1,4 @@
+import HashScrollFix from '@/components/HashScrollFix';
 import Hero from '@/components/Hero';
 import WhyOito from '@/components/WhyOito';
 import AutomationPillars from '@/components/AutomationPillars';
@@ -18,6 +19,7 @@ import FinalCTA from '@/components/FinalCTA';
 export default function Home() {
   return (
     <main>
+      <HashScrollFix />
       <Hero />
       <WhyOito />
       <AutomationPillars />

@@ -7,6 +7,7 @@ import RoiCalculator from '@/components/RoiCalculator';
 import Methodology from '@/components/Methodology';
 import SocialProof from '@/components/SocialProof';
 import BuiltWith from '@/components/BuiltWith';
+import DevBridge from '@/components/DevBridge';
 import Faq from '@/components/Faq';
 import EasyStart from '@/components/EasyStart';
 import FinalCTA from '@/components/FinalCTA';
@@ -26,6 +27,7 @@ export default function Home() {
       <Methodology />
       <SocialProof />
       <BuiltWith />
+      <DevBridge />
       <Faq id="faq" />
       <EasyStart />
       <FinalCTA />

@@ -42,8 +42,8 @@ export default function PreviewPulidoPage() {
 
       {/* ===== Bloque 1 — Dolor ===== */}
       <BlockHead
-        title="Bloque 1 — Dolor: piezas desordenadas que se van construyendo"
-        desc="Mismo texto real de arg1 y arg2; en la banda del medio, fragmentos rojizos sueltos se ensamblan pieza a pieza en una composición ordenada mint y luego se desarman (loop)."
+        title="Bloque 1 — Dolor: piezas desordenadas que se van construyendo (sin contenedor)"
+        desc="Mismo texto real de arg1 y arg2; entre ambos, fragmentos rojizos sueltos flotan directamente sobre el fondo claro (sin panel oscuro) y se ensamblan pieza a pieza en una composición ordenada mint, luego se desarman (loop)."
       />
       <div className={styles.variantWrap}>
         <LabelBar id="dolor-modulos" note="fragmentos de UI que se ensamblan en un mini panel/dashboard" />
@@ -70,34 +70,34 @@ export default function PreviewPulidoPage() {
 
       {/* ===== Bloque 3 — Casos ===== */}
       <BlockHead
-        title="Bloque 3 — Casos: bento con tamaño según contenido + resize fluido (Flip)"
-        desc="Cada bloque mide lo que su contenido pide; al cambiar de caso los bloques crecen/encogen y se reacomodan con el plugin Flip de GSAP. Avanza solo cada ~3.5s."
+        title="Bloque 3 — Casos: header apretado + recorrido real + titulares; el lado del contenido sin bento"
+        desc="Se mantienen el header, la línea de recorrido y el lado de solo titulares. El lado del contenido en 3 tratamientos nuevos, todos sin cajas bento. Avanza solo cada ~3.5s con crossfade."
       />
       <div className={styles.variantWrap}>
-        <LabelBar id="casos-flip-mosaico" note="dos columnas fluidas tipo masonry compacto" />
-        <PreviewCasos variant="mosaico" />
+        <LabelBar id="casos-editorial" note="pura tipografía: descripción grande con palabras clave mint + chips de stack" />
+        <PreviewCasos variant="editorial" />
       </div>
       <div className={styles.variantWrap}>
-        <LabelBar id="casos-flip-columna" note="una sola columna con fila de chips/mini-tiles que refluyen" />
-        <PreviewCasos variant="columna" />
+        <LabelBar id="casos-ficha" note="ficha técnica minimal: Problema / Solución con hairlines + fila de chips" />
+        <PreviewCasos variant="ficha" />
+      </div>
+      <div className={styles.variantWrap}>
+        <LabelBar id="casos-marco" note="marco de dispositivo oscuro con placeholder digno (para capturas reales)" />
+        <PreviewCasos variant="marco" />
       </div>
 
       {/* ===== Bloque 4 — Soluciones ===== */}
       <BlockHead
-        title="Bloque 4 — Soluciones: la marquesina se queda; alternativas del destacado"
-        desc="La marquesina real en movimiento (8 píldoras + notas); cambia solo el destacado de abajo. La solución activa rota cada ~4s (o al hacer click en una píldora)."
+        title="Bloque 4 — Soluciones: la marquesina se queda arriba; debajo va una pregunta de cierre"
+        desc="La marquesina real en movimiento (8 píldoras + notas) se mantiene arriba en ambas variantes; cambia solo el cierre de abajo, ahora un titular tipo pregunta con CTA a WhatsApp."
       />
       <div className={styles.variantWrap}>
-        <LabelBar id="destacado-flujo" note="mini-diagrama de flujo entrada → oito → resultado" />
-        <PreviewSoluciones variant="flujo" />
+        <LabelBar id="pregunta-cta" note="titular fijo centrado + Button secundario a WhatsApp" />
+        <PreviewSoluciones variant="pregunta-cta" />
       </div>
       <div className={styles.variantWrap}>
-        <LabelBar id="destacado-chat" note="mini conversación WhatsApp en loop" />
-        <PreviewSoluciones variant="chat" />
-      </div>
-      <div className={styles.variantWrap}>
-        <LabelBar id="destacado-cta" note="detail + botón contextual 'Automatiza esto →' (WhatsApp real)" />
-        <PreviewSoluciones variant="cta" />
+        <LabelBar id="pregunta-dinamica" note="el nombre de la solución activa rota en mint cada ~3s + CTA WhatsApp" />
+        <PreviewSoluciones variant="pregunta-dinamica" />
       </div>
 
       {/* ===== Bloque 5 — BorderGlow ===== */}

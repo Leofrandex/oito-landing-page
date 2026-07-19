@@ -53,30 +53,29 @@
   max-width: 56ch;
 }
 
+/* Sin contenedor: la banda es solo un area posicional invisible entre arg1 y arg2;
+ * las piezas flotan directamente sobre el fondo claro de la seccion. */
 .band {
   position: relative;
   height: 320px;
-  border-radius: 22px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background:
-    radial-gradient(70% 60% at 50% 40%, rgba(0, 67, 70, 0.55), transparent 75%),
-    var(--forest-deep);
-  box-shadow: 0 26px 58px -22px rgba(0, 0, 0, 0.5);
 }
 
-/* Base de pieza: rojiza (dolor) -> mint (orden) por atributo, con stagger via delay. */
+/* Base de pieza sobre claro: chip real de WhyOito (blanco, borde rojizo, sombra suave)
+ * -> mint al ordenarse (por atributo data-ordered), con stagger via delay. */
 .piece {
-  border: 1px solid rgba(180, 84, 62, 0.55);
-  background: rgba(180, 84, 62, 0.1);
+  border: 1px solid rgba(180, 84, 62, 0.4);
+  background: #fff;
   border-radius: 9px;
+  box-shadow: 0 6px 14px -6px rgba(0, 67, 70, 0.22);
   will-change: transform;
   transition:
     border-color 0.5s ease,
-    background 0.5s ease;
+    box-shadow 0.5s ease;
 }
 
 /* ================= Variante modulos: mini panel/dashboard ================= */
@@ -177,10 +176,10 @@
   gap: 7px;
 }
 
-/* Estado ordenado (mint) — piezas y acentos */
+/* Estado ordenado (mint) — piezas y acentos (siguen en blanco, acentos mint) */
 .band[data-ordered] .piece {
-  border-color: rgba(9, 188, 138, 0.6);
-  background: rgba(9, 188, 138, 0.1);
+  border-color: rgba(9, 188, 138, 0.55);
+  box-shadow: 0 6px 16px -6px rgba(9, 188, 138, 0.3);
 }
 .band[data-ordered] .dot,
 .band[data-ordered] .dotSm { background: var(--mint); }
@@ -231,10 +230,12 @@
   height: 56px;
   border-radius: 14px;
   color: rgba(180, 84, 62, 0.9);
-  background: rgba(0, 26, 28, 0.6);
-  border: 1px solid rgba(180, 84, 62, 0.55);
+  background: #fff;
+  border: 1px solid rgba(180, 84, 62, 0.4);
+  box-shadow: 0 6px 14px -6px rgba(0, 67, 70, 0.22);
   transition:
     border-color 0.5s ease,
+    box-shadow 0.5s ease,
     color 0.5s ease;
 }
 
@@ -247,7 +248,8 @@
 }
 
 .band[data-ordered] .chainBlock {
-  border-color: rgba(9, 188, 138, 0.6);
+  border-color: rgba(9, 188, 138, 0.55);
+  box-shadow: 0 6px 16px -6px rgba(9, 188, 138, 0.3);
   color: var(--mint);
 }
 .band[data-ordered] .connector {
@@ -276,12 +278,17 @@
 .brick {
   height: 34px;
   border-radius: 6px;
-  background: rgba(180, 84, 62, 0.22);
+  background: #fff;
+  border: 1px solid rgba(180, 84, 62, 0.4);
+  box-shadow: 0 6px 14px -6px rgba(0, 67, 70, 0.22);
+  transition:
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
 }
 
 .band[data-ordered] .brick {
-  background: rgba(9, 188, 138, 0.2);
-  border-color: rgba(9, 188, 138, 0.6);
+  border-color: rgba(9, 188, 138, 0.55);
+  box-shadow: 0 6px 16px -6px rgba(9, 188, 138, 0.3);
 }
 
 /* ===== Reduced motion: composición ya ensamblada y en mint ===== */
@@ -292,8 +299,13 @@
     transition: none;
   }
   .piece {
-    border-color: rgba(9, 188, 138, 0.6);
-    background: rgba(9, 188, 138, 0.1);
+    border-color: rgba(9, 188, 138, 0.55);
+    background: #fff;
+    box-shadow: 0 6px 16px -6px rgba(9, 188, 138, 0.3);
+  }
+  .brick {
+    border-color: rgba(9, 188, 138, 0.55);
+    box-shadow: 0 6px 16px -6px rgba(9, 188, 138, 0.3);
   }
   .dot,
   .dotSm,

@@ -54,14 +54,26 @@
   padding: clamp(1.4rem, 2.6vw, 2rem);
 }
 
+/* Capa de brillo (portada de AutomationPillars.node::after): solo opacity, nunca
+ * box-shadow/border en la animación. Encendido secuencial 1 -> 2 -> 3 en bucle
+ * continuo via keyframe con delay escalonado; sin depender de [data-revealed]. */
 .nodeGlow {
-  content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
   box-shadow: 0 0 32px rgba(9, 188, 138, 0.35), inset 0 0 0 1.5px rgba(9, 188, 138, 0.65);
   opacity: 0;
+}
+
+.node:nth-child(1) .nodeGlow { animation: node-glow 3.6s ease-in-out infinite 0s; }
+.node:nth-child(2) .nodeGlow { animation: node-glow 3.6s ease-in-out infinite 1.2s; }
+.node:nth-child(3) .nodeGlow { animation: node-glow 3.6s ease-in-out infinite 2.4s; }
+
+@keyframes node-glow {
+  0%, 20% { opacity: 0; }
+  28%, 42% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 .iconWrap {
@@ -102,5 +114,5 @@
 
 /* ===== Reduced motion: nodos encendidos, sin animación ===== */
 @media (prefers-reduced-motion: reduce) {
-  .nodeGlow { opacity: 1; }
+  .nodeGlow { animation: none; opacity: 1; }
 }

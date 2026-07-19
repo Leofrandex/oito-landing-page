@@ -1,5 +1,5 @@
 /* Bloque 4 — Soluciones. La marquesina se reusa 1:1 de SolutionsGrid (import sg);
- * aquí solo el cromo de sección y las alternativas de destacado (flujo/chat/cta). */
+ * aquí solo el cromo de sección y el cierre tipo pregunta (ronda 3). */
 .section {
   position: relative;
   padding: clamp(4.5rem, 9vw, 8rem) 1.5rem;
@@ -26,184 +26,30 @@
   color: var(--ink-soft);
 }
 
-/* ===== Destacado (base) ===== */
-.featured {
+/* ===== Cierre tipo pregunta ===== */
+.pregunta {
   max-width: 640px;
-  margin: 0 auto;
-  padding: 1.2rem 1.4rem;
-}
-
-.featuredMain {
+  margin: clamp(2.5rem, 5vw, 3.5rem) auto 0;
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.featuredIcon {
-  display: inline-flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  flex-shrink: 0;
-  color: var(--mint);
-  background: rgba(9, 188, 138, 0.12);
-  border: 1px solid rgba(9, 188, 138, 0.35);
+  gap: 1.4rem;
+  text-align: center;
 }
 
-.featuredName {
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin-bottom: 0.15rem;
+.preguntaTitle {
+  font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
   color: var(--forest-deep);
 }
 
-.featuredDetail {
-  font-size: 0.92rem;
-  line-height: 1.55;
-  color: var(--ink-soft);
-}
-
-/* ===== Variante flujo: mini-diagrama entrada -> oito -> resultado ===== */
-.featuredFlow {
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-}
-
-.flow {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  padding: 0.4rem 0.2rem;
-}
-
-.flowNode {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 0.85rem;
-  border-radius: 999px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--forest-deep);
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(0, 67, 70, 0.14);
-  white-space: nowrap;
-}
-
-.flowCore {
+.kw {
   color: var(--mint);
-  border-color: rgba(9, 188, 138, 0.6);
-  background: rgba(9, 188, 138, 0.1);
 }
 
-.flowThread {
-  flex: 1;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, rgba(9, 188, 138, 0.3), rgba(9, 188, 138, 0.6));
-}
-
-.flowPulse {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 10px;
-  height: 10px;
-  margin-top: -5px;
-  border-radius: 50%;
-  background: var(--mint);
-  box-shadow: 0 0 12px rgba(9, 188, 138, 0.9);
-  pointer-events: none;
-  will-change: transform;
-}
-
-/* ===== Variante chat: mini conversación WhatsApp ===== */
-.featuredChat {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
-  align-items: center;
-}
-
-.chat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.bubble {
-  max-width: 90%;
-  padding: 0.55rem 0.8rem;
-  border-radius: 14px;
-  font-size: 0.85rem;
-  line-height: 1.4;
+/* el término dinámico se anima solo con opacity/transform via GSAP */
+.kw[data-term] {
+  display: inline-block;
   will-change: transform, opacity;
-}
-
-.bubbleIn {
-  align-self: flex-start;
-  border-bottom-left-radius: 4px;
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(0, 67, 70, 0.12);
-}
-
-.bubbleOut {
-  align-self: flex-end;
-  border-bottom-right-radius: 4px;
-  color: var(--forest-deep);
-  background: rgba(9, 188, 138, 0.16);
-  border: 1px solid rgba(9, 188, 138, 0.35);
-}
-
-/* ===== Variante cta: detalle + botón secundario contextual ===== */
-.featuredCta {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.featuredCtaBody {
-  flex: 1;
-  min-width: 200px;
-}
-
-.ctaBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  white-space: nowrap;
-  padding: 0.7rem 1.2rem;
-  border-radius: 999px;
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: var(--mint);
-  background: rgba(9, 188, 138, 0.1);
-  border: 1px solid rgba(9, 188, 138, 0.55);
-  text-decoration: none;
-  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
-}
-
-.ctaBtn:hover {
-  border-color: rgba(9, 188, 138, 0.8);
-  background: rgba(9, 188, 138, 0.16);
-  transform: translateY(-2px);
-}
-
-@media (max-width: 560px) {
-  .featuredChat {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ctaBtn {
-    transition: none;
-  }
 }

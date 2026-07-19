@@ -1,24 +1,23 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Flip } from 'gsap/all';
 import styles from './PreviewCasos.module.css';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(Flip);
-}
+type Variant = 'editorial' | 'ficha' | 'marco';
 
-type Variant = 'mosaico' | 'columna';
+type Segment = { t: string; m?: boolean };
 
-/* Datos NEUTROS (canales, 24/7, PWA, GPS, sector). Nunca métricas de resultado. */
+/* Datos NEUTROS (canales, 24/7, PWA, GPS, sector). Nunca métricas de resultado.
+ * problema/solucion redactados en 1 línea a partir de la descripción real. */
 type CaseData = {
   pillar: 'Automatización' | 'Desarrollo';
   title: string;
-  description: string;
-  dato: string;
-  datoLabel: string;
+  editorial: Segment[];
+  problema: string;
+  solucion: string;
+  caption: string;
   chips: string[];
 };
 
@@ -26,37 +25,63 @@ const CASES: CaseData[] = [
   {
     pillar: 'Automatización',
     title: 'Calificación de leads con IA',
-    description:
-      'Un flujo recibe cotizaciones por email, WhatsApp y web, extrae los datos (incluso de PDFs) y los reparte en el CRM.',
-    dato: '3 canales',
-    datoLabel: 'Entradas',
+    editorial: [
+      { t: 'Las cotizaciones entran por ' },
+      { t: 'email, WhatsApp y web', m: true },
+      { t: ', y un flujo ' },
+      { t: 'extrae los datos', m: true },
+      { t: ' —incluso de PDFs— y los reparte solo en el CRM.' },
+    ],
+    problema: 'Las cotizaciones llegan por email, WhatsApp y web, y alguien las pasa a mano al CRM.',
+    solucion: 'Un flujo las recibe, extrae los datos (incluso de PDFs) y las reparte solo.',
+    caption: 'Un flujo recibe, extrae y reparte cada cotización en el CRM.',
     chips: ['Email', 'WhatsApp', 'Web', 'CRM'],
   },
   {
     pillar: 'Automatización',
     title: 'Secuencias de venta con IA',
-    description:
-      'Agentes con RAG generan correos de venta personalizados y los envían desde el correo de cada vendedor.',
-    dato: '24/7',
-    datoLabel: 'Operación',
+    editorial: [
+      { t: 'Agentes con ' },
+      { t: 'RAG', m: true },
+      { t: ' generan correos de venta ' },
+      { t: 'personalizados', m: true },
+      { t: ' y los envían desde el correo de cada vendedor.' },
+    ],
+    problema: 'Escribir correos de venta personalizados uno por uno consume el día del equipo.',
+    solucion: 'Agentes con RAG los redactan y los envían desde el correo de cada vendedor.',
+    caption: 'Agentes con RAG redactan y envían las secuencias de venta.',
     chips: ['IA', 'RAG', 'Email'],
   },
   {
     pillar: 'Desarrollo',
     title: 'Trazabilidad de desechos',
-    description:
-      'PWA para una planta de tratamiento: pesaje, evidencia fotográfica, firmas y reportes PDF regulatorios.',
-    dato: 'PWA',
-    datoLabel: 'Instalable',
+    editorial: [
+      { t: 'Una ' },
+      { t: 'PWA', m: true },
+      { t: ' para la planta: pesaje, ' },
+      { t: 'evidencia fotográfica', m: true },
+      { t: ', firmas y ' },
+      { t: 'reportes PDF', m: true },
+      { t: ' regulatorios.' },
+    ],
+    problema: 'El pesaje, las firmas y la evidencia de la planta vivían en papel.',
+    solucion: 'Una PWA captura pesaje, fotos y firmas, y arma los reportes PDF regulatorios.',
+    caption: 'PWA de planta: pesaje, evidencia, firmas y reportes PDF.',
     chips: ['PWA', 'Firmas', 'PDF', 'Fotos'],
   },
   {
     pillar: 'Desarrollo',
     title: 'Rastreo de fuerza de campo',
-    description:
-      'App móvil + panel web para una distribuidora: GPS en tiempo real, modo offline y cámara anti-fraude.',
-    dato: 'GPS',
-    datoLabel: 'Tiempo real',
+    editorial: [
+      { t: 'App móvil y panel web con ' },
+      { t: 'GPS en tiempo real', m: true },
+      { t: ', ' },
+      { t: 'modo offline', m: true },
+      { t: ' y cámara anti-fraude para la fuerza de campo.' },
+    ],
+    problema: 'La distribuidora no veía dónde estaba su fuerza de campo ni podía validar visitas.',
+    solucion: 'App móvil con GPS en tiempo real, modo offline y cámara anti-fraude, más panel web.',
+    caption: 'App móvil con GPS, offline y cámara, más panel web.',
     chips: ['GPS', 'Offline', 'Cámara'],
   },
 ];
@@ -65,34 +90,16 @@ const STEPS = CASES.length;
 
 export default function PreviewCasos({ variant }: { variant: Variant }) {
   const container = useRef<HTMLDivElement>(null);
-  const leftRef = useRef<HTMLDivElement>(null);
-  const flipState = useRef<ReturnType<typeof Flip.getState> | null>(null);
   const [active, setActive] = useState(0);
 
-  /* Auto-avance cada ~3.5s: captura el estado Flip ANTES del re-render. */
+  /* Auto-avance de caso cada ~3.5s. */
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const id = window.setInterval(() => {
-      const left = leftRef.current;
-      if (left) flipState.current = Flip.getState(left.querySelectorAll('[data-flip]'));
-      setActive((a) => (a + 1) % STEPS);
-    }, 3500);
+    const id = window.setInterval(() => setActive((a) => (a + 1) % STEPS), 3500);
     return () => window.clearInterval(id);
   }, []);
 
-  /* Tras pintar el nuevo caso, Flip anima el cambio de tamaño/posición fluido. */
-  useLayoutEffect(() => {
-    if (flipState.current) {
-      Flip.from(flipState.current, {
-        duration: 0.6,
-        ease: 'power2.inOut',
-        absolute: true,
-      });
-      flipState.current = null;
-    }
-  }, [active]);
-
-  /* Línea de recorrido, puntos y cinta de titulares (idéntico al bloque real). */
+  /* Línea de recorrido, puntos, cinta de titulares + crossfade del contenido. */
   useGSAP(
     () => {
       const root = container.current;
@@ -102,6 +109,7 @@ export default function PreviewCasos({ variant }: { variant: Variant }) {
       const dots = gsap.utils.toArray<HTMLElement>('[data-dot]');
       const fill = root.querySelector<HTMLElement>('[data-fill]');
       const belt = root.querySelector<HTMLElement>('[data-belt]');
+      const content = root.querySelector<HTMLElement>('[data-content]');
       const dur = reduce ? 0 : 0.5;
 
       dots.forEach((d, i) => {
@@ -113,8 +121,17 @@ export default function PreviewCasos({ variant }: { variant: Variant }) {
       });
       if (fill) gsap.to(fill, { scaleY: (active + 1) / STEPS, duration: reduce ? 0 : 0.6 });
       if (belt) gsap.to(belt, { yPercent: -(100 / STEPS) * active, duration: reduce ? 0 : 0.6 });
+
+      /* Crossfade + slight y del lado del contenido al cambiar de caso. */
+      if (content && !reduce) {
+        gsap.fromTo(
+          content,
+          { autoAlpha: 0, y: 10 },
+          { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+        );
+      }
     },
-    { scope: container, dependencies: [active] },
+    { scope: container, dependencies: [active, variant] },
   );
 
   const c = CASES[active];
@@ -129,27 +146,70 @@ export default function PreviewCasos({ variant }: { variant: Variant }) {
       </header>
 
       <div className={styles.stage} ref={container}>
-        {/* ===== Izquierda: bloques con tamaño según contenido (Flip) ===== */}
-        <div className={styles.left} ref={leftRef}>
-          <div className={variant === 'mosaico' ? styles.mosaic : styles.column}>
-            <div className={`${styles.block} ${styles.desc}`} data-flip data-flip-id="desc">
-              <span className={styles.sector}>{c.pillar}</span>
-              <p className={styles.descText}>{c.description}</p>
-            </div>
-            <div className={`${styles.block} ${styles.dato}`} data-flip data-flip-id="dato">
-              <span className={styles.datoBig}>{c.dato}</span>
-              <span className={styles.datoLabel}>{c.datoLabel}</span>
-            </div>
-            <div className={`${styles.block} ${styles.stack}`} data-flip data-flip-id="stack">
-              {c.chips.map((chip) => (
-                <span key={chip} className={styles.chip}>
-                  {chip}
-                </span>
-              ))}
-            </div>
-            <div className={`${styles.block} ${styles.sectorTile}`} data-flip data-flip-id="sector">
-              {c.pillar}
-            </div>
+        {/* ===== Izquierda: lado del contenido (sin bento) ===== */}
+        <div className={styles.left}>
+          <div className={styles.content} data-content>
+            {variant === 'editorial' && (
+              <div className={styles.editorial}>
+                <span className={styles.sector}>{c.pillar}</span>
+                <p className={styles.editorialText}>
+                  {c.editorial.map((seg, i) =>
+                    seg.m ? (
+                      <span key={i} className={styles.kw}>
+                        {seg.t}
+                      </span>
+                    ) : (
+                      <span key={i}>{seg.t}</span>
+                    ),
+                  )}
+                </p>
+                <div className={styles.chipRow}>
+                  {c.chips.map((chip) => (
+                    <span key={chip} className={styles.chip}>
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {variant === 'ficha' && (
+              <div className={styles.ficha}>
+                <div className={styles.fichaRow}>
+                  <span className={styles.fichaLabel}>Problema</span>
+                  <p className={styles.fichaValue}>{c.problema}</p>
+                </div>
+                <div className={styles.fichaRow}>
+                  <span className={styles.fichaLabel}>Solución</span>
+                  <p className={styles.fichaValue}>{c.solucion}</p>
+                </div>
+                <div className={styles.chipRow}>
+                  {c.chips.map((chip) => (
+                    <span key={chip} className={styles.chip}>
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {variant === 'marco' && (
+              <div className={styles.marco}>
+                <div className={styles.frame} aria-hidden="true">
+                  <div className={styles.frameBar}>
+                    <i />
+                    <i />
+                    <i />
+                  </div>
+                  <div className={styles.frameCanvas}>
+                    <span className={styles.framePattern} />
+                    <span className={`wordmark ${styles.frameWordmark}`}>oito</span>
+                    <span className={styles.frameNote}>captura del proyecto próximamente</span>
+                  </div>
+                </div>
+                <p className={styles.marcoCaption}>{c.caption}</p>
+              </div>
+            )}
           </div>
         </div>
 

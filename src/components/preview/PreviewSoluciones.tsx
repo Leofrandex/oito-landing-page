@@ -14,11 +14,12 @@ import {
 } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import Button from '@/components/ui/Button';
 import { WHATSAPP_URL } from '@/lib/constants';
 import sg from '@/components/SolutionsGrid.module.css';
 import styles from './PreviewSoluciones.module.css';
 
-type Variant = 'flujo' | 'chat' | 'cta';
+type Variant = 'pregunta-cta' | 'pregunta-dinamica';
 
 type Solution = { icon: LucideIcon; name: string; note: string; detail: string };
 
@@ -85,6 +86,10 @@ const SOLUTIONS: Solution[] = [
 const ROW_A = SOLUTIONS.slice(0, 4);
 const ROW_B = SOLUTIONS.slice(4);
 
+const WHATSAPP_CIERRE = `${WHATSAPP_URL}?text=${encodeURIComponent(
+  'Hola, quiero automatizar trabajo de mi equipo',
+)}`;
+
 type MarqueeRowProps = {
   items: Solution[];
   reverse?: boolean;
@@ -126,10 +131,9 @@ function MarqueeRow({ items, reverse, activeName, onPick }: MarqueeRowProps) {
 export default function PreviewSoluciones({ variant }: { variant: Variant }) {
   const container = useRef<HTMLDivElement>(null);
   const [activeName, setActiveName] = useState(SOLUTIONS[0].name);
-  const active = SOLUTIONS.find((s) => s.name === activeName) ?? SOLUTIONS[0];
-  const ActiveIcon = active.icon;
 
-  /* La solución activa rota cada ~4s (como hoy). */
+  /* La solución activa rota cada ~3s (usada para el término dinámico y el
+   * resaltado de píldoras). */
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const id = window.setInterval(() => {
@@ -137,36 +141,23 @@ export default function PreviewSoluciones({ variant }: { variant: Variant }) {
         const i = SOLUTIONS.findIndex((s) => s.name === cur);
         return SOLUTIONS[(i + 1) % SOLUTIONS.length].name;
       });
-    }, 4000);
+    }, 3000);
     return () => window.clearInterval(id);
   }, []);
 
-  /* Animaciones del destacado (flujo: pulso viajando; chat: burbujas en loop). */
+  /* Crossfade del término dinámico al rotar. */
   useGSAP(
     () => {
+      if (variant !== 'pregunta-dinamica') return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const root = container.current;
       if (!root) return;
-
-      if (variant === 'flujo') {
-        const flow = root.querySelector<HTMLElement>('[data-flow]');
-        const pulse = root.querySelector<HTMLElement>('[data-flow-pulse]');
-        if (flow && pulse) {
-          const travel = Math.max(flow.clientWidth - 16, 60);
-          const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.5 });
-          tl.set(pulse, { x: 4, opacity: 0 })
-            .to(pulse, { opacity: 1, duration: 0.2 })
-            .to(pulse, { x: travel, duration: 1.5, ease: 'power1.inOut' })
-            .to(pulse, { opacity: 0, duration: 0.2 });
-        }
-      }
-
-      if (variant === 'chat') {
-        const bubbles = gsap.utils.toArray<HTMLElement>('[data-bubble]');
+      const term = root.querySelector<HTMLElement>('[data-term]');
+      if (term) {
         gsap.fromTo(
-          bubbles,
-          { autoAlpha: 0, y: 12 },
-          { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.35 },
+          term,
+          { autoAlpha: 0, y: 6 },
+          { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' },
         );
       }
     },
@@ -190,73 +181,30 @@ export default function PreviewSoluciones({ variant }: { variant: Variant }) {
           <MarqueeRow items={ROW_B} reverse activeName={activeName} onPick={setActiveName} />
         </div>
 
-        {/* ===== Destacado (alternativas de la ronda 2) ===== */}
-        {variant === 'flujo' && (
-          <div className={`glass-light ${styles.featured} ${styles.featuredFlow}`} aria-live="polite">
-            <div className={styles.featuredMain}>
-              <span className={styles.featuredIcon} aria-hidden="true">
-                <ActiveIcon size={22} strokeWidth={1.7} />
-              </span>
-              <div>
-                <h3 className={styles.featuredName}>{active.name}</h3>
-                <p className={styles.featuredDetail}>{active.detail}</p>
-              </div>
-            </div>
-            <div className={styles.flow} data-flow aria-hidden="true">
-              <span className={styles.flowNode}>Entrada</span>
-              <span className={styles.flowThread} />
-              <span className={`${styles.flowNode} ${styles.flowCore}`}>
-                <span className="wordmark">oito</span>
-              </span>
-              <span className={styles.flowThread} />
-              <span className={styles.flowNode}>Resultado</span>
-              <span className={styles.flowPulse} data-flow-pulse />
-            </div>
+        {/* ===== Cierre tipo pregunta (ronda 3) ===== */}
+        {variant === 'pregunta-cta' && (
+          <div className={styles.pregunta}>
+            <h3 className={styles.preguntaTitle}>
+              ¿Cuál le quitaría más <span className={styles.kw}>trabajo</span> a tu equipo?
+            </h3>
+            <Button variant="secondary" href={WHATSAPP_CIERRE} external>
+              Cuéntanos por WhatsApp
+            </Button>
           </div>
         )}
 
-        {variant === 'chat' && (
-          <div className={`glass-light ${styles.featured} ${styles.featuredChat}`} aria-live="polite">
-            <div className={styles.featuredMain}>
-              <span className={styles.featuredIcon} aria-hidden="true">
-                <ActiveIcon size={22} strokeWidth={1.7} />
-              </span>
-              <div>
-                <h3 className={styles.featuredName}>{active.name}</h3>
-                <p className={styles.featuredDetail}>{active.detail}</p>
-              </div>
-            </div>
-            <div className={styles.chat} aria-hidden="true">
-              <div className={`${styles.bubble} ${styles.bubbleIn}`} data-bubble>
-                Hola, ¿me ayudan con {active.name.toLowerCase()}?
-              </div>
-              <div className={`${styles.bubble} ${styles.bubbleOut}`} data-bubble>
-                Claro, lo dejamos funcionando en automático.
-              </div>
-              <div className={`${styles.bubble} ${styles.bubbleOut}`} data-bubble>
-                ¿Te lo automatizamos? 🚀
-              </div>
-            </div>
-          </div>
-        )}
-
-        {variant === 'cta' && (
-          <div className={`glass-light ${styles.featured} ${styles.featuredCta}`} aria-live="polite">
-            <span className={styles.featuredIcon} aria-hidden="true">
-              <ActiveIcon size={22} strokeWidth={1.7} />
-            </span>
-            <div className={styles.featuredCtaBody}>
-              <h3 className={styles.featuredName}>{active.name}</h3>
-              <p className={styles.featuredDetail}>{active.detail}</p>
-            </div>
-            <a
-              className={styles.ctaBtn}
-              href={`${WHATSAPP_URL}?text=${encodeURIComponent(`Hola, me interesa: ${active.name}`)}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Automatiza esto →
-            </a>
+        {variant === 'pregunta-dinamica' && (
+          <div className={styles.pregunta}>
+            <h3 className={styles.preguntaTitle} aria-live="polite">
+              ¿Y si{' '}
+              <span className={styles.kw} data-term>
+                {activeName}
+              </span>{' '}
+              se hiciera sola?
+            </h3>
+            <Button variant="secondary" href={WHATSAPP_CIERRE} external>
+              Cuéntanos por WhatsApp
+            </Button>
           </div>
         )}
       </div>

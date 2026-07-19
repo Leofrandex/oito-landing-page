@@ -9,9 +9,11 @@ import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './Header.module.css';
 
 const links = [
-  { href: '/', label: 'Inicio' },
-  { href: '/desarrollo-web', label: 'Desarrollo' },
-  { href: '/automatizacion-ia', label: 'Automatización' },
+  { href: '/#casos', label: 'Casos' },
+  { href: '/#soluciones', label: 'Soluciones' },
+  { href: '/#calculadora', label: 'Calculadora' },
+  { href: '/#faq', label: 'FAQ' },
+  { href: '/desarrollo-web', label: 'Desarrollo web' },
 ];
 
 export default function Header() {
@@ -23,7 +25,10 @@ export default function Header() {
       <Link
         key={l.href}
         href={l.href}
-        className={clsx(styles.navLink, pathname === l.href && styles.active)}
+        className={clsx(
+          styles.navLink,
+          !l.href.includes('#') && pathname === l.href && styles.active
+        )}
         onClick={onClick}
       >
         {l.label}

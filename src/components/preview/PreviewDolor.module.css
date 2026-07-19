@@ -1,0 +1,270 @@
+/* Bloque 1 — Dolor. Sobre section-light, con la tipografía real de WhyOito.
+ * Valores copiados de WhyOito.module.css y BeforeAfter.module.css. */
+.section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4rem, 8vw, 7rem) 1.5rem;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(50% 45% at 80% 10%, rgba(9, 188, 138, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.stage {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+/* ===== Bloques de argumento (WhyOito) ===== */
+.arg {
+  max-width: 56ch;
+}
+
+.argTitle {
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  letter-spacing: -0.015em;
+  color: var(--forest-deep);
+}
+
+.accent {
+  color: var(--mint);
+}
+
+.argBody {
+  margin-top: 1rem;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+/* ===== Contenedor del visual del medio ===== */
+.visual {
+  width: 100%;
+  max-width: 56ch;
+}
+
+/* ===== Variante morph (lenguaje BeforeAfter compactado) ===== */
+.morphBand {
+  position: relative;
+  height: 320px;
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    radial-gradient(70% 60% at 50% 40%, rgba(0, 67, 70, 0.55), transparent 75%),
+    var(--forest-deep);
+  color: var(--on-dark);
+  box-shadow: 0 26px 58px -22px rgba(0, 0, 0, 0.5);
+}
+
+.morphLayer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1.25rem;
+}
+
+.morphLabel {
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-shadow: 0 2px 24px rgba(0, 20, 22, 0.6);
+}
+
+/* Chaos compactado (BeforeAfter) */
+.chaos {
+  position: relative;
+  width: min(280px, 70%);
+  height: 120px;
+  margin-top: 0.5rem;
+}
+
+.chaosLine {
+  position: absolute;
+  height: 4px;
+  border-radius: 4px;
+  background: #ff6b6b;
+  box-shadow: 0 0 12px rgba(255, 107, 107, 0.7);
+}
+
+.chaosLine:nth-child(1) { top: 18%; left: 0; width: 60%; transform: rotate(16deg); }
+.chaosLine:nth-child(2) { top: 48%; left: 18%; width: 82%; transform: rotate(-26deg); }
+.chaosLine:nth-child(3) { top: 80%; left: 8%; width: 50%; transform: rotate(44deg); }
+.chaosLine:nth-child(4) { top: 38%; left: 46%; width: 66%; transform: rotate(78deg); }
+.chaosLine:nth-child(5) { top: 64%; left: -8%; width: 42%; transform: rotate(-58deg); }
+
+/* Order compactado (BeforeAfter) */
+.order {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: 0.75rem;
+}
+
+.orderRow {
+  display: flex;
+  align-items: center;
+  width: min(280px, 70vw);
+}
+
+.node {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 12px rgba(0, 255, 170, 0.8);
+  flex-shrink: 0;
+}
+
+.thread {
+  flex: 1;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(9, 188, 138, 0.4), rgba(9, 188, 138, 0.7));
+  border-radius: 3px;
+}
+
+.morphAfter {
+  opacity: 0;
+}
+
+/* ===== Variante gemelas (dos tarjetas glass-light espejadas) ===== */
+.gemelas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.card {
+  padding: 1.25rem 1.4rem;
+  text-align: left;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+/* borde rojizo (hoy) / borde mint (con oito) sobre el .glass-light */
+.cardHoy {
+  box-shadow:
+    0 20px 44px -20px rgba(180, 84, 62, 0.28),
+    inset 0 0 0 1px rgba(180, 84, 62, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+
+.cardOito {
+  box-shadow:
+    0 20px 44px -20px rgba(9, 188, 138, 0.28),
+    inset 0 0 0 1px rgba(9, 188, 138, 0.45),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+
+.cardLabel {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--forest-deep);
+}
+
+.cardList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.2rem;
+}
+
+.cardLine {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.markX {
+  flex-shrink: 0;
+  color: #b4543e;
+  font-weight: 700;
+}
+
+.markCheck {
+  flex-shrink: 0;
+  color: var(--mint);
+  font-weight: 700;
+}
+
+/* ===== Variante cortina (clip-path) ===== */
+.cortina {
+  position: relative;
+  height: 320px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 67, 70, 0.14);
+}
+
+.cortinaBase {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.25rem;
+  background: #fbf8f1;
+  color: #6b4a3f;
+}
+
+.cortinaBaseLabel {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.cortinaCurtain {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1.25rem;
+  color: var(--on-dark);
+  background:
+    radial-gradient(70% 60% at 50% 40%, rgba(0, 67, 70, 0.55), transparent 75%),
+    var(--forest-deep);
+  /* revelada por GSAP (clip-path). Estado inicial: oculta a la derecha. */
+  clip-path: inset(0 0 0 100%);
+}
+
+.cortinaLabel {
+  font-size: clamp(1.1rem, 2.6vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 24px rgba(0, 20, 22, 0.6);
+}
+
+@media (max-width: 560px) {
+  .gemelas {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Reduced motion: estados finales estáticos ===== */
+@media (prefers-reduced-motion: reduce) {
+  .morphAfter { opacity: 1; }
+  .cortinaCurtain { clip-path: inset(0 0 0 0); }
+}

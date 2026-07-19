@@ -1,10 +1,9 @@
 'use client';
 
-import { useRef, type ReactNode } from 'react';
+import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { RouteDiagram, ChainDiagram, FunnelDiagram, FanoutDiagram } from './CaseDiagrams';
 import styles from './CasesShowcase.module.css';
 
 if (typeof window !== 'undefined') {
@@ -15,7 +14,9 @@ type ShowcaseCase = {
   pillar: 'Automatización' | 'Desarrollo';
   title: string;
   description: string;
-  diagram: ReactNode;
+  /** Captura real del proyecto (ej. Hospiwaste). Hoy no hay ninguna cargada: el marco
+   * siempre muestra el placeholder. Cuando llegue una, se pasa aquí y el marco la usa. */
+  image?: string;
 };
 
 /* Casos anonimizados por sector (copy actual de FeaturedCases; el deck v2 lo afinará). */
@@ -25,30 +26,52 @@ const CASES: ShowcaseCase[] = [
     title: 'Calificación de leads con IA',
     description:
       'Para un integrador de ciberseguridad: un flujo recibe cotizaciones por email, WhatsApp y web, extrae los datos (incluso de PDFs y adjuntos), califica con IA y los reparte en el CRM.',
-    diagram: <FunnelDiagram />,
   },
   {
     pillar: 'Automatización',
     title: 'Secuencias de venta con IA',
     description:
       'Para un bróker logístico B2B: agentes de IA con RAG generan correos de venta personalizados y los envían en automático desde el correo de cada vendedor.',
-    diagram: <FanoutDiagram />,
   },
   {
     pillar: 'Desarrollo',
     title: 'Trazabilidad de desechos peligrosos',
     description:
       'PWA para una planta de tratamiento de desechos hospitalarios: pesaje, evidencia fotográfica, firmas y reportes PDF regulatorios en automático.',
-    diagram: <ChainDiagram />,
   },
   {
     pillar: 'Desarrollo',
     title: 'App de rastreo de fuerza de campo',
     description:
       'App móvil nativa + panel web para una distribuidora farmacéutica: GPS en tiempo real, modo offline y cámara anti-fraude para verificar visitas en campo.',
-    diagram: <RouteDiagram />,
   },
 ];
+
+/* Marco de captura: browser frame oscuro con placeholder digno hasta que existan
+ * capturas reales de los proyectos (Hospiwaste primero). */
+function CaseFrame({ image }: { image?: string }) {
+  return (
+    <div className={styles.frame}>
+      <div className={styles.frameBar}>
+        <i />
+        <i />
+        <i />
+      </div>
+      <div className={styles.frameCanvas}>
+        {image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={image} alt="" className={styles.frameImage} />
+        ) : (
+          <>
+            <span className={styles.framePattern} />
+            <span className={`wordmark ${styles.frameWordmark}`}>oito</span>
+            <span className={styles.frameNote}>Captura del proyecto próximamente</span>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function CasesShowcase({ id }: { id?: string }) {
   const container = useRef<HTMLElement>(null);
@@ -123,8 +146,10 @@ export default function CasesShowcase({ id }: { id?: string }) {
         <div className={styles.visual}>
           {CASES.map((c) => (
             <div key={c.title} className={styles.pane} data-pane>
-              <div className={styles.diagram}>{c.diagram}</div>
-              <span className={styles.caption}>{c.pillar}</span>
+              <div className={styles.paneVisual}>
+                <CaseFrame image={c.image} />
+              </div>
+              <p className={styles.paneDesc}>{c.description}</p>
             </div>
           ))}
         </div>
@@ -150,7 +175,6 @@ export default function CasesShowcase({ id }: { id?: string }) {
                 <div key={c.title} className={styles.item} data-case-title>
                   <span className={styles.sector}>{c.pillar}</span>
                   <h3 className={styles.itemTitle}>{c.title}</h3>
-                  <p className={styles.itemDesc}>{c.description}</p>
                 </div>
               ))}
             </div>
@@ -163,7 +187,7 @@ export default function CasesShowcase({ id }: { id?: string }) {
         {CASES.map((c) => (
           <li key={c.title} className={styles.staticCase}>
             <div className={styles.staticDiagram} aria-hidden="true">
-              {c.diagram}
+              <CaseFrame image={c.image} />
             </div>
             <div>
               <span className={styles.sector}>{c.pillar}</span>

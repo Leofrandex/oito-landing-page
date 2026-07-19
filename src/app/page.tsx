@@ -20,21 +20,13 @@ export default function Home() {
       <Hero />
       <WhyOito />
       <AutomationPillars />
-      <div id="casos" className="anchor-target">
-        <FeaturedCases />
-      </div>
-      <div id="soluciones" className="anchor-target">
-        <SolutionsGrid />
-      </div>
-      <div id="calculadora" className="anchor-target">
-        <RoiCalculator />
-      </div>
+      <FeaturedCases id="casos" />
+      <SolutionsGrid id="soluciones" />
+      <RoiCalculator id="calculadora" />
       <Methodology />
       <SocialProof />
       <BuiltWith />
-      <div id="faq" className="anchor-target">
-        <Faq />
-      </div>
+      <Faq id="faq" />
       <EasyStart />
       <FinalCTA />
     </main>

@@ -43,9 +43,13 @@ const CASES: CaseStudyData[] = [
   },
 ];
 
-export default function FeaturedCases() {
+type FeaturedCasesProps = {
+  id?: string;
+};
+
+export default function FeaturedCases({ id }: FeaturedCasesProps) {
   return (
-    <section className={`section-light ${styles.section}`}>
+    <section id={id} className={`section-light anchor-target ${styles.section}`}>
       <Reveal className={styles.inner}>
         <header className={styles.head}>
           <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>

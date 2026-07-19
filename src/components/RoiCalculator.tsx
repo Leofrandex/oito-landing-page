@@ -46,7 +46,11 @@ function Field({ label, value, min, max, onChange, prefix }: FieldProps) {
   );
 }
 
-export default function RoiCalculator() {
+type RoiCalculatorProps = {
+  id?: string;
+};
+
+export default function RoiCalculator({ id }: RoiCalculatorProps) {
   const [personas, setPersonas] = useState(2);
   const [horasSemana, setHorasSemana] = useState(10);
   const [costoHora, setCostoHora] = useState(8);
@@ -57,7 +61,7 @@ export default function RoiCalculator() {
   const horasRecuperables = Math.round(horasMes * 0.7);
 
   return (
-    <section className={`section-light ${styles.section}`}>
+    <section id={id} className={`section-light anchor-target ${styles.section}`}>
       <Reveal className={styles.inner}>
         <header className={styles.head} style={{ transitionDelay: '0ms' }}>
           <p className={`badge ${styles.eyebrow}`}>Calculadora</p>

@@ -26,9 +26,13 @@ const SOLUTIONS: Solution[] = [
   { icon: FileText, name: 'Documentos', note: 'extrae datos de PDFs y adjuntos' },
 ];
 
-export default function SolutionsGrid() {
+type SolutionsGridProps = {
+  id?: string;
+};
+
+export default function SolutionsGrid({ id }: SolutionsGridProps) {
   return (
-    <section className={`section-dark ${styles.section}`}>
+    <section id={id} className={`section-dark anchor-target ${styles.section}`}>
       <Reveal className={styles.inner}>
         <header className={styles.head}>
           <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>

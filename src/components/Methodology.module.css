@@ -33,6 +33,7 @@
 
 .thread {
   position: absolute;
+  z-index: 0;
   top: 38px;
   left: 16%;
   right: 16%;
@@ -41,6 +42,8 @@
 }
 
 .step {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;

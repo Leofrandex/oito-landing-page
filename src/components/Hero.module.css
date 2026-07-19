@@ -76,30 +76,43 @@
   will-change: transform, opacity;
 }
 
-/* El tagline expande su letter-spacing al entrar (transición CSS disparada por GSAP) */
+/* El tagline entra con fade + leve translate (letter-spacing queda estatico: animarlo fuerza reflow) */
 .tagline {
   transition:
-    letter-spacing 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.9s ease;
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .tagline[data-collapsed] {
-  letter-spacing: 0.02em;
   opacity: 0;
+  transform: translateY(10px);
 }
 
-/* CTA con glow que respira (pausado bajo reduced motion) */
+/* CTA con glow que respira (pausado bajo reduced motion). Se anima solo opacity de una capa
+   superpuesta (::after) para evitar repintar box-shadow en cada frame. */
 .actions :global(a) {
+  position: relative;
+}
+
+.actions :global(a)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 12px 40px -6px rgba(9, 188, 138, 0.85);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
   animation: cta-breathe 2.6s ease-in-out infinite;
 }
 
 @keyframes cta-breathe {
   0%,
   100% {
-    box-shadow: 0 12px 28px -10px rgba(9, 188, 138, 0.55);
+    opacity: 0;
   }
   50% {
-    box-shadow: 0 12px 40px -6px rgba(9, 188, 138, 0.85);
+    opacity: 1;
   }
 }
 
@@ -163,12 +176,13 @@
   }
 
   .tagline[data-collapsed] {
-    letter-spacing: inherit;
     opacity: 1;
+    transform: none;
   }
 
-  .actions :global(a) {
+  .actions :global(a)::after {
     animation: none;
+    opacity: 0;
   }
 
   .mouse::after {

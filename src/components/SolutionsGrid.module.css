@@ -43,7 +43,8 @@
 }
 
 .row {
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .rowTrack {

@@ -13,7 +13,7 @@
 .iconWrap {
   display: inline-flex; align-items: center; justify-content: center;
   width: 46px; height: 46px; border-radius: 13px;
-  background: rgba(9,188,138,0.12); border: 1px solid rgba(9,188,138,0.30); color: var(--mint-ink);
+  background: rgba(9,188,138,0.12); border: 1px solid rgba(9,188,138,0.30); color: var(--mint);
 }
 .cardTitle { font-size: 1.2rem; color: var(--ink); }
 .cardBody { font-size: 1rem; line-height: 1.6; color: var(--ink-soft); }

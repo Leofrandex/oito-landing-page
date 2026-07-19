@@ -20,7 +20,7 @@ export default function WhyOito() {
               </h2>
               <p className={styles.argBody}>
                 La mayoría de los negocios están atrapados en procesos fragmentados y tareas
-                manuales. Eso cuesta tiempo — y el tiempo es lo único que no vuelve.
+                manuales. Eso cuesta tiempo, y el tiempo es lo único que no vuelve.
               </p>
             </div>
 

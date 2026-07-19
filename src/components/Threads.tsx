@@ -129,7 +129,7 @@ interface ThreadsProps {
     distance?: number;
     enableMouseInteraction?: boolean;
     isLoaded?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, enableMouseInteraction = false, isLoaded = true, ...rest }: ThreadsProps) => {
@@ -209,7 +209,7 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
         window.addEventListener('resize', resize);
         resize();
 
-        let currentMouse = [0.5, 0.5];
+        const currentMouse = [0.5, 0.5];
         let targetMouse = [0.5, 0.5];
 
         function handleMouseMove(e: MouseEvent) {

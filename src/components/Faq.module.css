@@ -1,0 +1,85 @@
+.section { position: relative; padding: clamp(5rem, 10vw, 8rem) 1.5rem; }
+.inner { max-width: 760px; margin: 0 auto; }
+
+.head { text-align: center; margin-bottom: clamp(2.25rem, 4.5vw, 3rem); }
+.title {
+  margin-top: 0.9rem;
+  font-size: var(--text-h2);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+
+.details {
+  overflow: hidden;
+  transition: box-shadow 0.25s ease;
+}
+.details[open] { box-shadow: 0 14px 34px rgba(0, 67, 70, 0.08); }
+
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 1.4rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-outfit), var(--font-dm-sans), sans-serif;
+}
+/* Quitar el marcador nativo (triángulo) en Chromium/WebKit y Firefox. */
+.summary::-webkit-details-marker { display: none; }
+.summary::marker { content: ''; }
+
+.q {
+  font-size: clamp(1rem, 2.2vw, 1.12rem);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--mint);
+  transition: transform 0.25s ease;
+}
+.details[open] .chevron { transform: rotate(180deg); }
+
+.answer {
+  padding: 0 1.4rem 1.25rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.summary:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
+  border-radius: 22px;
+}
+
+/* ===== Scroll-reveal ===== */
+.eyebrow,
+.title,
+.item {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.inner[data-revealed] .eyebrow,
+.inner[data-revealed] .title,
+.inner[data-revealed] .item {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .title,
+  .item,
+  .chevron {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -16,6 +16,7 @@ export default function LiveCounter() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- syncs with a media query read at mount, not a cascading render
       setSecs(45);
       return;
     }

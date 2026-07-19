@@ -1,9 +1,8 @@
 .footer {
     position: relative;
-    background-color: var(--forest-deep);
+    background-color: var(--forest-abyss);
     color: var(--on-dark);
     padding: 4rem 1.5rem 2rem;
-    border-top: 1px solid rgba(9, 188, 138, 0.18);
 }
 
 .container {

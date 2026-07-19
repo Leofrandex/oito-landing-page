@@ -26,7 +26,7 @@ const CASES: CaseStudyData[] = [
     pillar: 'Automatización',
     title: 'Prospección outbound B2B con IA',
     description:
-      'Para una empresa de ciberseguridad: el flujo busca prospectos, los investiga con agentes de IA, los puntúa con una rúbrica de 0 a 100 (decisión, riesgo del sector, urgencia) y redacta cold emails diferenciados — dejando los leads listos separados de los fríos.',
+      'Para una empresa de ciberseguridad: el flujo busca prospectos, los investiga con agentes de IA, los puntúa con una rúbrica de 0 a 100 (decisión, riesgo del sector, urgencia) y redacta cold emails diferenciados, dejando los leads listos separados de los fríos.',
     tags: ['Prospección', 'Scoring IA', 'Cold email'],
     diagram: <ProspectDiagram />,
   },

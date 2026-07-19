@@ -3,7 +3,6 @@
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { ArrowDown } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
 import TextType from './TextType';
 import Button from '@/components/ui/Button';
@@ -47,10 +46,6 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
     { scope: root, dependencies: [isLoaded] },
   );
 
-  const skipIntro = () => {
-    tl.current?.progress(1);
-  };
-
   return (
     <section id="hero" className={styles.hero} ref={root}>
       <div className={styles.inner}>
@@ -80,10 +75,6 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
             Hablemos por WhatsApp
           </Button>
         </div>
-
-        <button type="button" className={styles.skip} data-anim onClick={skipIntro}>
-          saltar intro <ArrowDown size={15} />
-        </button>
       </div>
     </section>
   );

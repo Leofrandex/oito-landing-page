@@ -200,36 +200,20 @@ export default function DesignSystemPage() {
               </svg>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
-              {/* Glass Card Normal */}
+            <div className="grid grid-cols-1 gap-8 relative z-10">
+              {/* Glass Card */}
               <div className="space-y-4">
                 <h3 className={`text-sm font-bold uppercase tracking-wider ${previewTheme === 'dark' ? 'text-[#09bc8a]' : 'text-[#004346]'}`}>
-                  Estilo: Glass Estándar (.glass)
+                  Estilo: Glass (.glass)
                 </h3>
-                <GlassCard variant="glass" hover={true} className="p-6">
+                <GlassCard hover={true} className="p-6">
                   <h4 className={`text-xl font-bold ${previewTheme === 'dark' ? 'text-white' : 'text-[#002a2c]'}`}>Tarjeta Interactiva</h4>
                   <p className={`text-sm mt-2 leading-relaxed ${previewTheme === 'dark' ? 'text-white/80' : 'text-neutral-700'}`}>
                     Vidrio transparente optimizado para tarjetas de información y chips. Hover con animación vertical y brillo de borde Verde Mint.
                   </p>
                 </GlassCard>
                 <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-                  <p className="text-xs font-mono text-[#09bc8a]">&lt;GlassCard variant="glass" hover={'{true}'}&gt; ... &lt;/GlassCard&gt;</p>
-                </div>
-              </div>
-
-              {/* Glass Card Strong */}
-              <div className="space-y-4">
-                <h3 className={`text-sm font-bold uppercase tracking-wider ${previewTheme === 'dark' ? 'text-[#09bc8a]' : 'text-[#004346]'}`}>
-                  Estilo: Glass Fuerte (.glass-strong)
-                </h3>
-                <GlassCard variant="strong" hover={true} className="p-6">
-                  <h4 className={`text-xl font-bold ${previewTheme === 'dark' ? 'text-white' : 'text-[#002a2c]'}`}>Lecturas Complejas</h4>
-                  <p className={`text-sm mt-2 leading-relaxed ${previewTheme === 'dark' ? 'text-white/80' : 'text-neutral-700'}`}>
-                    Panel con mayor opacidad y desenfoque (11px blur) para bloques de mucho texto o heroes. Garantiza el contraste WCAG AA.
-                  </p>
-                </GlassCard>
-                <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-                  <p className="text-xs font-mono text-[#09bc8a]">&lt;GlassCard variant="strong" hover={'{true}'}&gt; ... &lt;/GlassCard&gt;</p>
+                  <p className="text-xs font-mono text-[#09bc8a]">&lt;GlassCard hover={'{true}'}&gt; ... &lt;/GlassCard&gt;</p>
                 </div>
               </div>
             </div>

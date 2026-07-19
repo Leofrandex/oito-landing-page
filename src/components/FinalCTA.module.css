@@ -1,10 +1,10 @@
 /* Transparent dark close: the fixed WebGL threads show through for a cinematic
- * final beat. Hairline mint rule separates it from the light section above. */
+ * final beat. The tone-change divider (globals.css) draws the hairline only when
+ * the section above is light. */
 .section {
   position: relative;
   overflow: hidden;
   padding: clamp(5.5rem, 11vw, 9rem) 1.5rem;
-  border-top: 1px solid rgba(9, 188, 138, 0.18);
   text-align: center;
 }
 

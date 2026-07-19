@@ -58,12 +58,13 @@ export default function SocialProof() {
           {placeholders.map((idx) => (
             <motion.div
               key={idx}
-              className={styles.logoPlaceholder}
+              className={`glass glass-hover ${styles.logoPlaceholder}`}
               variants={itemVariants}
               aria-label={`Client logo placeholder ${idx + 1}`}
             >
               {/* Neutral icon: horizontal dash */}
-              <div className={styles.placeholderIcon}>—</div>
+              <div className={styles.placeholderIcon} aria-hidden="true" />
+
             </motion.div>
           ))}
         </motion.div>

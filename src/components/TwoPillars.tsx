@@ -76,8 +76,8 @@ export default function TwoPillars() {
                 className={styles.cardWrapper}
               >
                 <GlassCard
-                  variant="strong"
                   hover
+                  light
                   className={styles.card}
                 >
                   <div className={styles.iconWrap}>

@@ -41,6 +41,7 @@
   justify-items: center;
 }
 
+/* Superficie = .glass (+ .glass-hover) desde globals.css. Aquí solo layout. */
 .logoPlaceholder {
   width: 130px;
   height: 130px;
@@ -48,41 +49,15 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(9, 188, 138, 0.22);
-  border-radius: 22px;
-  backdrop-filter: blur(7px) saturate(1.2);
-  -webkit-backdrop-filter: blur(7px) saturate(1.2);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.10);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: default;
 }
 
-.logoPlaceholder:hover {
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(9, 188, 138, 0.42);
-  box-shadow: 0 16px 40px rgba(9, 188, 138, 0.16);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .logoPlaceholder {
-    transition: none;
-  }
-  .logoPlaceholder:hover {
-    transform: none;
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(9, 188, 138, 0.22);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.10);
-  }
-}
-
 .placeholderIcon {
-  font-size: 3rem;
-  color: var(--on-dark-soft);
+  width: 3rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--on-dark-soft);
   opacity: 0.6;
-  font-weight: 300;
-  line-height: 1;
 }
 
 /* Responsive adjustments */
@@ -105,11 +80,10 @@
     width: 110px;
     height: 110px;
     padding: 1rem;
-    border-radius: 12px;
   }
 
   .placeholderIcon {
-    font-size: 2.5rem;
+    width: 2.5rem;
   }
 }
 
@@ -131,10 +105,9 @@
     width: 90px;
     height: 90px;
     padding: 0.75rem;
-    border-radius: 10px;
   }
 
   .placeholderIcon {
-    font-size: 2rem;
+    width: 2rem;
   }
 }

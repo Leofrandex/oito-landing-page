@@ -45,3 +45,6 @@ next-env.d.ts
 
 # Local design scratch / references (mockups, screenshots, exploraciones)
 refs/
+
+# editor local
+.vscode/

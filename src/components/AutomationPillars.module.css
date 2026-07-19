@@ -1,13 +1,27 @@
-/* Transparent dark band — WebGL threads show through.
- * Hairline mint rules frame it, forming an immersive "intro zone" with ServiceHero. */
+/* Transparent dark band — WebGL threads show through. Same tone as ServiceHero
+ * above (no divider between them), forming one immersive "intro zone". */
 .section {
   position: relative;
   padding: clamp(4.5rem, 9vw, 8rem) 1.5rem;
-  border-top: 1px solid rgba(9, 188, 138, 0.18);
-  border-bottom: 1px solid rgba(9, 188, 138, 0.18);
+}
+
+/* Glow mint LOCAL (pintado, misma capa que la sección) para que el .glass tenga algo
+ * que refractar. Los hilos WebGL globales (position:fixed, capa GPU) no los capta el
+ * backdrop-filter, así que la refracción real viene de este glow. */
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 42% at 20% 62%, rgba(9, 188, 138, 0.20), transparent 70%),
+    radial-gradient(44% 48% at 82% 70%, rgba(0, 255, 170, 0.14), transparent 72%);
 }
 
 .inner {
+  position: relative;
+  z-index: 1;
   max-width: 1080px;
   margin: 0 auto;
 }

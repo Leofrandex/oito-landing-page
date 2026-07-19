@@ -27,7 +27,7 @@
 .secondary:hover { background: var(--mint); color: var(--forest-deep); transform: translateY(-2px); }
 
 /* tertiary (link) */
-.tertiary { min-height: 0; padding: 0; background: none; color: var(--mint-ink); font-weight: 600; }
+.tertiary { min-height: 0; padding: 0; background: none; color: var(--mint); font-weight: 600; }
 :global(.section-dark) .tertiary { color: var(--mint); }
 .tertiary:hover { opacity: 0.85; }
 

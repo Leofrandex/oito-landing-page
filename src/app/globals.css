@@ -10,6 +10,7 @@
     --mint-rgb: 9, 188, 138;
     --neon: #00ffaa;
     --cream: #f4fcf9;
+    --forest-abyss: #001a1c; /* un escalón bajo forest-deep: cierre/pie de página */
 
     /* Semantic (worktree) */
     --bg-dark: var(--forest-deep);
@@ -18,7 +19,6 @@
     --ink-soft: #4a5a57;
     --on-dark: #eafff6;
     --on-dark-soft: rgba(234, 255, 246, 0.74);
-    --mint-ink: #0c8060; /* mint oscuro para texto/ícono mint sobre fondo claro (WCAG AA) */
 
     /* ===== Tokens v5 / design-system (usados por Hero, SocialProof, TwoPillars y /design-system) ===== */
     --color-bg: #ffffff;
@@ -134,11 +134,10 @@ h3, h4, h5, h6 { font-weight: 500; }
     line-height: 1;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--mint-ink);
+    color: var(--mint);
     background: rgba(9, 188, 138, 0.14);
     border: 1px solid rgba(9, 188, 138, 0.30);
 }
-.section-dark .badge { color: var(--mint); }
 
 a { color: inherit; text-decoration: none; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
@@ -153,33 +152,58 @@ img, svg, canvas { display: block; }
 .section-dark { position: relative; color: var(--on-dark); }
 .section-light { position: relative; background: var(--cream); color: var(--ink); }
 
-/* ===== Glassmorphism (piezas simples; GlassSurface maneja la refracción premium del header) ===== */
+/* Divisor único, SOLO en el cambio de tono (claro↔oscuro). Entre secciones del
+ * mismo tono no hay línea: evita costuras y bordes duplicados. */
+.section-light + .section-dark,
+.section-dark + .section-light {
+    border-top: 1px solid rgba(var(--mint-rgb), 0.18);
+}
+
+/* ===== Glassmorphism — Liquid glass + rim suave (design-system §2/§2.1) =====
+ * Dos clases, elegidas por el tono del fondo:
+ *   .glass       → fondos OSCUROS  ("liquid mint": degradado translúcido teñido de mint)
+ *   .glass-light → fondos CLAROS   ("liquid sheen": mismo glossy en blanco translúcido)
+ * El borde es un "rim de luz" (::after con degradado enmascarado), NO un border sólido.
+ * Recordatorio técnico: el backdrop-filter NO refracta los hilos WebGL fijos (canvas
+ * position:fixed en su capa GPU); la translucidez deja verlos pero no los distorsiona.
+ * La refracción real se logra con un glow LOCAL por sección (ver .section::before en
+ * EasyStart/AutomationPillars/SolutionsGrid). GlassSurface (header) maneja la refracción SVG. */
+.glass, .glass-light { position: relative; border-radius: 22px; }
+
 .glass {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(7px) saturate(1.35);
-    -webkit-backdrop-filter: blur(7px) saturate(1.35);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 22px;
+    background: linear-gradient(120deg, rgba(9, 188, 138, 0.30) 0%, rgba(9, 188, 138, 0.05) 55%, rgba(9, 188, 138, 0.15) 100%);
+    backdrop-filter: blur(11px) saturate(1.5);
+    -webkit-backdrop-filter: blur(11px) saturate(1.5);
+    box-shadow: 0 26px 58px -22px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.42), inset 0 -1px 0 rgba(9, 188, 138, 0.12);
 }
 .glass-light {
-    background: rgba(0, 67, 70, 0.04);
-    border: 1px solid rgba(9, 188, 138, 0.20);
-    border-radius: 22px;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.05) 55%, rgba(255, 255, 255, 0.12) 100%);
+    backdrop-filter: blur(11px) saturate(1.4);
+    -webkit-backdrop-filter: blur(11px) saturate(1.4);
+    box-shadow: 0 20px 44px -20px rgba(0, 67, 70, 0.20), inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 0 rgba(255, 255, 255, 0.08);
 }
-/* v5 — bloques con texto sobre oscuro (fill propio) + hover premium (GlassCard) */
-.glass-strong {
-    background: rgba(0, 38, 40, 0.20);
-    backdrop-filter: blur(11px) saturate(1.45);
-    -webkit-backdrop-filter: blur(11px) saturate(1.45);
-    border: 1px solid rgba(9, 188, 138, 0.26);
-    border-radius: 26px;
-    box-shadow: 0 10px 44px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+/* Rim suave: canto de luz en degradado enmascarado (aspecto de vidrio real, no un border plano).
+ * Ocupa el ::after del elemento glass — si un componente necesita su propio ::after, moverlo a un hijo. */
+.glass::after, .glass-light::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.08) 36%, rgba(255, 255, 255, 0) 58%, rgba(255, 255, 255, 0.24));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
 }
+/* v5: hover premium (GlassCard) */
 .glass-hover { transition: transform .25s ease, box-shadow .25s ease; }
 .glass-hover:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(9, 188, 138, .20); }
 
 @media (max-width: 768px) {
-    .glass { backdrop-filter: blur(5px) saturate(1.2); -webkit-backdrop-filter: blur(5px) saturate(1.2); }
+    .glass { backdrop-filter: blur(8px) saturate(1.4); -webkit-backdrop-filter: blur(8px) saturate(1.4); }
+    .glass-light { backdrop-filter: blur(8px) saturate(1.3); -webkit-backdrop-filter: blur(8px) saturate(1.3); }
 }
 
 /* ===== Glow Tech Bullets (design-system) ===== */

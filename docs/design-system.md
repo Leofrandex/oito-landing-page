@@ -13,18 +13,14 @@
 ## 0. Reglas transversales (léelas primero)
 
 1. **`base.css` fija `h1–h6 { color: var(--color-text-dark) }`.** Todo título sobre fondo **oscuro** DEBE llevar override a color claro (`#eafff6`). Recomendado: clase utilitaria `.on-dark` que fuerce `color:#eafff6` en headings, o que cada componente de sección oscura ya traiga el color claro. Sin esto → títulos dark-on-dark invisibles.
-2. **El efecto glass depende de que haya textura detrás.** `.glass` casi no tiene relleno propio (3.5% blanco): solo difumina lo que hay atrás. En secciones oscuras donde uses `.glass`, mantené los hilos visibles (opacity ~0.6–0.9). Si la sección es plana, usá `.glass-strong` (tiene fill propio) o `.glass-light`.
-3. **Un solo `.glass`.** Hay una única definición en `tokens/effects.css`; no dupliques variantes.
-4. **✅ Contraste del mint como TEXTO (accesibilidad, 2026-07-05).** El mint `#09bc8a` como **texto/ícono**
-   solo pasa WCAG AA sobre **fondo oscuro** (~6.3:1). Sobre **fondo claro** falla (~2.3:1). Regla:
-   sobre claro, el texto/ícono mint (badges, links terciarios, spans de acento) usa **Mint Ink
-   `#0c8060`** (`--mint-ink`, ~4.7:1 sobre cream). El `#09bc8a` de texto queda reservado a fondos
-   oscuros; los rellenos/bordes/fondos mint no cambian. Implementación típica: `.badge`/acentos por
-   defecto en `--mint-ink`, y override a `--mint` dentro de `.section-dark`.
-   **⚠️ Excepción deliberada (decisión usuario 2026-07-05):** el **wordmark "oito"** se mantiene en
-   mint brillante `#09bc8a` en TODOS los fondos, incluidos los claros (~2.3:1), priorizando la
-   vibración de marca. Excepción consciente a WCAG AA — NO cambiar el color del wordmark a
-   `--mint-ink`. Aplica solo al wordmark; el resto del texto mint sí sigue la regla de arriba.
+2. **⚠️ El `backdrop-filter` NO refracta los hilos globales (2026-07-08).** El fondo de hilos (`ThreadsBackground`) es un **canvas WebGL `position:fixed`**, y por cómo compone Chromium, `backdrop-filter` **no captura capas fijas aceleradas por GPU**: los hilos atraviesan el vidrio **sin difuminarse** (se ven idénticos dentro y fuera). *Comprobado.* Consecuencias: **(a)** `.glass` lleva **cuerpo propio** (fill translúcido tipo liquid glass + luz interior + rim de luz, ver §2) para leer como vidrio sin depender del fondo; **(b)** si querés que el vidrio **refracte** algo, pintá una textura **LOCAL** en la sección (un glow en `.section::before`, misma capa → sí se refracta), como en `EasyStart`/`AutomationPillars`/`SolutionsGrid`. Nunca prometas (ni en propuestas/PDF) que el vidrio distorsiona los hilos animados: no es posible con esta arquitectura.
+3. **Un solo `.glass`.** Hay una única definición (en `src/app/globals.css`); no dupliques variantes.
+4. **✅ Mint único como acento (decisión usuario 2026-07-08).** El mint `#09bc8a` es el **único**
+   color de acento para texto/ícono en **todos** los fondos, claros y oscuros (badges, links
+   terciarios, spans de acento, wordmark). Se **eliminó** el token `--mint-ink` `#0c8060` que antes
+   se usaba sobre fondo claro por contraste. **⚠️ Trade-off consciente:** como texto sobre fondo
+   claro el mint queda ~2.3:1 (por debajo de WCAG AA); se prioriza la consistencia y la vibración de
+   marca sobre el contraste. Los rellenos/bordes/fondos mint no cambian.
 
 ---
 
@@ -54,16 +50,45 @@ Resuelve la discrepancia previa: **manda `agents.md` (Outfit)**. Eliminar Playfa
 
 ## 2. Glassmorphism  ✅ FIJADO
 
-**Decisión clave: `GlassSurface` (refracción SVG) SOLO en el header. Todo lo demás con `.glass` / `.glass-strong` / `.glass-light`.**
+**Decisión clave: `GlassSurface` (refracción SVG) SOLO en el header. Todo lo demás con `.glass` / `.glass-light`.**
 
-Razón: `GlassSurface` corre un grafo de filtro SVG (feImage + 3 feDisplacementMap + 3 feColorMatrix + 2 feBlend + blur) como `backdrop-filter` → carísimo de componer y regenera el mapa en resize; multiplicado por N elementos tumba FPS en móvil, y solo funciona en Chromium. Vale la pena para 1 instancia (el header, momento estrella); no para tarjetas/chips/secciones.
+> **✅ FIJADO 2026-07-08 (c) — Liquid glass + rim suave (decisión usuario, validada en `.superpowers/mockups/glass-lab.html`):**
+> Solo existen **dos** clases de vidrio y se eligen por el tono del fondo:
+> - **`.glass` → estilo "Liquid mint"** (fondos **oscuros**): degradado translúcido teñido de mint que deja ver los hilos detrás, con brillo superior tipo liquid glass.
+> - **`.glass-light` → estilo "Liquid sheen"** (fondos **claros**): mismo tratamiento glossy pero en blanco translúcido.
+> - **Ambas usan "Rim suave":** el borde NO es un `border` sólido de color, sino un **canto de luz en degradado enmascarado** (pseudo-elemento, más brillante arriba-izquierda y desvaneciéndose) para leer como vidrio real. Ver §2.1.
+>
+> Esto **reemplaza** las recetas anteriores (2026-07-08 a/b: fill mint 16%→forest 30% y blanco 62%→42% con borde sólido). Se conserva la verdad técnica: el `backdrop-filter` NO refracta los hilos WebGL fijos (regla #0.2); la translucidez del liquid glass deja ver los hilos pero **no los distorsiona** salvo con un glow LOCAL por sección.
+>
+> **Historial (obsoleto, solo referencia):** 2026-07-07 se eliminó `.glass-strong`. 2026-07-08 (a/b) fills mate con borde sólido — sustituidos por liquid glass.
 
-| Clase | Uso | Valores (de `tokens/effects.css`) |
+Razón para GlassSurface solo-header: corre un grafo de filtro SVG (feImage + 3 feDisplacementMap + 3 feColorMatrix + 2 feBlend + blur) como `backdrop-filter` → carísimo de componer y regenera el mapa en resize; multiplicado por N elementos tumba FPS en móvil, y solo funciona en Chromium. Vale la pena para 1 instancia (el header); no para tarjetas/chips/secciones.
+
+| Clase | Uso | Valores |
 |---|---|---|
-| `.glass` | Acento sutil sobre **oscuro** (necesita hilos detrás) | `bg rgba(255,255,255,.035)` · `blur(7px) saturate(1.35)` · borde `rgba(255,255,255,.14)` · radio `26px` |
-| `.glass-strong` | Bloques con **texto** sobre oscuro (fill propio, legible) | `bg rgba(0,38,40,.20)` · `blur(11px) saturate(1.45)` · borde `rgba(9,188,138,.26)` |
-| `.glass-light` | Tarjetas sobre **claro** | `bg rgba(255,255,255,.40)` · `blur(12px) saturate(1.4)` · borde `rgba(255,255,255,.65)` · sombra `0 12px 30px rgba(0,67,70,.09)` |
+| `.glass` | Superficie sobre **oscuro** — *Liquid mint* | fill `linear-gradient(120deg, rgba(9,188,138,.30) 0%, rgba(9,188,138,.05) 55%, rgba(9,188,138,.15) 100%)` · `blur(11px) saturate(1.5)` · **rim suave** (§2.1) · radio `22px` · sombra `0 26px 58px -22px rgba(0,0,0,.5)` + brillo sup `inset 0 2px 0 rgba(255,255,255,.42)` + `inset 0 -1px 0 rgba(9,188,138,.12)` · móvil ≤768px: `blur(8px)` |
+| `.glass-light` | Superficie sobre **claro** — *Liquid sheen* | fill `linear-gradient(120deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,.05) 55%, rgba(255,255,255,.12) 100%)` · `blur(11px) saturate(1.4)` · **rim suave** (§2.1) · radio `22px` · sombra `0 20px 44px -20px rgba(0,67,70,.20)` + brillo sup `inset 0 2px 0 rgba(255,255,255,.5)` + `inset 0 -1px 0 rgba(255,255,255,.08)` |
 | `.glass-hover` | Hover de tarjeta | levanta `translateY(-6px)` + `box-shadow: var(--shadow-mint)` |
+
+### 2.1 Rim suave (canto de vidrio) — receta exacta
+
+El borde de `.glass` y `.glass-light` se dibuja con un pseudo-elemento `::after` cuyo degradado solo pinta el canto (técnica de máscara). Da un borde luminoso que capta la luz de forma desigual alrededor del perímetro (aspecto de vidrio real), en vez de una línea de color plana.
+
+```css
+.glass, .glass-light { position: relative; }           /* el rim se posiciona sobre la tarjeta */
+.glass::after, .glass-light::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.4px;
+  background: linear-gradient(135deg,
+    rgba(255,255,255,.55), rgba(255,255,255,.08) 36%,
+    rgba(255,255,255,0) 58%, rgba(255,255,255,.24));    /* "rim suave" */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+```
+
+> ⚠️ **Caveat de implementación:** el rim ocupa el `::after` del elemento con `.glass`/`.glass-light`. Si un componente ya usa `::after` sobre ese mismo nodo (o necesita su propio pseudo), mover el rim a un `::before` o a un hijo. Verificar al migrar `CaseStudy`, `EasyStart`, etc. Además, como el fill es translúcido, **revisar contraste del texto** sobre los hilos (usar `--on-dark`/`--ink` según tono).
 
 **Header (GlassSurface) — parámetros exactos ya calibrados:**
 `height 62 · borderRadius 31 · backgroundOpacity 0.18 · saturation 1.6 · distortionScale -160 · blur 9 · displace 3`, con `color-scheme: dark` en el contenedor. El overlay de menú móvil (`position:fixed`) va FUERA del GlassSurface (el backdrop-filter crea containing block).
@@ -107,7 +132,7 @@ Todos `white-space:nowrap`, altura 34px (tag/filter) / 28px (badge).
 
 **Anatomía única:** chip de ícono (46px, `radius 13`, `bg rgba(9,188,138,.14)`, borde mint 30%, ícono Lucide mint `stroke 1.6`) → título Outfit 500 20px → cuerpo DM Sans 13.5px → acción link con flecha. Footer anclado abajo (`margin-top:auto`) para alinear CTAs entre tarjetas de distinto largo. Padding 24, `radius var(--radius-lg)` (26px), `display:flex; flex-direction:column; gap:12px`.
 
-- Superficie según fondo: `.glass-strong` (texto sobre oscuro) · `.glass` (acento oscuro) · `.glass-light` (claro).
+- Superficie según fondo: `.glass` (sobre oscuro, con hilos detrás) · `.glass-light` (sobre claro).
 - Hover: `.glass-hover` (levanta 6px + glow mint) + la flecha del link se desliza.
 - **Flexiona a tarjeta de caso** (FeaturedCases): agrega placeholder de imagen `16/10` (rayado dashed mint con label monospace hasta tener capturas reales) + tags de sector/servicio arriba. No es un componente aparte.
 
@@ -137,7 +162,7 @@ Referencia: `refs/glowbullet-nodos.html`.
 
 ## 8. Paleta e íconos (recordatorio)
 
-- Mint `#09bc8a` (acento único) · **Mint Ink `#0c8060`** (`--mint-ink`, mint oscuro SOLO para texto/ícono mint sobre fondo claro — pasa AA; ver §0.4) · Forest `#004346` · Deep `#002a2c`/`#001a1c` · Cream `#f4fcf9` · Neon `#00ffaa` (glow) · Charcoal `#333` (cuerpo).
+- Mint `#09bc8a` (acento único, mismo color en todo fondo; ver §0.4) · Forest `#004346` · Deep `#002a2c`/`#001a1c` · Cream `#f4fcf9` · Neon `#00ffaa` (glow) · Charcoal `#333` (cuerpo).
 - Íconos: **Lucide**, `stroke-width: 1.5`.
 - Hilos: shader WebGL innegociable (protagonista del hero); PNG estáticos (`hilos-fondo`, `bg-content-*`) como acentos en el resto.
 

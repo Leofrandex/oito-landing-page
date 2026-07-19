@@ -64,12 +64,7 @@
   padding: 2.25rem 2rem;
   gap: 0;
   width: 100%;
-  /* On the light background, use a tinted card feel */
-  background: rgba(0, 67, 70, 0.07) !important;
-  border: 1px solid rgba(9, 188, 138, 0.22) !important;
-  box-shadow: 0 6px 28px rgba(0, 67, 70, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
-  backdrop-filter: blur(10px) saturate(1.3) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(1.3) !important;
+  /* Superficie de vidrio: la aporta la utilidad .glass-light (liquid sheen + rim). Sin override. */
 }
 
 /* ── Icon container ── */

@@ -4,6 +4,8 @@ import SocialProof from '@/components/SocialProof';
 import WhyOito from '@/components/WhyOito';
 import FeaturedCases from '@/components/FeaturedCases';
 import HowWeWorkHome from '@/components/HowWeWorkHome';
+import Faq from '@/components/Faq';
+import EasyStart from '@/components/EasyStart';
 import FinalCTA from '@/components/FinalCTA';
 
 export default function Home() {
@@ -15,6 +17,8 @@ export default function Home() {
       <WhyOito />
       <FeaturedCases />
       <HowWeWorkHome />
+      <Faq />
+      <EasyStart />
       <FinalCTA />
     </main>
   );

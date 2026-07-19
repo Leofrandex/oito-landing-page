@@ -19,6 +19,7 @@ export default function Reveal({ children, className }: RevealProps) {
     if (!el) return;
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- syncs with a media query read at mount, not a cascading render
       setRevealed(true);
       return;
     }

@@ -54,7 +54,7 @@ export default function Header() {
         className={styles.bar}
       >
         <div className={styles.container}>
-          <Link href="/" className={styles.logo} aria-label="oito — inicio">
+          <Link href="/" className={styles.logo} aria-label="oito, inicio">
             <span className="wordmark">oito</span>
           </Link>
 

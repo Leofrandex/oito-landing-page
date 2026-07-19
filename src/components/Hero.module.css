@@ -69,3 +69,109 @@
 .actions {
     margin-top: 2.2rem;
 }
+
+/* ===== Coreografía de entrada (fase D) ===== */
+.letter {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* El tagline expande su letter-spacing al entrar (transición CSS disparada por GSAP) */
+.tagline {
+  transition:
+    letter-spacing 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.9s ease;
+}
+
+.tagline[data-collapsed] {
+  letter-spacing: 0.02em;
+  opacity: 0;
+}
+
+/* CTA con glow que respira (pausado bajo reduced motion) */
+.actions :global(a) {
+  animation: cta-breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes cta-breathe {
+  0%,
+  100% {
+    box-shadow: 0 12px 28px -10px rgba(9, 188, 138, 0.55);
+  }
+  50% {
+    box-shadow: 0 12px 40px -6px rgba(9, 188, 138, 0.85);
+  }
+}
+
+/* Scroll hint */
+.scrollHint {
+  position: absolute;
+  bottom: clamp(1rem, 3vh, 2rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.mouse {
+  width: 18px;
+  height: 30px;
+  border: 1.5px solid var(--on-dark-soft);
+  border-radius: 999px;
+  position: relative;
+}
+
+.mouse::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 3px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--mint);
+  animation: wheel 1.8s ease-out infinite;
+}
+
+@keyframes wheel {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(-50%, 9px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 9px);
+    opacity: 0;
+  }
+}
+
+.hintLabel {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--on-dark-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tagline {
+    transition: none;
+  }
+
+  .tagline[data-collapsed] {
+    letter-spacing: inherit;
+    opacity: 1;
+  }
+
+  .actions :global(a) {
+    animation: none;
+  }
+
+  .mouse::after {
+    animation: none;
+  }
+}

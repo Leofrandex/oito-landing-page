@@ -46,15 +46,16 @@ export default function AutomationPillars() {
             preserveAspectRatio="none"
             aria-hidden="true"
           >
-            {/* n1 (arriba-izq) -> n2 (centro-abajo) */}
+            {/* Ciclo n1 -> n2 -> n3 -> n1: cada nodo recibe exactamente un pulso */}
+            {/* A: n1 -> n2 */}
             <path className={styles.wire} d="M215,190 C300,320 380,380 500,395" />
-            {/* n3 (arriba-der) -> n2 */}
-            <path className={styles.wire} d="M785,190 C700,320 620,380 500,395" />
-            {/* n1 -> n3 (arco superior) */}
-            <path className={styles.wire} d="M240,120 C420,40 580,40 760,120" />
+            {/* B: n2 -> n3 */}
+            <path className={styles.wire} d="M500,395 C620,380 700,320 785,190" />
+            {/* C: n3 -> n1 */}
+            <path className={styles.wire} d="M760,120 C580,40 420,40 240,120" />
             <path className={`${styles.pulse} ${styles.p1}`} d="M215,190 C300,320 380,380 500,395" />
-            <path className={`${styles.pulse} ${styles.p2}`} d="M785,190 C700,320 620,380 500,395" />
-            <path className={`${styles.pulse} ${styles.p3}`} d="M240,120 C420,40 580,40 760,120" />
+            <path className={`${styles.pulse} ${styles.p2}`} d="M500,395 C620,380 700,320 785,190" />
+            <path className={`${styles.pulse} ${styles.p3}`} d="M760,120 C580,40 420,40 240,120" />
           </svg>
 
           <ul className={styles.nodes} role="list">

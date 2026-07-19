@@ -232,3 +232,16 @@ colors: {
 - **Datos**: `Database`, `Cable`, `Link2`, `Globe`, `FileText`, `BarChart3`, `Cloud`, `Server`.
 - **Comunicación**: `Mail`, `MessageSquare`, `Users`, `TrendingUp`, `Calendar`, `ShieldCheck`, `Clock`, `Settings`, `Send`.
 - **Navegación / UI**: `ArrowRight`, `ChevronRight`, `Plus`, `Minus`, `X`, `Check`, `ExternalLink`, `Lock`, `Eye`.
+
+---
+
+## 9. Patrones de la Experiencia v3 (fases B-D, 2026-07-19)  ✅ FIJADO
+
+Patrones nuevos aprobados en el spec `2026-07-19-experiencia-inmersiva-design.md` e implementados en la rama:
+
+- **Set piece pinned (receta base):** `useGSAP` + `gsap.matchMedia()`; la escena scroll-driven corre SOLO en `(prefers-reduced-motion: no-preference) and (min-width: 861px)`; la otra rama marca `data-static` en el contenedor y el CSS muestra el estado final completo. GSAP anima SOLO transform/opacity (`autoAlpha`). Referencias: `WhyOito` (caos→orden, +=250%), `CasesShowcase` (+=85% por caso), `Methodology` (+=180%). ⚠️ El `ref={container}` en la sección raíz es obligatorio (sin él la escena no inicializa; bug real corregido en `f6fda15`).
+- **Circuito conectado (pilares):** nodos `.glass` + cables SVG (`stroke rgba(9,188,138,.22)` 1.5px) + pulsos (`stroke-dasharray 40 900`, dashoffset 940→0, ciclo 4.5s, delays 0/1.5/3s) + glow del nodo en `::after` animado SOLO por opacity (box-shadow estático `0 0 32px rgba(9,188,138,.35)` + ring inset 1.5px).
+- **Marquesina de píldoras (soluciones):** dos filas duplicadas (`translateX(-50%)` loop 32s, direcciones opuestas), pausa en hover/focus-within, máscara lateral 8%; píldora: blanco .6, borde `rgba(0,67,70,.14)`, activa borde mint .7 + fondo mint .1. Reduced motion: grid envolvente, copia oculta.
+- **Count-up fluido:** hook `useCountUp` (`src/components/ui/useCountUp.ts`, rAF + ease-out cúbico ~300ms, re-tween desde el valor interpolado). Todo número que cambia en vivo lo usa; nunca saltos.
+- **Columnas gemelas (calculadora):** barras con `transform: scaleY` (origen bottom, escala sqrt sobre horas máx), "Hoy" rojizo `#7e3626→#c25a41`, "Con oito" mint con glow. El rojizo SOLO existe en calculadora y en el caos del dolor (color de costo/problema).
+- **Anclas con secciones pinned:** los saltos por hash necesitan `HashScrollFix` (corrección por asentamiento hasta que los pin-spacers montan) + intercepción de clic en Header con `scrollIntoView`. `scroll-margin-top: 90px` en `.anchor-target` da el offset del header.

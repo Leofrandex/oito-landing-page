@@ -98,3 +98,58 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 > **Nota:** este es el único caso de *Desarrollo* en el spotlight: el guiño de que, detrás de la automatización, hay el mismo músculo técnico para construir software a medida cuando el negocio lo necesita.
 
 ---
+
+# 6. Qué puedes automatizar
+
+**Título:** Lo que la automatización puede hacer por ti
+**Bajada:** Ejemplos de soluciones comunes. Las cifras son estimaciones de impacto potencial, no resultados garantizados.
+
+> Marquesina de dos filas (loop continuo, sentido opuesto cada una) con las 8 soluciones. Este es el punto donde el mensaje abre del gancho de ventas (leads, Casos) al techo integral: cualquier tarea repetitiva del negocio, no solo prospección.
+
+1. **Calificador de leads:** hasta ~85% menos tiempo de triage
+2. **Soporte 24/7:** respuestas en segundos, 24/7
+3. **CRM al día:** datos sincronizados sin tipeo manual
+4. **Control de stock:** alertas antes de quedarte sin inventario
+5. **Cobranza:** recordatorios automáticos de pago
+6. **Reportes:** reportes listos sin armarlos a mano
+7. **Reseñas:** pide y gestiona reseñas en automático
+8. **Documentos:** extrae datos de PDFs y adjuntos
+
+**Cierre (pregunta + CTA):**
+**Título:** ¿Cuál le quitaría más **trabajo** a tu equipo?
+**CTA:** `Cuéntanos por WhatsApp`
+
+---
+
+# 7. Calculadora de ROI
+
+**Título:** Calcula el costo real de **no automatizar**
+**Bajada:** Ajusta los tres valores a tu operación. El resto lo hace la página.
+
+> Calculadora con 3 sliders (personas en tareas repetitivas, horas por semana por persona, costo por hora) y una comparación visual de dos columnas: "Hoy" vs "Con oito", con la diferencia de horas que "vuelven a ti /mes".
+
+**Veredicto (bajo los sliders):**
+> [monto]/mes en trabajo manual
+> Cálculo estimado · ~70% del tiempo es recuperable
+
+**CTA:** `Hablemos de tu caso`
+
+---
+
+# 8. Cómo trabajamos
+
+**Título:** Metodología **oito**
+
+> Sección con scroll pineado: el hilo se llena y cada nodo se enciende con su check a medida que avanzas por los 3 pasos. Al cierre del pin, aparece el contador en vivo.
+
+1. **Contacto & Auditoría:** Hablamos por WhatsApp, entendemos tu negocio e identificamos dónde podemos ayudarte más.
+2. **Construcción & Implementación:** Diseñamos y desarrollamos la solución a medida, integrándola con lo que ya usas.
+3. **Monitoreo & Mejora:** Medimos, ajustamos y escalamos para que los resultados se mantengan en el tiempo.
+
+**Contador en vivo (cierre de la sección, enmarcado como ilustrativo, sin nota al pie aparte):**
+> En los **[segundos que llevas leyendo]** segundos que llevas leyendo, `oito` podría haber:
+> - calificado **[N]** leads
+> - enviado **[N]** propuestas
+> - validado **[N]** facturas
+
+---

@@ -23,6 +23,8 @@
 /* ===== Escenario ===== */
 .stage {
   position: relative;
+  /* width explicito: como hijo de flex column, margin auto encogeria el grid a fit-content */
+  width: 100%;
   max-width: 1080px;
   margin: 0 auto;
   height: min(70vh, 520px);

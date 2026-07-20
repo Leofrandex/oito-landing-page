@@ -5,15 +5,6 @@
   padding: clamp(4.5rem, 9vw, 8rem) 1.5rem;
 }
 
-.section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(45% 45% at 78% 22%, rgba(194, 90, 65, 0.12), transparent 70%);
-}
-
 .inner {
   position: relative;
   z-index: 1;

@@ -41,9 +41,6 @@ export default function LiveCounter() {
           </div>
         ))}
       </div>
-      <span className={styles.counterNote}>
-        estimación ilustrativa de lo que la automatización podría procesar
-      </span>
     </div>
   );
 }

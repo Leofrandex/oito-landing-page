@@ -11,9 +11,8 @@ import styles from './Header.module.css';
 const links = [
   { href: '/#casos', label: 'Casos' },
   { href: '/#soluciones', label: 'Soluciones' },
-  { href: '/#calculadora', label: 'Calculadora' },
+  { href: '/#metodologia', label: 'Metodología' },
   { href: '/#faq', label: 'FAQ' },
-  { href: '/desarrollo-web', label: 'Desarrollo web' },
 ];
 
 export default function Header() {

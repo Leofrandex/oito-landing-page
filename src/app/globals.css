@@ -10,7 +10,6 @@
     --mint-rgb: 9, 188, 138;
     --neon: #00ffaa;
     --cream: #f4fcf9;
-    --forest-abyss: #001a1c; /* un escalón bajo forest-deep: cierre/pie de página */
 
     /* Semantic (worktree) */
     --bg-dark: var(--forest-deep);

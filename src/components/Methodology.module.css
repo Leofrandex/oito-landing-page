@@ -170,13 +170,6 @@
   color: var(--on-dark);
 }
 
-.counterNote {
-  font-size: 0.82rem;
-  letter-spacing: 0.02em;
-  color: var(--on-dark-soft);
-  opacity: 0.8;
-}
-
 /* ===== Responsive: vertical timeline ===== */
 @media (max-width: 720px) {
   .steps {
@@ -213,10 +206,6 @@
 }
 
 /* ===== Workflow ejecutándose (fase D) ===== */
-/* Degradado invertido: luz desde abajo (ritmo del bloque oscuro, spec v3 §4) */
-.workflow {
-  background: linear-gradient(to top, rgba(9, 188, 138, 0.06), transparent 55%);
-}
 
 .progress {
   position: absolute;

@@ -1,20 +1,5 @@
 .section { position: relative; overflow: hidden; padding: clamp(4.5rem, 9vw, 7.5rem) 1.5rem; }
 
-/* Textura LOCAL para que el glass tenga algo que refractar. Los hilos globales son
- * un canvas WebGL en su propia capa GPU (position:fixed) y backdrop-filter NO captura
- * esas capas compositadas aparte → pasan por el vidrio sin filtrarse. Este glow, en
- * cambio, se pinta en la misma superficie que la sección, así que el vidrio SÍ lo
- * difumina y se ve la refracción. Pintado (sin transform/will-change) a propósito. */
-.section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(38% 46% at 24% 72%, rgba(9, 188, 138, 0.22), transparent 70%),
-    radial-gradient(42% 50% at 80% 78%, rgba(0, 255, 170, 0.15), transparent 72%);
-}
 
 .inner { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; text-align: center; }
 

@@ -8,13 +8,6 @@
   text-align: center;
 }
 
-.glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(55% 60% at 50% 55%, rgba(9, 188, 138, 0.16), transparent 72%);
-  pointer-events: none;
-}
-
 .inner {
   position: relative;
   max-width: 760px;

@@ -20,7 +20,6 @@ export default function FinalCTA({
 }: FinalCTAProps = {}) {
   return (
     <section className={`section-dark ${styles.section}`}>
-      <div className={styles.glow} aria-hidden="true" />
       <Reveal className={styles.inner}>
         <h2 className={styles.title} style={{ transitionDelay: '0ms' }}>
           {title}

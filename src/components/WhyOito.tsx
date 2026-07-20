@@ -112,8 +112,6 @@ export default function WhyOito() {
 
   return (
     <section ref={container} className={`section-light ${styles.section} ${styles.narrative}`}>
-      <div className={styles.glow} aria-hidden="true" />
-
       <div className={styles.stage}>
         <div className={styles.arg} data-arg1>
           <p className={`badge ${styles.eyebrow}`}>Por qué oito</p>

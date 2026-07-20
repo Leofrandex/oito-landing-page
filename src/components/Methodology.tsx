@@ -82,7 +82,11 @@ export default function Methodology() {
   );
 
   return (
-    <section ref={container} className={`section-dark ${styles.section} ${styles.workflow}`}>
+    <section
+      ref={container}
+      id="metodologia"
+      className={`section-dark anchor-target ${styles.section} ${styles.workflow}`}
+    >
       <div className={styles.inner}>
         <header className={styles.head}>
           <p className={`badge ${styles.eyebrow}`}>Metodología</p>

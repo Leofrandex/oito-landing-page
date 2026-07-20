@@ -1,6 +1,7 @@
-import { ArrowRight } from 'lucide-react';
 import Reveal from './ui/Reveal';
 import Button from '@/components/ui/Button';
+import WhatsAppIcon from './WhatsAppIcon';
+import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './DevBridge.module.css';
 
 /* Puente a desarrollo web (spec 2026-07-19 §3.9): tono "también hacemos",
@@ -22,9 +23,9 @@ export default function DevBridge() {
             negocio: rápida, moderna y hecha para vender.
           </p>
           <div className={styles.ctaWrap} style={{ transitionDelay: '240ms' }}>
-            <Button variant="secondary" href="/desarrollo-web">
-              Conoce desarrollo web
-              <ArrowRight size={18} aria-hidden="true" />
+            <Button variant="secondary" external href={WHATSAPP_URL}>
+              <WhatsAppIcon size={18} />
+              Cuéntanos qué quieres hacer
             </Button>
           </div>
         </div>

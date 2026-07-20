@@ -104,9 +104,8 @@ export default function WhyOito() {
       <div className={styles.glow} aria-hidden="true" />
 
       <div className={styles.stage}>
-        <p className="badge">Por qué oito</p>
-
         <div className={styles.arg} data-arg1>
+          <p className={`badge ${styles.eyebrow}`}>Por qué oito</p>
           <h2 className={styles.argTitle}>
             El tiempo no se recupera, <span className={styles.accent}>los ingresos sí</span>
           </h2>

@@ -175,7 +175,7 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 - **24/7** operando en automático
 - **100%** remoto y en español
 
-> `[REQUIERE TU INPUT: confirmar estas 4 cifras antes de integrar (el spec exige que sean verdaderas); revisar el conteo de "6 sectores": la lista puede contar el mismo cliente dos veces (Logística/Transporte B2B, Salud/Gestión de desechos)]`
+> ✅ Cifras confirmadas por el usuario (2026-07-19): las 4 se quedan tal cual.
 
 **Construido con (stack):** Sistemas construidos con: OpenAI, Anthropic, Gemini, Perplexity, n8n, Make, Zapier, HubSpot, Zoho, Airtable, Notion, ClickUp, Slack, Google Sheets, WhatsApp, Instagram (carrusel de logos de herramientas, como prueba de competencia técnica, no de clientes).
 

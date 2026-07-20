@@ -1,5 +1,6 @@
 import { Zap, Workflow, BotMessageSquare } from 'lucide-react';
 import Reveal from './ui/Reveal';
+import BorderGlow from './ui/BorderGlow';
 import styles from './AutomationPillars.module.css';
 
 const PILLARS = [
@@ -22,7 +23,8 @@ const PILLARS = [
 
 /* Fila de 3 pilares (fuera del circuito, ver docs/superpowers/plans/2026-07-19-experiencia-fase-e-pulido.md,
  * decision del preview de pulido): los nodos glass en una misma fila, sin cables ni layout
- * triangular. Única vida = glow secuencial 1 -> 2 -> 3 en la capa ::after de cada nodo. */
+ * triangular. Cada nodo conserva su look glass estatico; la unica vida es el BorderGlow
+ * reactivo al cursor (mesh de borde + spotlight), sin glow automatico. */
 export default function AutomationPillars() {
   return (
     <section className={`section-dark ${styles.section}`}>
@@ -38,12 +40,16 @@ export default function AutomationPillars() {
 
         <ul className={styles.nodes} role="list">
           {PILLARS.map(({ icon: Icon, title, desc }) => (
-            <li key={title} className={`glass ${styles.node}`}>
-              <div className={styles.iconWrap} aria-hidden="true">
-                <Icon size={26} strokeWidth={1.6} />
-              </div>
-              <h3 className={styles.nodeTitle}>{title}</h3>
-              <p className={styles.nodeDesc}>{desc}</p>
+            <li key={title} className={styles.nodeItem}>
+              <BorderGlow transparent className={styles.glowWrap}>
+                <div className={`glass ${styles.node}`}>
+                  <div className={styles.iconWrap} aria-hidden="true">
+                    <Icon size={26} strokeWidth={1.6} />
+                  </div>
+                  <h3 className={styles.nodeTitle}>{title}</h3>
+                  <p className={styles.nodeDesc}>{desc}</p>
+                </div>
+              </BorderGlow>
             </li>
           ))}
         </ul>

@@ -21,6 +21,17 @@
   color: var(--ink);
 }
 
+/* transparent: shell puramente reactivo, sin fondo/padding propios; el hijo
+ * (p.ej. una tarjeta .glass) aporta su propio fondo, borde y radio. overflow
+ * visible para no recortar la sombra externa del hijo (el clip a las
+ * esquinas redondeadas de .halo/.rimBase/.rimSpot no depende de overflow). */
+.transparent {
+  background: transparent;
+  padding: 0;
+  overflow: visible;
+  height: 100%;
+}
+
 /* rim base: malla conica mint tenue, siempre visible */
 .rimBase {
   position: absolute;

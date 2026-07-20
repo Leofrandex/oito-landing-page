@@ -65,35 +65,23 @@
   align-items: stretch;
 }
 
+.nodeItem {
+  position: relative;
+}
+
+/* Shell de BorderGlow: hereda la altura completa de la fila (align-items: stretch)
+ * para que el mesh de borde envuelva el nodo entero, no solo su contenido. */
+.glowWrap {
+  height: 100%;
+}
+
 .node {
   position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
   padding: clamp(1.4rem, 2.6vw, 2rem);
-}
-
-/* Capa de brillo separada del nodo: se anima solo opacity, nunca box-shadow/border
- * directamente (evita repaint costoso y jank en el filtro/backdrop del glass). */
-.node::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  box-shadow: 0 0 32px rgba(9, 188, 138, 0.35), inset 0 0 0 1.5px rgba(9, 188, 138, 0.65);
-  opacity: 0;
-}
-
-/* Encendido secuencial 1 -> 2 -> 3, gateado en Reveal (.inner[data-revealed]). */
-.inner[data-revealed] .node:nth-child(1)::after { animation: node-glow 3.6s ease-in-out infinite 0s; }
-.inner[data-revealed] .node:nth-child(2)::after { animation: node-glow 3.6s ease-in-out infinite 1.2s; }
-.inner[data-revealed] .node:nth-child(3)::after { animation: node-glow 3.6s ease-in-out infinite 2.4s; }
-
-@keyframes node-glow {
-  0%, 20% { opacity: 0; }
-  28%, 42% { opacity: 1; }
-  50%, 100% { opacity: 0; }
 }
 
 .iconWrap {
@@ -142,7 +130,8 @@
   }
 }
 
-/* ===== Reduced motion: nodos visibles y encendidos, sin pulsos ===== */
+/* ===== Reduced motion: nodos visibles, sin transiciones. El BorderGlow es
+ * pointer-driven (no loop), asi que sin hover no hay nada animandose. ===== */
 @media (prefers-reduced-motion: reduce) {
   .eyebrow,
   .title {
@@ -152,10 +141,4 @@
   }
 
   .node { opacity: 1; transition: none; }
-
-  .node::after { animation: none; opacity: 0; }
-
-  .inner[data-revealed] .node {
-    border-color: rgba(9, 188, 138, 0.45);
-  }
 }

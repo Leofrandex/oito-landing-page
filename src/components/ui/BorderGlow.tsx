@@ -13,22 +13,28 @@ import { clsx } from 'clsx';
  * Props principales:
  * - light: variante clara (fondo claro + glow mas suave, intensidad 0.55
  *   en vez de 0.9).
+ * - transparent: quita el fondo, el padding y el overflow:hidden propios de
+ *   la tarjeta, para usar BorderGlow como shell puramente reactivo (mesh de
+ *   borde + spotlight) alrededor de un hijo que ya trae su propio look (p.ej.
+ *   una tarjeta .glass): el hijo conserva su fondo/borde/radio, BorderGlow
+ *   solo aporta las capas que reaccionan al cursor.
  * - className: clases extra para el contenedor de la tarjeta.
  * - children: contenido de la tarjeta (icono, titulo, texto, etc).
  *
- * GUARDADO sin consumidores por decision del usuario (2026-07-19): se evaluara
- * aplicarlo a tarjetas del sitio mas adelante. Adaptado desde el prototipo de
- * src/components/preview/PreviewBorderGlow.tsx, retirado en esa misma fecha.
- * No importar todavia sin antes revisar con el usuario donde se va a usar.
+ * Primer consumidor: src/components/AutomationPillars.tsx (nodos de pilares,
+ * 2026-07-19), en modo `transparent` para no duplicar el glass del nodo.
+ * Adaptado desde el prototipo de src/components/preview/PreviewBorderGlow.tsx,
+ * retirado el 2026-07-19.
  */
 
 type BorderGlowProps = {
   light?: boolean;
+  transparent?: boolean;
   className?: string;
   children: ReactNode;
 };
 
-export default function BorderGlow({ light, className, children }: BorderGlowProps) {
+export default function BorderGlow({ light, transparent, className, children }: BorderGlowProps) {
   const ref = useRef<HTMLDivElement>(null);
   const intensity = light ? 0.55 : 0.9;
 
@@ -48,7 +54,7 @@ export default function BorderGlow({ light, className, children }: BorderGlowPro
   return (
     <div
       ref={ref}
-      className={clsx(styles.card, light && styles.cardLight, className)}
+      className={clsx(styles.card, transparent && styles.transparent, light && styles.cardLight, className)}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
     >

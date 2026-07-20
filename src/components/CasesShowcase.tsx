@@ -92,8 +92,9 @@ export default function CasesShowcase({ id }: { id?: string }) {
         gsap.set(panes.slice(1), { autoAlpha: 0, scale: 1.04 });
         gsap.set(titles, { opacity: 0.25 });
         gsap.set(titles[0], { opacity: 1 });
-        gsap.set(dots, { opacity: 0.4, scale: 1 });
-        gsap.set(dots[0], { opacity: 1, scale: 1.4 });
+        gsap.set(dots, { scale: 1 });
+        dots[0]?.setAttribute('data-active', '');
+        gsap.set(dots[0], { scale: 1.6 });
         if (fill) gsap.set(fill, { scaleY: 1 / steps });
 
         const tl = gsap.timeline({
@@ -117,8 +118,26 @@ export default function CasesShowcase({ id }: { id?: string }) {
             )
             .to(titles[i - 1], { opacity: 0.25, duration: 0.4 }, at)
             .to(titles[i], { opacity: 1, duration: 0.4 }, at + 0.15)
-            .to(dots[i - 1], { opacity: 0.4, scale: 1, duration: 0.3 }, at)
-            .to(dots[i], { opacity: 1, scale: 1.4, duration: 0.3 }, at + 0.1);
+            .to(
+              dots[i - 1],
+              {
+                scale: 1,
+                duration: 0.3,
+                onStart: () => dots[i - 1]?.removeAttribute('data-active'),
+                onReverseComplete: () => dots[i - 1]?.setAttribute('data-active', ''),
+              },
+              at,
+            )
+            .to(
+              dots[i],
+              {
+                scale: 1.6,
+                duration: 0.3,
+                onStart: () => dots[i]?.setAttribute('data-active', ''),
+                onReverseComplete: () => dots[i]?.removeAttribute('data-active'),
+              },
+              at + 0.1,
+            );
 
           if (belt) tl.to(belt, { yPercent: -(100 / steps) * i, duration: 0.6 }, at);
           if (fill) tl.to(fill, { scaleY: (i + 1) / steps, duration: 0.6 }, at);
@@ -161,9 +180,10 @@ export default function CasesShowcase({ id }: { id?: string }) {
             <span
               key={c.title}
               className={styles.dot}
-              data-dot
               style={{ top: `${((i + 0.5) / CASES.length) * 100}%` }}
-            />
+            >
+              <span className={styles.dotCore} data-dot />
+            </span>
           ))}
           <span className={styles.arrow}>▼</span>
         </div>

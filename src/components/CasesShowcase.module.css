@@ -5,7 +5,7 @@
 
 .head {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .title {
@@ -21,17 +21,17 @@
   max-width: 1080px;
   margin: 0 auto;
   height: 100vh;
-  max-height: 720px;
+  max-height: 640px;
   display: grid;
   grid-template-columns: 1.15fr 40px 1fr;
   gap: clamp(1rem, 3vw, 2rem);
   align-items: center;
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
 }
 
 .visual {
   position: relative;
-  height: min(62vh, 460px);
+  height: min(54vh, 380px);
 }
 
 .pane {
@@ -39,11 +39,6 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  border-radius: 16px;
-  overflow: hidden;
-  background: linear-gradient(120deg, rgba(9, 188, 138, 0.16), rgba(9, 188, 138, 0.03) 55%, rgba(9, 188, 138, 0.08));
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.22), 0 24px 48px -20px rgba(0, 0, 0, 0.6);
   will-change: transform, opacity;
 }
 
@@ -52,15 +47,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem 1.25rem 0.5rem;
 }
 
 .paneDesc {
-  padding: 0.9rem 1.25rem 1.25rem;
+  padding-top: 0.9rem;
   font-size: 0.9rem;
   line-height: 1.5;
   color: var(--on-dark-soft);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ===== Marco de captura (browser frame oscuro + placeholder) ===== */
@@ -139,7 +132,7 @@
 /* ===== Línea de recorrido ===== */
 .route {
   position: relative;
-  height: min(62vh, 460px);
+  height: min(54vh, 380px);
   width: 40px;
 }
 
@@ -175,11 +168,28 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
+  background: var(--forest-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dotCore {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(9, 188, 138, 0.4);
+  transform-origin: center;
+  will-change: transform;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dotCore[data-active] {
   background: var(--mint);
-  will-change: transform, opacity;
+  box-shadow: 0 0 10px rgba(9, 188, 138, 0.8);
 }
 
 .arrow {

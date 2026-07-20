@@ -32,6 +32,7 @@ export default function BeforeAfter() {
           end: '+=220%',
           pin: true,
           scrub: 1,
+          anticipatePin: 1,
         },
       });
 

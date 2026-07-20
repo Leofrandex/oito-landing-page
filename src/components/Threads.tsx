@@ -172,7 +172,10 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
         if (!containerRef.current) return;
         const container = containerRef.current;
 
-        const dpr = typeof window !== 'undefined' ? (window.devicePixelRatio || 1) : 1;
+        /* DPR limitado a 1.5: el shader evalúa 40 líneas de ruido Perlin por píxel y a
+         * DPR nativo (1.25–2 en Windows) satura la GPU integrada, robando frames al
+         * scroll. Como fondo difuso, la pérdida de nitidez es imperceptible. */
+        const dpr = typeof window !== 'undefined' ? Math.min(window.devicePixelRatio || 1, 1.5) : 1;
         const renderer = new Renderer({ alpha: true, dpr });
         const gl = renderer.gl;
         gl.clearColor(0, 0, 0, 0);

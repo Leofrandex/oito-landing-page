@@ -106,6 +106,7 @@ export default function CasesShowcase({ id }: { id?: string }) {
             end: `+=${steps * 85}%`,
             pin: true,
             scrub: 1,
+            anticipatePin: 1,
           },
         });
 

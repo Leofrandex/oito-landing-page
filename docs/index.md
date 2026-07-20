@@ -14,7 +14,8 @@
 
 ## Referencia
 - **[design-system.md](design-system.md)** — 📐 biblia visual: tipografía, glass, botones, chips, GlassCard, glow bullets, nodos, paleta. Valores exactos verbatim-implementables.
-- **[content/copy-deck.md](content/copy-deck.md)** — copy deck: mensaje, secciones, casos.
+- **[content/copy-deck-v2.md](content/copy-deck-v2.md)** — **copy vigente de la landing**: texto final de la landing única (`/`) tras el pivote a solo automatización, con estado de integración deck vs componentes.
+- **[content/copy-deck.md](content/copy-deck.md)** — copy deck (base histórica, pre-pivote): mensaje, secciones, casos.
 
 ## Historial de diseño (specs + planes)
 - `superpowers/specs/` — specs aprobados por iniciativa/fase (contenido, visual, pivote).

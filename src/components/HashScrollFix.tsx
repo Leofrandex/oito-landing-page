@@ -60,7 +60,15 @@ export default function HashScrollFix() {
       }, MAX_DURATION_MS);
     };
 
-    scrollToHash();
+    /* En un refresh el script inline del layout ya limpió el hash y subió al
+     * tope; aquí solo se evita re-anclar. En cargas normales (link compartido
+     * con hash, navegación) el comportamiento de anclas se mantiene. */
+    const navEntry = performance.getEntriesByType('navigation')[0] as
+      | PerformanceNavigationTiming
+      | undefined;
+    if (navEntry?.type !== 'reload') {
+      scrollToHash();
+    }
 
     window.addEventListener('hashchange', scrollToHash);
     return () => {

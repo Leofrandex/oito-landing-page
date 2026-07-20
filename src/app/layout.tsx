@@ -60,6 +60,13 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${varelaRound.variable} ${dmSans.variable} ${outfit.variable} antialiased`}>
+        {/* En refresh la página vuelve arriba: debe correr ANTES de que el navegador
+         * restaure el scroll o salte al ancla, por eso es inline y no un efecto React. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var n=performance.getEntriesByType('navigation')[0];if(n&&n.type==='reload'){history.scrollRestoration='manual';if(location.hash)history.replaceState(null,'',location.pathname+location.search);window.scrollTo(0,0);}}catch(e){}})();`,
+          }}
+        />
         <ThreadsBackground />
         <div style={{ position: "relative", zIndex: 1 }}>
           <Header />

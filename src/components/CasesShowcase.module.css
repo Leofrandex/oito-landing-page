@@ -5,7 +5,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(6rem, 12vw, 8rem) 1.5rem 1.5rem;
+  /* Top acotado al alto del header fijo (90px) para que el conjunto quede
+   * centrado de verdad durante el pin, no empujado hacia abajo. */
+  padding: 6rem 1.5rem 1.5rem;
 }
 
 .head {
@@ -35,7 +37,7 @@
   width: 100%;
   max-width: 1080px;
   margin: 0 auto;
-  height: min(70vh, 520px);
+  height: min(60vh, 440px);
   display: grid;
   grid-template-columns: 1.15fr 40px 1fr;
   gap: clamp(1rem, 3vw, 2rem);
@@ -229,7 +231,7 @@
 
 /* ===== Titulares flotantes ===== */
 .titles {
-  height: min(70vh, 520px);
+  height: min(60vh, 440px);
   display: flex;
   align-items: center;
 }

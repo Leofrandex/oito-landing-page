@@ -46,7 +46,7 @@ export default function Methodology() {
         const progress = container.current?.querySelector<HTMLElement>('[data-progress]');
         const glows = gsap.utils.toArray<HTMLElement>('[data-node-glow]');
         const checks = gsap.utils.toArray<HTMLElement>('[data-check]');
-        const items = gsap.utils.toArray<HTMLElement>('[data-step]');
+        const items = gsap.utils.toArray<HTMLElement>('[data-step-text]');
 
         if (progress) gsap.set(progress, { scaleX: 0 });
         gsap.set(glows, { autoAlpha: 0 });
@@ -105,8 +105,10 @@ export default function Methodology() {
                   ✓
                 </span>
               </div>
-              <h3 className={styles.stepTitle}>{title}</h3>
-              <p className={styles.stepDesc}>{description}</p>
+              <div className={styles.stepText} data-step-text>
+                <h3 className={styles.stepTitle}>{title}</h3>
+                <p className={styles.stepDesc}>{description}</p>
+              </div>
             </li>
           ))}
         </ol>

@@ -47,6 +47,9 @@ export const metadata: Metadata = {
       "Automatizamos lo repetitivo de tu negocio con IA para que tú te enfoques en crecer.",
   },
   robots: { index: true, follow: true },
+  verification: process.env.NEXT_PUBLIC_GSC_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
+    : undefined,
 };
 
 export default function RootLayout({

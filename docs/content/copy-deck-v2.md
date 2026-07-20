@@ -95,6 +95,6 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 > Una PWA que gestiona el ciclo de vida completo de los contenedores: puntos de control en ruta, pesaje con cálculo de peso neto facturable, evidencia fotográfica y firmas electrónicas, generando en automático los reportes PDF que exige la regulación.
 `[Hospimed/PTDP - pendiente permiso]` · `[REQUIERE TU INPUT: capturas reales de Hospiwaste]`
 
-> **Nota:** Hospiwaste es el único caso de *Desarrollo* en el spotlight: el guiño de que, detrás de la automatización, hay el mismo músculo técnico para construir software a medida cuando el negocio lo necesita.
+> **Nota:** este es el único caso de *Desarrollo* en el spotlight: el guiño de que, detrás de la automatización, hay el mismo músculo técnico para construir software a medida cuando el negocio lo necesita.
 
 ---

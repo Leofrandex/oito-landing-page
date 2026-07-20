@@ -28,8 +28,8 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 # 2. Header (navegación)
 
 **Enlaces (anclas de sección):** `Casos` · `Soluciones` · `Metodología` · `FAQ`
-**Botón:** `Hablemos por WhatsApp`
+**Botón:** `WhatsApp`
 
-> Pilares y Calculadora de ROI quedan fuera del nav (se llega por scroll).
+> Pilares y Calculadora de ROI quedan fuera del nav (se llega por scroll). La página /desarrollo-web está oculta (redirige a /) y no aparece en el nav.
 
 ---

@@ -13,6 +13,7 @@
 - **[decisiones-fijadas.md](decisiones-fijadas.md)** — registro único de todo lo ✅ FIJADO / 🔒 INNEGOCIABLE (posicionamiento, tipografía, copy, contacto, glass, dirección visual). **Antes de tocar copy, marca o visual, revísalo.** Ante conflicto con cualquier otro doc sobre lo visual, manda `design-system.md`.
 
 ## Referencia
+- **[seo-consolas.md](seo-consolas.md)** — checklist del usuario para Search Console / Bing / IndexNow tras publicar en oitove.com.
 - **[design-system.md](design-system.md)** — 📐 biblia visual: tipografía, glass, botones, chips, GlassCard, glow bullets, nodos, paleta. Valores exactos verbatim-implementables.
 - **[content/copy-deck-v2.md](content/copy-deck-v2.md)** — **copy vigente de la landing**: texto final de la landing única (`/`) tras el pivote a solo automatización, con estado de integración deck vs componentes.
 - **[content/copy-deck.md](content/copy-deck.md)** — copy deck (base histórica, pre-pivote): mensaje, secciones, casos.

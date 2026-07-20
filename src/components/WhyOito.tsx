@@ -72,8 +72,11 @@ export default function WhyOito() {
 
         /* 1) El argumento 1 ya está visible; entra el caos */
         tl.to(belt, { autoAlpha: 1, duration: 0.3 })
-          /* 2) El argumento 1 se dockea arriba (salida más intensa) */
-          .to(arg1, { autoAlpha: 0.15, y: -60, duration: 0.5 }, '<')
+          /* 2) El argumento 1 se atenúa (fade, sin desplazamiento) para que el
+           * gap final arg1→composición quede igual al de composición→arg2:
+           * el y:-60 previo dejaba a arg1 dockeado fuera de su slot, sumando
+           * espacio extra al gap del .stage y rompiendo la simetría. */
+          .to(arg1, { autoAlpha: 0.15, duration: 0.5 }, '<')
           /* 3) Las piezas viajan al centro y se ensamblan (transform hacia su slot base) */
           .to(
             pieces,

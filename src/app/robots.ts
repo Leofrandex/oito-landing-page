@@ -8,6 +8,11 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: ["/design-system", "/desarrollo-web"],
       },
+      {
+        userAgent: ["GPTBot", "ClaudeBot", "Claude-Web", "PerplexityBot", "Google-Extended"],
+        allow: "/",
+        disallow: ["/design-system", "/desarrollo-web"],
+      },
     ],
     sitemap: "https://oitove.com/sitemap.xml",
   };

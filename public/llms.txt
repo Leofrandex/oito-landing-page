@@ -1,0 +1,24 @@
+# oito
+
+> Estudio de automatización e IA para pymes hispanohablantes de LatAm. Automatizamos lo repetitivo de tu negocio (prospección, CRM, soporte, reportes) para que tú te enfoques en crecer. Lema: "oito lo hace por ti".
+
+Sitio: https://oitove.com (landing única, en español).
+
+## Servicios
+
+- Automatización de procesos con IA: calificación y enrutamiento de leads, secuencias de venta personalizadas, prospección outbound B2B, soporte 24/7, CRM al día, control de stock, cobranza, reportes, reseñas y extracción de datos de documentos.
+- Metodología en 3 pasos: contacto y auditoría, construcción e implementación, monitoreo y mejora.
+- También construye páginas web y software a medida cuando un proyecto lo necesita.
+
+## Casos (anonimizados por sector)
+
+- Ciberseguridad: flujo en n8n que lee mensajes y adjuntos, califica leads con IA, los deduplica en el CRM y los reparte al equipo.
+- Logística B2B: agentes de IA con RAG que generan correos de venta personalizados desde el CRM.
+- Ciberseguridad: prospección outbound con investigación por agentes de IA y scoring de 0 a 100.
+- Distribución farmacéutica: app móvil + panel web para el equipo de ventas en campo (GPS, offline, verificación de visitas).
+
+## Contacto
+
+- WhatsApp: https://wa.me/584241344659 (canal único)
+- Email: info@oitove.com
+- Instagram: https://www.instagram.com/oito.vee/

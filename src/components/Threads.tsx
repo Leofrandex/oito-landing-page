@@ -280,6 +280,7 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
         }
         document.addEventListener('visibilitychange', evaluatePause);
         window.addEventListener('scroll', onScroll, { passive: true });
+        evaluatePause();
 
         return () => {
             if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);

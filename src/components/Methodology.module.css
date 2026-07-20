@@ -1,6 +1,11 @@
 .section {
   position: relative;
-  padding: clamp(5rem, 10vw, 9rem) 1.5rem;
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(6rem, 9vw, 6.5rem) 1.5rem clamp(2.5rem, 5vw, 3.5rem);
 }
 
 .inner {

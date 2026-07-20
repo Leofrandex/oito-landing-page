@@ -26,9 +26,27 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "oito | Desarrollo de software y automatización con IA",
+  metadataBase: new URL("https://oitove.com"),
+  title: "oito | Automatización con IA para pymes",
   description:
-    "Estudio digital para pymes de LatAm. Construimos software a medida y automatizamos tus procesos con IA. oito lo hace por ti.",
+    "Automatizamos lo repetitivo de tu negocio (prospección, CRM, soporte, reportes) con IA, para que tú te enfoques en crecer. Pymes de LatAm, remoto y en español.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    url: "/",
+    siteName: "oito",
+    title: "oito | Automatización con IA para pymes",
+    description:
+      "Automatizamos lo repetitivo de tu negocio con IA para que tú te enfoques en crecer. Pymes de LatAm, remoto y en español.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "oito | Automatización con IA para pymes",
+    description:
+      "Automatizamos lo repetitivo de tu negocio con IA para que tú te enfoques en crecer.",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

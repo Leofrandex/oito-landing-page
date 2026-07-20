@@ -11,12 +11,8 @@ type FinalCTAProps = {
 };
 
 export default function FinalCTA({
-  title = (
-    <>
-      ¿Listo para que <span className={`wordmark ${styles.brand}`}>oito</span> lo haga por ti?
-    </>
-  ),
-  lede = 'Cuéntanos qué tienes en mente. Te respondemos por WhatsApp, sin compromiso.',
+  title = <>¿Listo para que la IA trabaje por ti?</>,
+  lede = 'Cuéntanos qué proceso te quita horas. Te respondemos por WhatsApp, sin compromiso.',
 }: FinalCTAProps = {}) {
   return (
     <section className={`section-dark ${styles.section}`}>

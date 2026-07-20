@@ -119,8 +119,9 @@ export default function WhyOito() {
             El tiempo no se recupera, <span className={styles.accent}>los ingresos sí</span>
           </h2>
           <p className={styles.argBody}>
-            La mayoría de los negocios están atrapados en procesos fragmentados y tareas
-            manuales. Eso cuesta tiempo, y el tiempo es lo único que no vuelve.
+            Mientras tu equipo hace seguimiento a mano, hay prospectos que se cansan de esperar
+            y compran en otro lado. No es falta de ganas: es que el tiempo no te alcanza para
+            responder a todos, a tiempo.
           </p>
         </div>
 
@@ -168,8 +169,7 @@ export default function WhyOito() {
           </h2>
           <p className={styles.argBody}>
             En <span className="wordmark">oito</span> construimos y automatizamos el motor
-            invisible de tu negocio: el software que necesitas y los procesos que te quitan
-            horas.
+            invisible de tu negocio, con IA que ejecuta el trabajo repetitivo por ti.
           </p>
         </div>
       </div>

@@ -2,8 +2,9 @@ import { ChevronDown } from 'lucide-react';
 import Reveal from './ui/Reveal';
 import styles from './Faq.module.css';
 
-/* Objeciones pre-CTA (sin datos inventados, §7). Refuerza el posicionamiento de
- * dos pilares independientes. Acordeón nativo <details> — accesible y sin JS. */
+/* Objeciones pre-CTA (deck v2 §10, pivote a solo automatización). La entrada de
+ * desarrollo cierra el arco y es la única mención al servicio junto con DevBridge.
+ * Acordeón nativo <details> — accesible y sin JS. */
 const FAQS: { q: string; a: string }[] = [
   {
     q: '¿Cuánto cuesta?',
@@ -11,7 +12,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: '¿Y si todavía no sé qué necesito?',
-    a: 'Es lo normal, y está bien. Empezamos con una auditoría: nos cuentas cómo trabajas hoy y nosotros identificamos dónde te podemos ayudar más, sea desarrollo, automatización o ambas.',
+    a: 'Es lo normal, y está bien. Empezamos con una auditoría: nos cuentas cómo trabajas hoy y nosotros identificamos dónde la automatización te da más impacto.',
   },
   {
     q: '¿Tengo que cambiar las herramientas que ya uso?',
@@ -19,15 +20,15 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: '¿Cuánto tarda?',
-    a: 'Depende del alcance, y siempre trabajamos en entregas claras. Una web o una automatización puntual toma semanas; un sistema a medida se construye por fases para que veas avances desde temprano.',
-  },
-  {
-    q: '¿Hacen solo IA o solo desarrollo?',
-    a: 'Las dos, y son independientes. Puedes contratar solo tu software, solo tus automatizaciones, o las dos con el mismo equipo detrás.',
+    a: 'Depende del alcance, y siempre trabajamos en entregas claras. Una automatización puntual puede estar corriendo en cuestión de semanas; un sistema a medida se construye por fases para que veas avances desde temprano.',
   },
   {
     q: '¿Trabajan con empresas de mi país?',
     a: 'Sí. Trabajamos con pymes de toda LatAm de forma remota, en español. La distancia no es problema: todo arranca con un mensaje.',
+  },
+  {
+    q: '¿Solo hacen automatización? ¿También páginas web o software?',
+    a: 'Hoy nos enfocamos 100% en automatización e IA, que es donde generamos más impacto. También construimos páginas web y software a medida cuando un proyecto lo necesita (como la app de rastreo para equipos de campo que ves en los casos). Si tienes algo así en mente, escríbenos y lo conversamos.',
   },
 ];
 

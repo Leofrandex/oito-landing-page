@@ -43,6 +43,32 @@
     text-shadow: 0 2px 18px rgba(0, 20, 22, 0.6);
 }
 
+/* Keyword SEO dentro del H1 (variante B): línea de apoyo discreta bajo el eslogan */
+.kwLine {
+    display: block;
+    margin-top: 0.9rem;
+    font-family: var(--font-outfit), var(--font-dm-sans), sans-serif;
+    font-size: clamp(14px, 2vw, 17px);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: none;
+    color: rgba(234, 255, 246, 0.7);
+    text-shadow: 0 1px 10px rgba(0, 20, 22, 0.5);
+}
+
+/* Texto visible solo para lectores de pantalla y crawlers (frases del TextType) */
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .rotatingLine {
     margin-top: 1.6rem;
     font-size: clamp(18px, 2.8vw, 28px);
@@ -50,6 +76,10 @@
     color: #d6f5ec;
     min-height: 1.6em;
     text-shadow: 0 1px 12px rgba(0, 20, 22, 0.55);
+}
+
+.rotatingFixed {
+    color: #d6f5ec;
 }
 
 .rotating {

@@ -19,11 +19,11 @@ type Solution = { icon: LucideIcon; name: string; note: string };
 /* Estimaciones de impacto POTENCIAL, no resultados medidos (disclaimer visible). */
 const SOLUTIONS: Solution[] = [
   { icon: Inbox, name: 'Calificador de leads', note: 'hasta ~85% menos tiempo de triage' },
-  { icon: Headset, name: 'Soporte 24/7', note: 'respuestas en segundos, 24/7' },
+  { icon: Headset, name: 'Soporte 24/7', note: 'respuestas al instante, a cualquier hora' },
   { icon: Database, name: 'CRM al día', note: 'datos sincronizados sin tipeo manual' },
   { icon: Boxes, name: 'Control de stock', note: 'alertas antes de quedarte sin inventario' },
   { icon: ReceiptText, name: 'Cobranza', note: 'recordatorios automáticos de pago' },
-  { icon: FileBarChart, name: 'Reportes', note: 'reportes listos sin armarlos a mano' },
+  { icon: FileBarChart, name: 'Reportes', note: 'listos cada mañana sin armarlos a mano' },
   { icon: Star, name: 'Reseñas', note: 'pide y gestiona reseñas en automático' },
   { icon: FileText, name: 'Documentos', note: 'extrae datos de PDFs y adjuntos' },
 ];
@@ -72,8 +72,7 @@ export default function SolutionsGrid({ id }: { id?: string }) {
             Lo que la automatización puede hacer por ti
           </h2>
           <p className={styles.disclaimer} style={{ transitionDelay: '130ms' }}>
-            Ejemplos de soluciones comunes. Las cifras son estimaciones de impacto potencial, no
-            resultados garantizados.
+            Ejemplos de soluciones comunes para tu operación.
           </p>
         </header>
 

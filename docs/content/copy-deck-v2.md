@@ -264,7 +264,7 @@ Automatizamos → **tu prospección** · **tu CRM** · **tu seguimiento de leads
 
 # 14. Estado de integración (deck vs componentes construidos)
 
-> **Para la fase de integración, no es copy de la landing.** Este deck es la fuente de verdad del texto. Las siguientes divergencias entre el deck y los componentes ya construidos siguen abiertas; consolidan lo que hasta ahora vivía en notas sueltas por sección más lo detectado en la pasada de coherencia. Al integrar, el componente se alinea al deck (salvo donde se indique lo contrario).
+> ✅ **INTEGRADO (2026-07-19):** tras la ronda de decisiones del usuario (H1 híbrido B, hero, casos con arco de ventas, disclaimers ligeros, FAQ), todos los componentes se alinearon a este deck: Hero (H1 con keyword, subtítulo, TextType "Automatizamos" fijo + texto estático SEO), WhyOito (ambos cuerpos), CasesShowcase (roster 3+1 con outbound y fuerza de campo, título y bajada de sección), SolutionsGrid (bajada y 2 notas), RoiCalculator (veredicto), Faq (6 preguntas del deck), FinalCTA (título y bajada) y Footer (tagline alineado al pivote: "Automatización con IA para pymes de LatAm"). Build y lint verdes. **Pendiente:** verificación visual del usuario en navegador y capturas reales del caso de rastreo. Las divergencias listadas abajo quedan como registro histórico de lo que se corrigió.
 
 **Hero (`src/components/Hero.tsx`)**
 - **Subtítulo:** el componente aún muestra el copy pre-pivote "Tu equipo técnico que construye software y automatiza procesos." El deck (§1) pide "Automatizamos lo repetitivo de tu negocio (prospección, CRM, soporte, reportes) para que tú te enfoques en crecer."

@@ -120,7 +120,7 @@ export default function RoiCalculator({ id }: { id?: string }) {
                 {fmt.format(Math.round(costoAnim))}
                 <span className={styles.per}>/mes en trabajo manual</span>
               </span>
-              <span className={styles.note}>Cálculo estimado · ~70% del tiempo es recuperable</span>
+              <span className={styles.note}>Cálculo estimado sobre ~70% del tiempo recuperable</span>
             </div>
 
             <Button variant="primary" external href={WHATSAPP_URL}>

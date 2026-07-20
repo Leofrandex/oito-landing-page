@@ -13,7 +13,7 @@ export default function Footer() {
           <div className={styles.col}>
             <span className={`wordmark ${styles.logo}`}>oito</span>
             <p className={styles.tagline}>
-              Construimos software y automatizamos procesos para pymes de LatAm.
+              Automatización con IA para pymes de LatAm.
             </p>
           </div>
 

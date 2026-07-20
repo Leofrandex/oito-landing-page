@@ -9,14 +9,17 @@ import Button from '@/components/ui/Button';
 import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './Hero.module.css';
 
-/* Solo frases de automatización (spec v3 3.1; las de desarrollo salen del hero). */
+/* Deck v2 §1: "Automatizamos" queda fijo y solo rota el complemento nominal.
+ * Las 8 frases existen además como texto estático oculto (SEO: el crawler no espera al efecto). */
 const ROTATING = [
-  'automatiza tu facturación',
-  'agiliza tu prospección',
-  'ordena tu CRM',
-  'gestiona tu inventario',
-  'responde a tus clientes 24/7',
-  'genera tus reportes',
+  'tu prospección',
+  'tu CRM',
+  'tu seguimiento de leads',
+  'tu cobranza',
+  'tu soporte',
+  'tu inventario',
+  'tus reportes',
+  'tu facturación',
 ];
 
 const WORDMARK_LETTERS = ['o', 'i', 't', 'o'];
@@ -66,9 +69,15 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
           <span className={styles.tagline} data-tagline data-collapsed>
             lo hace por ti
           </span>
+          {/* Keyword SEO dentro del H1 (deck v2 §1, variante B): Google lee
+           * "oito lo hace por ti Automatización con IA para tu negocio". */}
+          <span className={styles.kwLine} data-anim>
+            Automatización con IA para tu negocio
+          </span>
         </h1>
 
         <p className={styles.rotatingLine} data-anim>
+          <span className={styles.rotatingFixed}>Automatizamos </span>
           <TextType
             text={ROTATING}
             as="span"
@@ -77,10 +86,11 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
             deletingSpeed={30}
             pauseDuration={2000}
           />
+          <span className={styles.srOnly}>{ROTATING.join(', ')}</span>
         </p>
 
         <p className={styles.subtitle} data-anim>
-          Tu equipo técnico que construye software y automatiza procesos.
+          Automatizamos lo repetitivo de tu negocio para que tú te enfoques en crecer.
         </p>
 
         <div className={styles.actions} data-anim>

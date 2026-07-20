@@ -19,31 +19,33 @@ type ShowcaseCase = {
   image?: string;
 };
 
-/* Casos anonimizados por sector (copy actual de FeaturedCases; el deck v2 lo afinará). */
+/* Roster del deck v2 §5 (2026-07-19): 3 Automatización + 1 Desarrollo, arco de ventas
+ * (calificación → secuencias → prospección → equipo de ventas en campo). Anonimizados
+ * por sector; el sector va como lead-in de la descripción (la UI no tiene campo aparte). */
 const CASES: ShowcaseCase[] = [
   {
     pillar: 'Automatización',
-    title: 'Calificación de leads con IA',
+    title: 'Calificación y enrutamiento de leads con IA',
     description:
-      'Para un integrador de ciberseguridad: un flujo recibe cotizaciones por email, WhatsApp y web, extrae los datos (incluso de PDFs y adjuntos), califica con IA y los reparte en el CRM.',
+      'Para un integrador de ciberseguridad: un flujo en n8n lee mensajes y adjuntos (PDF, Excel, imágenes), califica el lead con IA, lo deduplica en el CRM, lo reparte por turnos al equipo y responde pidiendo lo que falte.',
   },
   {
     pillar: 'Automatización',
-    title: 'Secuencias de venta con IA',
+    title: 'Secuencias de venta personalizadas con IA',
     description:
-      'Para un bróker logístico B2B: agentes de IA con RAG generan correos de venta personalizados y los envían en automático desde el correo de cada vendedor.',
+      'Para un bróker logístico B2B: agentes de IA, con RAG sobre la guía de ventas del negocio, extraen el contexto de cada empresa desde el CRM y generan correos de venta personalizados, enviados en automático desde el correo del vendedor asignado.',
   },
   {
-    pillar: 'Desarrollo',
-    title: 'Trazabilidad de desechos peligrosos',
+    pillar: 'Automatización',
+    title: 'Prospección outbound B2B con IA',
     description:
-      'PWA para una planta de tratamiento de desechos hospitalarios: pesaje, evidencia fotográfica, firmas y reportes PDF regulatorios en automático.',
+      'Para una empresa de ciberseguridad: el flujo busca prospectos, los investiga con agentes de IA (búsqueda web y razonamiento), los puntúa con una rúbrica de 0 a 100 y redacta cold emails diferenciados, separando los leads listos de los fríos.',
   },
   {
     pillar: 'Desarrollo',
     title: 'App de rastreo de fuerza de campo',
     description:
-      'App móvil nativa + panel web para una distribuidora farmacéutica: GPS en tiempo real, modo offline y cámara anti-fraude para verificar visitas en campo.',
+      'Para una distribuidora farmacéutica: app móvil nativa + panel web que gestiona al equipo de ventas en campo, con GPS en tiempo real, modo offline y cámara anti-fraude para verificar cada visita.',
   },
 ];
 
@@ -155,9 +157,11 @@ export default function CasesShowcase({ id }: { id?: string }) {
     <section ref={container} id={id} className={`section-dark anchor-target ${styles.section}`}>
       <header className={styles.head}>
         <p className="badge">Casos</p>
-        <h2 className={styles.title}>
-          Lo que <span className="wordmark">oito</span> ya ha construido
-        </h2>
+        <h2 className={styles.title}>Casos reales, ya en producción</h2>
+        <p className={styles.lede}>
+          Nada de maquetas ni promesas. Esto es lo que construimos y hoy corre en el día a día
+          de negocios como el tuyo.
+        </p>
       </header>
 
       {/* ===== Escenario sticky (desktop) ===== */}

@@ -175,6 +175,8 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 **Testimonio (1 slot, listo para cuando haya permiso):**
 > `[REQUIERE TU INPUT: testimonio real, cita + nombre + empresa. Mientras no haya, esta sección muestra solo sectores, stack y señales neutrales. No usar testimonios ficticios.]`
 
+> **Nota de fuente:** la franja de señales neutrales y el bloque "Construido con" se rellenaron con datos reales ya implementados en `src/components/SocialProof.tsx` y `src/components/BuiltWith.tsx`, en vez de dejar los placeholders `[REQUIERE TU INPUT]` que traía el brief.
+
 ---
 
 # 10. FAQ
@@ -208,9 +210,11 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 
 # 11. CTA final
 
-**Título:** ¿Listo para que **oito** lo haga por ti?
-**Bajada:** Cuéntanos qué tienes en mente. Te respondemos por WhatsApp, sin compromiso.
+**Título:** ¿Listo para que la IA trabaje por ti?
+**Bajada:** Cuéntanos qué proceso te quita horas. Te respondemos por WhatsApp, sin compromiso.
 **CTA:** `Hablemos por WhatsApp`
+
+> **Nota de fuente:** `src/components/FinalCTA.tsx` aún muestra el copy anterior ("¿Listo para que oito lo haga por ti?" / "Cuéntanos qué tienes en mente"); se actualizará al copy de este deck en la fase de integración.
 
 ---
 

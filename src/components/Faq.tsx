@@ -5,7 +5,7 @@ import styles from './Faq.module.css';
 /* Objeciones pre-CTA (deck v2 §10, pivote a solo automatización). La entrada de
  * desarrollo cierra el arco y es la única mención al servicio junto con DevBridge.
  * Acordeón nativo <details> — accesible y sin JS. */
-const FAQS: { q: string; a: string }[] = [
+export const FAQS: { q: string; a: string }[] = [
   {
     q: '¿Cuánto cuesta?',
     a: 'Cada proyecto es distinto, así que no manejamos precios de lista. La primera conversación por WhatsApp no cuesta nada: entendemos tu caso y te damos una propuesta clara antes de que decidas.',

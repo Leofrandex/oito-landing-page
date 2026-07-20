@@ -243,9 +243,49 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
         }
         animationFrameId.current = requestAnimationFrame(update);
 
+        /* Pausa invisible: el shader no corre si la pestaña está oculta o si una sección
+         * clara (cream, opaca) cubre todo el viewport; ahí los hilos no se ven de todos
+         * modos. Al reanudar, iTime sigue de t real: sin salto perceptible. */
+        let paused = false;
+        function setPaused(next: boolean) {
+            if (next === paused) return;
+            paused = next;
+            if (paused) {
+                if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
+                animationFrameId.current = null;
+            } else if (!animationFrameId.current) {
+                animationFrameId.current = requestAnimationFrame(update);
+            }
+        }
+        function evaluatePause() {
+            if (document.hidden) {
+                setPaused(true);
+                return;
+            }
+            const vh = window.innerHeight;
+            const covered = Array.from(document.querySelectorAll('.section-light')).some((el) => {
+                const r = el.getBoundingClientRect();
+                return r.top <= 0 && r.bottom >= vh;
+            });
+            setPaused(covered);
+        }
+        let scrollTick = false;
+        function onScroll() {
+            if (scrollTick) return;
+            scrollTick = true;
+            requestAnimationFrame(() => {
+                scrollTick = false;
+                evaluatePause();
+            });
+        }
+        document.addEventListener('visibilitychange', evaluatePause);
+        window.addEventListener('scroll', onScroll, { passive: true });
+
         return () => {
             if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
             window.removeEventListener('resize', resize);
+            document.removeEventListener('visibilitychange', evaluatePause);
+            window.removeEventListener('scroll', onScroll);
 
             if (enableMouseInteraction) {
                 container.removeEventListener('mousemove', handleMouseMove);

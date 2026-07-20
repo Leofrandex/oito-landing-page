@@ -43,9 +43,19 @@ export default function WhyOito() {
         /* Las piezas arrancan en su posición de caos; el layout base (panel
          * ensamblado) define su slot final, así que el desplazamiento inicial
          * se mide contra el rect real de cada pieza ANTES de crear el
-         * ScrollTrigger (que insertará el spacer del pin y alteraría el layout). */
+         * ScrollTrigger (que insertará el spacer del pin y alteraría el layout).
+         * El offset inicial de arg1 se aplica vía `transform` (y), que no altera
+         * el flujo del documento, así que no afecta esta medición de piezas. */
         if (stage) {
           const stageRect = stage.getBoundingClientRect();
+
+          /* arg1 arranca desplazado hacia abajo (~25% de la altura del stage)
+           * para que su ascenso hasta y:0 (su slot final en el layout, ya
+           * despejado del header) sea el que construya la posición final. */
+          if (arg1) {
+            gsap.set(arg1, { y: stageRect.height * 0.25 });
+          }
+
           pieces.forEach((piece, i) => {
             const scatter = SCATTER[i];
             if (!scatter) return;
@@ -70,14 +80,12 @@ export default function WhyOito() {
           },
         });
 
-        /* 1) El argumento 1 ya está visible; entra el caos */
+        /* 1) El argumento 1 ya está visible (desplazado abajo); entra el caos */
         tl.to(belt, { autoAlpha: 1, duration: 0.3 })
-          /* 2) El argumento 1 se atenúa (fade, sin desplazamiento) para que el
-           * gap final arg1→composición quede igual al de composición→arg2:
-           * el y:-60 previo dejaba a arg1 dockeado fuera de su slot, sumando
-           * espacio extra al gap del .stage y rompiendo la simetría. */
-          .to(arg1, { autoAlpha: 0.15, duration: 0.5 }, '<')
-          /* 3) Las piezas viajan al centro y se ensamblan (transform hacia su slot base) */
+          /* 2) Arg1 asciende a su slot final (y: 0) mientras las piezas viajan
+           * y se ensamblan, en paralelo. Se mantiene plenamente legible: solo
+           * una atenuación levísima, sin fade fuerte. */
+          .to(arg1, { y: 0, autoAlpha: 0.9, duration: 1 }, '+=0.1')
           .to(
             pieces,
             {
@@ -89,9 +97,9 @@ export default function WhyOito() {
               onStart: () => container.current?.setAttribute('data-ordered', ''),
               onReverseComplete: () => container.current?.removeAttribute('data-ordered'),
             },
-            '+=0.1',
+            '<',
           )
-          /* 4) Aterriza la conclusión */
+          /* 3) Aterriza la conclusión, al final */
           .to(arg2, { autoAlpha: 1, y: 0, duration: 0.6 }, '+=0.2');
       });
 

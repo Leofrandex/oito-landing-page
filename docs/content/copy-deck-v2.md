@@ -32,6 +32,8 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 
 > Pilares y Calculadora de ROI quedan fuera del nav (se llega por scroll). La página /desarrollo-web está oculta (redirige a /) y no aparece en el nav.
 
+> **Excepción deliberada de CTA (no "corregir"):** el botón compacto del header dice solo `WhatsApp` (por espacio); los CTA de sección dicen `Hablemos por WhatsApp`. Es intencional, no una inconsistencia.
+
 ---
 
 # 3. Por qué oito
@@ -42,10 +44,10 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 
 **Bloque 2 (apertura al techo integral):**
 **Título:** Tú enfócate en crecer. **De lo técnico nos encargamos nosotros**
-> El mismo problema se repite en soporte, en operaciones, en finanzas: tareas manuales que le roban horas a tu equipo. oito construye y automatiza ese motor invisible, con IA que ejecuta el trabajo repetitivo por ti.
+> El mismo problema se repite en soporte, en operaciones y en finanzas. Son tareas manuales que le roban horas a tu equipo. oito construye y automatiza ese motor invisible, con IA que ejecuta el trabajo repetitivo por ti.
 
 **Antes → Después (animación de WhyOito):**
-- **Tu negocio hoy:** Caos, tareas manuales, cuellos de botella.
+- **Tu negocio hoy:** Caos, tareas manuales, tiempo que se escapa.
 - **Tu negocio con oito:** Orden, procesos en automático, IA que ejecuta.
 
 ---
@@ -71,7 +73,7 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 **Etiqueta:** `Automatización`
 **Sector:** Ciberseguridad
 **Título:** Calificación y enrutamiento de leads con IA
-> Las cotizaciones llegaban por email, WhatsApp y chat web y se gestionaban a mano. Construimos un flujo que lee los mensajes y adjuntos (PDF, Excel, imágenes), califica el lead con IA, lo deduplica en el CRM, lo reparte por turnos al equipo y responde pidiendo lo que falte.
+> Las cotizaciones llegaban por email, WhatsApp y chat web y se gestionaban a mano. Construimos un flujo en n8n que lee los mensajes y adjuntos (PDF, Excel, imágenes), califica el lead con IA, lo deduplica en el CRM, lo reparte por turnos al equipo y responde pidiendo lo que falte.
 `[SecureByte - pendiente permiso]`
 
 **Caso 2**
@@ -85,7 +87,7 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 **Etiqueta:** `Automatización`
 **Sector:** Ciberseguridad
 **Título:** Prospección outbound B2B con IA
-> El flujo busca prospectos, los investiga con agentes de IA, los puntúa con una rúbrica (nivel de decisión, riesgo del sector, urgencia) y redacta cold emails diferenciados, dejando los leads listos separados de los fríos.
+> El flujo busca prospectos, los investiga con agentes de IA (búsqueda web y modelos de razonamiento), los puntúa con una rúbrica de 0 a 100 (nivel de decisión, riesgo del sector, urgencia) y redacta cold emails diferenciados, dejando los leads listos separados de los fríos.
 `[SupraBT - pendiente permiso]`
 
 **Caso 4**
@@ -130,7 +132,10 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 
 **Veredicto (bajo los sliders):**
 > [monto]/mes en trabajo manual
-> Cálculo estimado · ~70% del tiempo es recuperable
+> Cálculo estimado sobre ~70% del tiempo recuperable.
+
+**Disclaimer (línea aparte, siempre visible bajo el veredicto):**
+> Es una estimación de potencial, no una cifra garantizada.
 
 **CTA:** `Hablemos de tu caso`
 
@@ -147,7 +152,7 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 3. **Monitoreo & Mejora:** Medimos, ajustamos y escalamos para que los resultados se mantengan en el tiempo.
 
 **Contador en vivo (cierre de la sección, enmarcado como ilustrativo, sin nota al pie aparte):**
-> En los **[segundos que llevas leyendo]** segundos que llevas leyendo, `oito` podría haber:
+> En los **[N]** segundos que llevas leyendo, `oito` podría haber:
 > - calificado **[N]** leads
 > - enviado **[N]** propuestas
 > - validado **[N]** facturas
@@ -245,5 +250,30 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 - Te respondemos rápido y en español
 
 > Copy ya construido en `src/components/EasyStart.tsx`, sin cambios: no rompe ninguna constraint.
+
+---
+
+# 14. Estado de integración (deck vs componentes construidos)
+
+> **Para la fase de integración, no es copy de la landing.** Este deck es la fuente de verdad del texto. Las siguientes divergencias entre el deck y los componentes ya construidos siguen abiertas; consolidan lo que hasta ahora vivía en notas sueltas por sección más lo detectado en la pasada de coherencia. Al integrar, el componente se alinea al deck (salvo donde se indique lo contrario).
+
+**Hero (`src/components/Hero.tsx`)**
+- **Subtítulo:** el componente aún muestra el copy pre-pivote "Tu equipo técnico que construye software y automatiza procesos." El deck (§1) pide "Automatizamos lo repetitivo de tu negocio (prospección, CRM, soporte, reportes) para que tú te enfoques en crecer."
+- **Frases del TextType:** el componente rota frases en forma verbal ("automatiza tu facturación", "agiliza tu prospección", "ordena tu CRM"…). El deck (§1, pieza verbatim) las define en forma nominal ("tu **prospección** · tu **CRM** · tu **seguimiento de leads**…"). Alinear el componente al deck.
+- **Titular:** el deck (§1) define el titular "Deja que la IA trabaje por ti."; el componente hoy solo renderiza el wordmark ("oito" + "lo hace por ti") sin ese titular. Confirmar dónde entra al integrar.
+
+**Casos (`src/components/CasesSpotlight.tsx` u equivalente)**
+- La pasada de coherencia devolvió especificidad técnica a los casos 1 y 3 (n8n como motor del flujo; rúbrica "de 0 a 100"). Al integrar, reflejar el texto actual de §5, no una versión anterior más genérica.
+
+**FAQ (`src/components/Faq.tsx`)**
+- El componente tiene 6 preguntas; falta la **pregunta 7** (desarrollo), obligatoria y verbatim en §10. Añadirla es trabajo de código.
+
+**CTA final (`src/components/FinalCTA.tsx`)**
+- El componente muestra el copy anterior: título "¿Listo para que oito lo haga por ti?" y bajada "Cuéntanos qué tienes en mente…". El deck (§11) pide título "¿Listo para que la IA trabaje por ti?" y bajada "Cuéntanos qué proceso te quita horas. Te respondemos por WhatsApp, sin compromiso."
+
+**Calculadora de ROI**
+- El disclaimer del deck (§7) ahora exige una línea explícita "Es una estimación de potencial, no una cifra garantizada." visible bajo el veredicto. Confirmar que el componente la muestre separada, no fundida en el veredicto.
+
+> Sin cambios pendientes conocidos en: DevBridge, EasyStart, SocialProof, BuiltWith (ya alineados al deck).
 
 ---

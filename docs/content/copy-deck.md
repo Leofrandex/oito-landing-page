@@ -3,6 +3,8 @@
 > Texto final para las 3 páginas. Voz: *"oito lo hace por ti"* — cercana, técnica, confiada.
 
 > **Nota (pivote 2026-07-17):** oito pivota a solo automatización con una landing única. PÁGINA 1 y PÁGINA 3 serán reemplazadas por el copy deck v2 (iniciativa Contenido v2); PÁGINA 2 queda congelada (ver su aviso). Este deck se conserva como base de partida.
+>
+> **→ Copy vigente de la landing:** `docs/content/copy-deck-v2.md` (este archivo queda como base histórica).
 
 > `[REQUIERE TU INPUT]` = dato real que debes aportar (no se inventa).
 > Las cifras ilustrativas se redactan como potencial, nunca como resultados medidos.

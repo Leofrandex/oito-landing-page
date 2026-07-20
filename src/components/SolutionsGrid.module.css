@@ -37,6 +37,11 @@
   flex-direction: column;
   gap: 0.9rem;
   margin-bottom: 1.5rem;
+  /* La máscara recorta todo lo pintado fuera del border-box (mask-clip);
+   * el padding compensado da aire para el translateY(-2px) del hover de las píldoras. */
+  padding-block: 6px;
+  margin-block: -6px;
+  margin-bottom: calc(1.5rem - 6px);
   /* difumina los extremos del riel */
   -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);

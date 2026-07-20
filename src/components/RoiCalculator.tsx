@@ -72,8 +72,10 @@ export default function RoiCalculator({ id }: { id?: string }) {
   const horasOitoAnim = useCountUp(horasRestantes);
   const deltaAnim = useCountUp(horasRecuperables);
 
+  /* La columna "Hoy" usa la escala sqrt para moverse en todo el rango; la de
+   * "Con oito" es proporcional lineal a ella para que la diferencia real se lea. */
   const hoyScale = colPct(horasHoyAnim) / 100;
-  const oitoScale = colPct(horasOitoAnim) / 100;
+  const oitoScale = horasHoyAnim > 0 ? hoyScale * (horasOitoAnim / horasHoyAnim) : 0;
 
   return (
     <section id={id} className={`section-dark anchor-target ${styles.section}`}>

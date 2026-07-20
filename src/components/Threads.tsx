@@ -198,6 +198,12 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
 
         const mesh = new Mesh(gl, { geometry, program });
 
+        // Declarada antes de resize() porque resize() se invoca de inmediato más abajo
+        // y, tras el fix de reevaluar la pausa en resize, evaluatePause()/setPaused()
+        // leen `paused`: debe estar inicializada (fuera del temporal dead zone) para
+        // esa primera llamada.
+        let paused = false;
+
         function resize() {
             if (!container) return;
             const { clientWidth, clientHeight } = container;
@@ -205,6 +211,7 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
             program.uniforms.iResolution.value.r = gl.canvas.width;
             program.uniforms.iResolution.value.g = gl.canvas.height;
             program.uniforms.iResolution.value.b = gl.canvas.width / gl.canvas.height;
+            evaluatePause();
         }
         window.addEventListener('resize', resize);
         resize();
@@ -241,12 +248,16 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
             renderer.render({ scene: mesh });
             animationFrameId.current = requestAnimationFrame(update);
         }
-        animationFrameId.current = requestAnimationFrame(update);
+        // resize() ya corrió una vez arriba (llamada síncrona en el setup) y puede haber
+        // marcado `paused = true` si se monta con una sección clara cubriendo el viewport;
+        // no armar el rAF inicial en ese caso o quedaría corriendo pese a la pausa.
+        if (!paused) {
+            animationFrameId.current = requestAnimationFrame(update);
+        }
 
         /* Pausa invisible: el shader no corre si la pestaña está oculta o si una sección
          * clara (cream, opaca) cubre todo el viewport; ahí los hilos no se ven de todos
          * modos. Al reanudar, iTime sigue de t real: sin salto perceptible. */
-        let paused = false;
         function setPaused(next: boolean) {
             if (next === paused) return;
             paused = next;

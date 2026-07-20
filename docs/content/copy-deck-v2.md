@@ -153,3 +153,93 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 > - validado **[N]** facturas
 
 ---
+
+# 9. Prueba social
+
+**Título:** Negocios que ya dejaron que **oito** lo haga por ellos
+
+**Franja 1, sectores atendidos (reales, sin nombres):**
+> Ciberseguridad · Logística · Salud · Farmacéutica · Gestión de desechos · Transporte B2B
+
+**Franja 2, logos de clientes:**
+> `[REQUIERE TU INPUT: logos de clientes con permiso de uso. Mientras no haya permiso, esta franja muestra placeholders neutros, no logos inventados.]`
+
+**Franja 3, señales neutrales (datos verdaderos, sin nombres):**
+- **6+** proyectos entregados
+- **6** sectores distintos
+- **24/7** operando en automático
+- **100%** remoto y en español
+
+**Construido con (stack):** Sistemas construidos con: OpenAI, Anthropic, Gemini, Perplexity, n8n, Make, Zapier, HubSpot, Zoho, Airtable, Notion, ClickUp, Slack, Google Sheets, WhatsApp, Instagram (carrusel de logos de herramientas, como prueba de competencia técnica, no de clientes).
+
+**Testimonio (1 slot, listo para cuando haya permiso):**
+> `[REQUIERE TU INPUT: testimonio real, cita + nombre + empresa. Mientras no haya, esta sección muestra solo sectores, stack y señales neutrales. No usar testimonios ficticios.]`
+
+---
+
+# 10. FAQ
+
+**Título:** Antes de que hablemos
+
+1. **¿Cuánto cuesta?**
+> Cada proyecto es distinto, así que no manejamos precios de lista. La primera conversación por WhatsApp no cuesta nada: entendemos tu caso y te damos una propuesta clara antes de que decidas.
+
+2. **¿Y si todavía no sé qué necesito?**
+> Es lo normal, y está bien. Empezamos con una auditoría: nos cuentas cómo trabajas hoy y nosotros identificamos dónde te podemos ayudar más, sea desarrollo, automatización o ambas.
+
+3. **¿Tengo que cambiar las herramientas que ya uso?**
+> No. Nos integramos con lo que ya tienes (tu CRM, tus hojas de cálculo, WhatsApp, lo que sea). La idea es sumar, no obligarte a empezar de cero.
+
+4. **¿Cuánto tarda?**
+> Depende del alcance, y siempre trabajamos en entregas claras. Una web o una automatización puntual toma semanas; un sistema a medida se construye por fases para que veas avances desde temprano.
+
+5. **¿Hacen solo IA o solo desarrollo?**
+> Las dos, y son independientes. Puedes contratar solo tu software, solo tus automatizaciones, o las dos con el mismo equipo detrás.
+
+6. **¿Trabajan con empresas de mi país?**
+> Sí. Trabajamos con pymes de toda LatAm de forma remota, en español. La distancia no es problema: todo arranca con un mensaje.
+
+7. **¿Solo hacen automatización? ¿También páginas web o software?** *(entrada verbatim, obligatoria)*
+> Hoy nos enfocamos 100% en automatización e IA, que es donde generamos más impacto. También construimos software a medida cuando un proyecto lo necesita (como el sistema de trazabilidad que ves en los casos). Si tienes algo así en mente, escríbenos y lo conversamos.
+
+> **Nota:** las preguntas 1-6 ya están implementadas en `src/components/Faq.tsx`. La pregunta 7 (desarrollo) es la única del listado que **falta implementar** en el componente real: hoy el componente vive solo con las 6 primeras. Añadirla es trabajo de código, fuera del alcance de esta tarea de contenido; queda documentada aquí como pendiente para la Fase de implementación/coherencia.
+
+---
+
+# 11. CTA final
+
+**Título:** ¿Listo para que **oito** lo haga por ti?
+**Bajada:** Cuéntanos qué tienes en mente. Te respondemos por WhatsApp, sin compromiso.
+**CTA:** `Hablemos por WhatsApp`
+
+---
+
+# 12. Puente de desarrollo (DevBridge)
+
+> Posición real en la página: entre **Construido con (stack)** y **FAQ** (después de la sección 9 de prueba social, antes de la 10). Se numera aquí al cierre del deck para no romper el orden narrativo "gancho → prueba → cierre" de las secciones 9-11; el orden real de la landing construida es: Metodología → Prueba social → Construido con → **Puente de desarrollo** → FAQ → Empezar es fácil → CTA final.
+
+**Eyebrow:** También hacemos
+**Título:** Tu página web, construida por oito
+**Bajada:** El mismo estudio que automatiza tu operación puede construir la cara digital de tu negocio: rápida, moderna y hecha para vender.
+**CTA (botón secundario):** `Cuéntanos qué quieres hacer` *(WhatsApp; única excepción al texto estándar de CTA, ya construida y aprobada)*
+
+> **Nota de alcance:** la página `/desarrollo-web` está oculta del sitio (ver aviso de PÁGINA 2 más arriba). Este puente y la pregunta 7 del FAQ son la única presencia de "desarrollo" en la landing pivotada a automatización. Copy ya construido en `src/components/DevBridge.tsx`, sin cambios: no rompe ninguna constraint (sin em dash, sin datos inventados, tuteo, CTA por WhatsApp).
+
+---
+
+# 13. Empezar es fácil (EasyStart)
+
+> Posición real en la página: entre **FAQ** y **CTA final**, inmediatamente antes de la sección 11. Rampa emocional pre-CTA, sin botón propio: el CTA vive en la sección 11 justo después (ambas en fondo oscuro, sin divisor, cierre continuo).
+
+**Eyebrow:** El primer paso
+**Título:** Empezar es más simple de lo que crees
+**Bajada:** No necesitas tener todo claro ni un documento perfecto. Nos escribes, nos cuentas en qué andas, y desde ahí lo resolvemos contigo.
+
+**3 puntos (con ícono):**
+- La primera conversación no cuesta nada
+- Sin compromiso ni letra chica
+- Te respondemos rápido y en español
+
+> Copy ya construido en `src/components/EasyStart.tsx`, sin cambios: no rompe ninguna constraint.
+
+---

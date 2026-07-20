@@ -10,18 +10,23 @@
 
 # 1. Hero
 
-**Marca (grande):** `oito`
-**Tagline:** `LO HACE POR TI`
+> **H1 híbrido, variante B (decisión usuario 2026-07-19):** el `<h1>` contiene marca + eslogan + keyword SEO. Visualmente "oito" es el protagonista absoluto y el eslogan queda intacto; la keyword es una línea de apoyo discreta debajo. Google lee: "oito lo hace por ti Automatización con IA para tu negocio".
 
-**Titular:** Deja que la IA trabaje por ti.
+**Marca (grande, dentro del H1):** `oito`
+**Eslogan (oficial, dentro del H1):** `LO HACE POR TI`
+**Keyword SEO (línea de apoyo, dentro del H1):** Automatización con IA para tu negocio
 
-**Efecto TextType (se escribe/borra, rota estas frases):**
-tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranza** · tu **soporte** · tu **inventario** · tus **reportes** · tu **facturación**
+**Efecto TextType ("Automatizamos" queda FIJO; solo rota el complemento):**
+Automatizamos → **tu prospección** · **tu CRM** · **tu seguimiento de leads** · **tu cobranza** · **tu soporte** · **tu inventario** · **tus reportes** · **tu facturación**
+
+> Requisito SEO: las 8 frases deben existir también como texto estático en el DOM (visualmente ocultas), porque el efecto se escribe con JavaScript y el crawler no espera la animación.
 
 **Subtítulo (fijo, debajo del efecto):**
-> Automatizamos lo repetitivo de tu negocio (prospección, CRM, soporte, reportes) para que tú te enfoques en crecer.
+> Automatizamos lo repetitivo de tu negocio para que tú te enfoques en crecer.
 
 **CTA principal:** `Hablemos por WhatsApp`
+
+> El titular "Deja que la IA trabaje por ti." se retiró (decisión usuario 2026-07-19): el eslogan oficial de la marca es "oito lo hace por ti" y la carga de keywords pasa a la línea SEO del H1. El CTA final (§11) conserva su eco "¿Listo para que la IA trabaje por ti?".
 
 ---
 
@@ -39,12 +44,14 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 # 3. Por qué oito
 
 **Bloque 1 (dolor, ventas):**
-**Título:** Cada lead sin responder es **una venta que se enfría**
+**Título:** El tiempo no se recupera, **los ingresos sí**
 > Mientras tu equipo hace seguimiento a mano, hay prospectos que se cansan de esperar y compran en otro lado. No es falta de ganas: es que el tiempo no te alcanza para responder a todos, a tiempo.
+
+> Decisión usuario 2026-07-19: se conserva el título ya construido (mejor que el propuesto "Cada lead sin responder...") y se adopta el cuerpo del deck (gancho de ventas).
 
 **Bloque 2 (apertura al techo integral):**
 **Título:** Tú enfócate en crecer. **De lo técnico nos encargamos nosotros**
-> El mismo problema se repite en soporte, en operaciones y en finanzas. Son tareas manuales que le roban horas a tu equipo. oito construye y automatiza ese motor invisible, con IA que ejecuta el trabajo repetitivo por ti.
+> En oito construimos y automatizamos el motor invisible de tu negocio, con IA que ejecuta el trabajo repetitivo por ti.
 
 **Antes → Después (animación de WhyOito):**
 - **Tu negocio hoy:** Caos, tareas manuales, tiempo que se escapa.
@@ -92,19 +99,21 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 
 **Caso 4**
 **Etiqueta:** `Desarrollo`
-**Sector:** Salud
-**Título:** App de trazabilidad de desechos peligrosos (PWA)
-> Una PWA que gestiona el ciclo de vida completo de los contenedores: puntos de control en ruta, pesaje con cálculo de peso neto facturable, evidencia fotográfica y firmas electrónicas, generando en automático los reportes PDF que exige la regulación.
-`[Hospiwaste - pendiente permiso]` · `[REQUIERE TU INPUT: capturas reales de Hospiwaste]`
+**Sector:** Distribución farmacéutica
+**Título:** App de rastreo de fuerza de campo
+> App móvil nativa + panel web para gestionar al equipo de ventas en campo: GPS en tiempo real, modo offline y cámara anti-fraude para verificar cada visita.
+`[Ponce-Benzo - pendiente permiso]` · `[REQUIERE TU INPUT: capturas reales de la app, si existen]`
 
-> **Nota:** este es el único caso de *Desarrollo* en el spotlight: el guiño de que, detrás de la automatización, hay el mismo músculo técnico para construir software a medida cuando el negocio lo necesita.
+> **Nota:** este es el único caso de *Desarrollo* en el spotlight: el guiño de que, detrás de la automatización, hay el mismo músculo técnico para construir software a medida cuando el negocio lo necesita. Se eligió este caso (y no el de trazabilidad de desechos) porque cierra el arco de VENTAS del roster: calificación → secuencias → prospección → equipo de ventas en campo (decisión usuario 2026-07-19). El caso de trazabilidad (con capturas reales confirmadas) queda en banca para cuando se reactive `/desarrollo-web`.
 
 ---
 
 # 6. Qué puedes automatizar
 
 **Título:** Lo que la automatización puede hacer por ti
-**Bajada:** Ejemplos de soluciones comunes. Las cifras son estimaciones de impacto potencial, no resultados garantizados.
+**Bajada:** Ejemplos de soluciones comunes para tu operación.
+
+> Decisión usuario 2026-07-19: se retiró la frase "las cifras son estimaciones de impacto potencial, no resultados garantizados" (tono de abogado). El framing de potencial queda incorporado en el "hasta ~" de las cifras mismas.
 
 > Marquesina de dos filas (loop continuo, sentido opuesto cada una) con las 8 soluciones. Este es el punto donde el mensaje abre del gancho de ventas (leads, Casos) al techo integral: cualquier tarea repetitiva del negocio, no solo prospección.
 
@@ -134,8 +143,7 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 > [monto]/mes en trabajo manual
 > Cálculo estimado sobre ~70% del tiempo recuperable.
 
-**Disclaimer (línea aparte, siempre visible bajo el veredicto):**
-> Es una estimación de potencial, no una cifra garantizada.
+> Decisión usuario 2026-07-19: sin línea aparte de "no es una cifra garantizada". El "Cálculo estimado" pegado al veredicto es el único framing, discreto y suficiente.
 
 **CTA:** `Hablemos de tu caso`
 
@@ -205,8 +213,10 @@ tu **prospección** · tu **CRM** · tu **seguimiento de leads** · tu **cobranz
 5. **¿Trabajan con empresas de mi país?**
 > Sí. Trabajamos con pymes de toda LatAm de forma remota, en español. La distancia no es problema: todo arranca con un mensaje.
 
-6. **¿Solo hacen automatización? ¿También páginas web o software?** *(entrada verbatim, obligatoria)*
-> Hoy nos enfocamos 100% en automatización e IA, que es donde generamos más impacto. También construimos software a medida cuando un proyecto lo necesita (como el sistema de trazabilidad que ves en los casos). Si tienes algo así en mente, escríbenos y lo conversamos.
+6. **¿Solo hacen automatización? ¿También páginas web o software?** *(entrada obligatoria)*
+> Hoy nos enfocamos 100% en automatización e IA, que es donde generamos más impacto. También construimos páginas web y software a medida cuando un proyecto lo necesita (como la app de rastreo para equipos de campo que ves en los casos). Si tienes algo así en mente, escríbenos y lo conversamos.
+
+> Ajuste 2026-07-19 sobre la entrada verbatim original: se menciona "páginas web" explícitamente (petición del usuario) y la referencia del caso cambia de trazabilidad a la app de rastreo (el caso de trazabilidad salió del roster).
 
 > **Nota:** el componente `src/components/Faq.tsx` trae las 6 preguntas pre-pivote. En este deck la antigua pregunta 5 ("¿Hacen solo IA o solo desarrollo?") se **eliminó** por contradecir el enfoque 100% automatización de la entrada verbatim; las preguntas 2 y 4 se **reescribieron** al pivote (quitando las menciones a "desarrollo" y "web"); y se **añade** la entrada verbatim de desarrollo (aquí la 6). El componente queda como divergencia a integrar (ver §14).
 

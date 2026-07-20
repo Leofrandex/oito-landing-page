@@ -8,7 +8,7 @@
 ## Posicionamiento — ✅ FIJADO (pivote 2026-07-17)
 oito es un **estudio de automatización e IA para pymes hispanohablantes de LatAm**. Un solo servicio público: **automatización / IA** (flujos, agentes, integraciones).
 
-- **Desarrollo web/software** sale de la landing para lanzar solo con automatización, pero es un **plan de reactivación cercano** (empezando por desarrollo web), no un descarte. Mientras tanto aparece como capacidad interna con **mención secundaria** (una entrada en el FAQ + el caso Hospiwaste en el spotlight de casos).
+- **Desarrollo web/software** sale de la landing para lanzar solo con automatización, pero es un **plan de reactivación cercano** (empezando por desarrollo web), no un descarte. Mientras tanto aparece como capacidad interna con **mención secundaria** (una entrada en el FAQ + un caso de desarrollo en el spotlight: desde 2026-07-19, la app de rastreo de fuerza de campo; antes, Hospiwaste).
   - **🧊 Preservado, listo para reactivar (2026-07-18):** la página `/desarrollo-web` y los componentes `Dev*` (DevServices, DevProcess, DevCases, DevTech), `ServiceHero` y `TwoPillars` **se conservan intactos en la rama**; no se borran ni se reescriben. Reactivar desarrollo web = volver a enlazar la ruta, no reconstruir. El copy vive en `content/copy-deck.md` PÁGINA 2 (🧊 congelada, no eliminada).
   - **Ruta `/desarrollo-web`:** se quita del sitio público (sin enlace en nav ni indexación) al montar la landing única; el código queda listo para reenchufar. Decidido 2026-07-18.
 - **Cliente:** pymes LatAm, español, varios países. SEO en español amplio (no local).
@@ -17,6 +17,10 @@ oito es un **estudio de automatización e IA para pymes hispanohablantes de LatA
 
 ## Voz de marca — ✅ FIJADO
 - Se mantiene el tagline **"oito LO HACE POR TI"** (firma, no se cambia).
+- **✅ H1 del Hero, híbrido variante B (2026-07-19):** el `<h1>` contiene marca + eslogan + keyword SEO **"Automatización con IA para tu negocio"** como línea de apoyo discreta debajo del eslogan. "oito" sigue siendo el protagonista visual absoluto. El titular alternativo "Deja que la IA trabaje por ti" se descartó como H1 (sobrevive como eco en el CTA final). Detalle en `content/copy-deck-v2.md` §1.
+- **✅ TextType con prefijo fijo (2026-07-19):** "Automatizamos" queda fijo y solo rota el complemento nominal ("tu prospección", "tu CRM", ...8 frases). Las frases existen además como texto estático oculto en el DOM (SEO).
+- **✅ Disclaimers ligeros (2026-07-19):** las cifras siguen siendo potencial, pero el framing vive en el "hasta ~" de cada cifra y en el "Cálculo estimado" de la calculadora; se retiran las frases largas tipo "no son resultados garantizados".
+- **✅ Roster de casos orientado a ventas (2026-07-19):** 3 Automatización + 1 Desarrollo, donde el caso de desarrollo es la **app de rastreo de fuerza de campo** (cierra el arco de ventas). El caso de trazabilidad queda en banca para la reactivación de `/desarrollo-web`.
 - Subfrases solo de automatización ("automatiza tu [X]"); se retiran las de construir web/app/sistema.
 - **🔒 Efecto TextType (se conserva):** las palabras que se escriben/borran (`TextType.jsx`) siguen en el Hero, rotando SOLO frases de automatización.
 - **✅ Copy a eliminar (feedback usuario):**

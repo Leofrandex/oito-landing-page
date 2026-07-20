@@ -15,7 +15,7 @@ export default function FinalCTA({
   lede = 'Cuéntanos qué proceso te quita horas. Te respondemos por WhatsApp, sin compromiso.',
 }: FinalCTAProps = {}) {
   return (
-    <section className={`section-dark ${styles.section}`}>
+    <section className={`section-dark cv-auto ${styles.section}`}>
       <Reveal className={styles.inner}>
         <h2 className={styles.title} style={{ transitionDelay: '0ms' }}>
           {title}

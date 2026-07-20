@@ -9,7 +9,7 @@ import styles from './DevBridge.module.css';
  * construye solo en loop (CSS puro). */
 export default function DevBridge() {
   return (
-    <section className={`section-light ${styles.section}`}>
+    <section className={`section-light cv-auto ${styles.section}`}>
       <Reveal className={styles.inner}>
         <div className={styles.copy}>
           <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>

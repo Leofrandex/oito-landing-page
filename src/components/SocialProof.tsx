@@ -48,7 +48,7 @@ export default function SocialProof() {
   };
 
   return (
-    <section className={`section-dark ${styles.section}`}>
+    <section className={`section-dark cv-auto ${styles.section}`}>
       <div className={styles.container}>
         <motion.h2
           className={styles.title}

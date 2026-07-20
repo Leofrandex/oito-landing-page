@@ -256,6 +256,13 @@ img, svg, canvas { display: block; }
   scroll-margin-top: 90px;
 }
 
+/* Rendimiento: el navegador omite render del contenido fuera de pantalla.
+ * SOLO en secciones sin pin de ScrollTrigger y sin ancla de navegación. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
+}
+
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {

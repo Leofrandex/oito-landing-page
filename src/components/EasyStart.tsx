@@ -12,7 +12,7 @@ const POINTS: { icon: LucideIcon; text: string }[] = [
 
 export default function EasyStart() {
   return (
-    <section className={`section-dark ${styles.section}`}>
+    <section className={`section-dark cv-auto ${styles.section}`}>
       <Reveal className={styles.inner}>
         <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>
           El primer paso

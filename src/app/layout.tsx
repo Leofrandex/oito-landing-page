@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    locale: "es_ES",
+    locale: "es_VE",
     url: "/",
     siteName: "oito",
     title: "oito | Automatización con IA para pymes en Venezuela",

@@ -6,7 +6,7 @@
 
 ## 1. Qué es este proyecto
 
-Landing page de **oito**, un estudio de automatización e IA para **pymes hispanohablantes de LatAm**. En **rediseño completo** sobre la rama `oito-page-v5`.
+Landing page de **oito**, un estudio de automatización e IA para **pymes en Venezuela** (decisión geo 2026-07-21, ver decisiones fijadas). Rediseño publicado en `main`.
 
 **Stack:**
 - Next.js 16 (App Router) + React 19 + TypeScript

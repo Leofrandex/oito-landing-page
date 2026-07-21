@@ -14,6 +14,7 @@ export function buildJsonLd() {
         url: SITE_URL,
         logo: `${SITE_URL}/logo_oito.png`,
         email: "info@oitove.com",
+        telephone: "+584241344659",
         sameAs: ["https://www.instagram.com/oito.vee/"],
         areaServed: { "@type": "Country", name: "Venezuela" },
         /* Service area business: la dirección verificable es privada (GBP);

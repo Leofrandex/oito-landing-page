@@ -1,6 +1,6 @@
 # oito
 
-> Estudio de automatización e IA para pymes hispanohablantes de LatAm. Automatizamos lo repetitivo de tu negocio (prospección, CRM, soporte, reportes) para que tú te enfoques en crecer. Lema: "oito lo hace por ti".
+> Estudio de automatización e IA para pymes en Venezuela. Automatizamos lo repetitivo de tu negocio (prospección, CRM, soporte, reportes) para que tú te enfoques en crecer. Lema: "oito lo hace por ti".
 
 Sitio: https://oitove.com (landing única, en español).
 

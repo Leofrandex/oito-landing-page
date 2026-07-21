@@ -23,8 +23,8 @@ export const FAQS: { q: string; a: string }[] = [
     a: 'Depende del alcance, y siempre trabajamos en entregas claras. Una automatización puntual puede estar corriendo en cuestión de semanas; un sistema a medida se construye por fases para que veas avances desde temprano.',
   },
   {
-    q: '¿Trabajan con empresas de mi país?',
-    a: 'Sí. Trabajamos con pymes de toda LatAm de forma remota, en español. La distancia no es problema: todo arranca con un mensaje.',
+    q: '¿Trabajan en toda Venezuela?',
+    a: 'Sí. Trabajamos con pymes de toda Venezuela de forma remota, estés donde estés. La distancia no es problema: todo arranca con un mensaje.',
   },
   {
     q: '¿Solo hacen automatización? ¿También páginas web o software?',

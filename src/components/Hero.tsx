@@ -9,8 +9,9 @@ import Button from '@/components/ui/Button';
 import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './Hero.module.css';
 
-/* Deck v2 §1: "Automatizamos" queda fijo y solo rota el complemento nominal.
- * Las 8 frases existen además como texto estático oculto (SEO: el crawler no espera al efecto). */
+/* Deck v2 §1 (ajuste 2026-07-21): "Hacemos" queda fijo (conecta con "oito lo hace por ti")
+ * y solo rota el complemento nominal; "automatización" aparece una sola vez, en la línea
+ * keyword del H1. Las 8 frases existen además como texto estático oculto (SEO). */
 const ROTATING = [
   'tu prospección',
   'tu CRM',
@@ -70,14 +71,14 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
             lo hace por ti
           </span>
           {/* Keyword SEO dentro del H1 (deck v2 §1, variante B): Google lee
-           * "oito lo hace por ti Automatización con IA para tu negocio". */}
+           * "oito lo hace por ti Automatización con IA para negocios en Venezuela". */}
           <span className={styles.kwLine} data-anim>
-            Automatización con IA para tu negocio
+            Automatización con IA para negocios en Venezuela
           </span>
         </h1>
 
         <p className={styles.rotatingLine} data-anim>
-          <span className={styles.rotatingFixed}>Automatizamos </span>
+          <span className={styles.rotatingFixed}>Hacemos </span>
           <TextType
             text={ROTATING}
             as="span"
@@ -90,7 +91,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
         </p>
 
         <p className={styles.subtitle} data-anim>
-          Automatizamos lo repetitivo de tu negocio para que tú te enfoques en crecer.
+          Nos encargamos de lo repetitivo de tu negocio para que tú te enfoques en crecer.
         </p>
 
         <div className={styles.actions} data-anim>

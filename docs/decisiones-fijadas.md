@@ -65,5 +65,11 @@ Para vidrio de alta calidad con **refracción SVG real** (distorsiona el fondo, 
 
 ---
 
+## Enfoque geográfico — ✅ FIJADO (2026-07-21)
+
+El sitio se enfoca en **Venezuela**, no en LatAm genérico ("por ahora", reversible): copy visible, title/description, schema (`ProfessionalService`, Caracas/VE sin calle publicada), llms.txt y Google Business Profile (service area business, dirección oculta). Motivo: validación SEO real — el sitio no tenía ninguna señal geo y el mercado inicial es Venezuela. Si se reabre LatAm, el barrido inverso es mecánico (grep "Venezuela").
+
+Del mismo brainstorm: el hero deja UNA sola mención de "automatización" (la línea keyword del H1, ahora con Venezuela); la línea rotativa pasa a "Hacemos [x]" y el subtítulo a "Nos encargamos de lo repetitivo…". Spec: `docs/superpowers/specs/2026-07-21-seo-venezuela-design.md`.
+
 ## Pendientes marcados
 - **⚠️ `agents.md`:** su descripción "Automatización e IA" vuelve a ser casi correcta tras el pivote 2026-07-17; falta reflejar que desarrollo queda como capacidad congelada.

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "oito, lo hace por ti: automatización con IA para pymes";
+export const alt = "oito, lo hace por ti: automatización con IA para pymes en Venezuela";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -59,7 +59,7 @@ export default function OgImage() {
             display: "flex",
           }}
         >
-          Automatización con IA para tu negocio
+          Automatización con IA para negocios en Venezuela
         </div>
       </div>
     ),

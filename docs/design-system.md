@@ -52,23 +52,21 @@ Resuelve la discrepancia previa: **manda `agents.md` (Outfit)**. Eliminar Playfa
 
 **Decisión clave: `GlassSurface` (refracción SVG) SOLO en el header. Todo lo demás con `.glass` / `.glass-light`.**
 
-> **✅ FIJADO 2026-07-08 (c) — Liquid glass + rim suave (decisión usuario, validada en `.superpowers/mockups/glass-lab.html`):**
+> **✅ FIJADO 2026-07-25 — Vidrio frosteado, canto sólido 1px (decisión del usuario):**
 > Solo existen **dos** clases de vidrio y se eligen por el tono del fondo:
-> - **`.glass` → estilo "Liquid mint"** (fondos **oscuros**): degradado translúcido teñido de mint que deja ver los hilos detrás, con brillo superior tipo liquid glass.
-> - **`.glass-light` → estilo "Liquid sheen"** (fondos **claros**): mismo tratamiento glossy pero en blanco translúcido.
-> - **Ambas usan "Rim suave":** el borde NO es un `border` sólido de color, sino un **canto de luz en degradado enmascarado** (pseudo-elemento, más brillante arriba-izquierda y desvaneciéndose) para leer como vidrio real. Ver §2.1.
+> - **`.glass` → fondos OSCUROS** (`rgba(255,255,255,.035)`): vidrio neutro que no tiñe, `blur(7px) saturate(1.35)`, borde sólido `1px solid rgba(255,255,255,.14)`, sombra `0 8px 36px rgba(0,0,0,.22)` + brillo `inset 0 1px 0 rgba(255,255,255,.20)`, `border-radius: 26px`.
+> - **`.glass-light` → fondos CLAROS** (`rgba(255,255,255,.40)`): frosteado blanco opaco que atenúa los hilos, `blur(12px) saturate(1.4)`, borde sólido `1px solid rgba(255,255,255,.65)`, sombra `0 12px 30px rgba(0,67,70,.09)` + brillo `inset 0 1px 0 rgba(255,255,255,.65)`, `border-radius: 26px`.
+> - **Canto sólido de 1px:** NO hay rim enmascarado pseudo `::after`. El `::after` de estos elementos queda libre para los componentes.
 >
-> Esto **reemplaza** las recetas anteriores (2026-07-08 a/b: fill mint 16%→forest 30% y blanco 62%→42% con borde sólido). Se conserva la verdad técnica: el `backdrop-filter` NO refracta los hilos WebGL fijos (regla #0.2); la translucidez del liquid glass deja ver los hilos pero **no los distorsiona** salvo con un glow LOCAL por sección.
->
-> **Historial (obsoleto, solo referencia):** 2026-07-07 se eliminó `.glass-strong`. 2026-07-08 (a/b) fills mate con borde sólido — sustituidos por liquid glass.
+> **Historial (obsoleto, solo referencia):** 2026-07-07 se eliminó `.glass-strong`. 2026-07-08 (a/b/c) liquid glass con rim enmascarado — sustituidos por vidrio neutro/frosteado de canto sólido.
 
 Razón para GlassSurface solo-header: corre un grafo de filtro SVG (feImage + 3 feDisplacementMap + 3 feColorMatrix + 2 feBlend + blur) como `backdrop-filter` → carísimo de componer y regenera el mapa en resize; multiplicado por N elementos tumba FPS en móvil, y solo funciona en Chromium. Vale la pena para 1 instancia (el header); no para tarjetas/chips/secciones.
 
 | Clase | Uso | Valores |
 |---|---|---|
-| `.glass` | Superficie sobre **oscuro** — *Liquid mint* | fill `linear-gradient(120deg, rgba(9,188,138,.30) 0%, rgba(9,188,138,.05) 55%, rgba(9,188,138,.15) 100%)` · `blur(11px) saturate(1.5)` · **rim suave** (§2.1) · radio `22px` · sombra `0 26px 58px -22px rgba(0,0,0,.5)` + brillo sup `inset 0 2px 0 rgba(255,255,255,.42)` + `inset 0 -1px 0 rgba(9,188,138,.12)` · móvil ≤768px: `blur(8px)` |
-| `.glass-light` | Superficie sobre **claro** — *Liquid sheen* | fill `linear-gradient(120deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,.05) 55%, rgba(255,255,255,.12) 100%)` · `blur(11px) saturate(1.4)` · **rim suave** (§2.1) · radio `22px` · sombra `0 20px 44px -20px rgba(0,67,70,.20)` + brillo sup `inset 0 2px 0 rgba(255,255,255,.5)` + `inset 0 -1px 0 rgba(255,255,255,.08)` |
-| `.glass-hover` | Hover de tarjeta | levanta `translateY(-6px)` + `box-shadow: var(--shadow-mint)` |
+| `.glass` | Superficie sobre **oscuro** — *Vidrio neutro* | fill `rgba(255, 255, 255, 0.035)` · `blur(7px) saturate(1.35)` · borde `1px solid rgba(255,255,255,0.14)` · radio `26px` · sombra `0 8px 36px rgba(0,0,0,0.22)` + brillo `inset 0 1px 0 rgba(255,255,255,0.20)` · móvil ≤768px: `blur(6px) saturate(1.3)` |
+| `.glass-light` | Superficie sobre **claro** — *Frosteado opaco* | fill `rgba(255, 255, 255, 0.40)` · `blur(12px) saturate(1.4)` · borde `1px solid rgba(255,255,255,0.65)` · radio `26px` · sombra `0 12px 30px rgba(0,67,70,0.09)` + brillo `inset 0 1px 0 rgba(255,255,255,0.65)` · móvil ≤768px: `blur(9px) saturate(1.3)` |
+| `.glass-hover` | Hover de tarjeta | levanta `translateY(-6px)` + `box-shadow: 0 18px 50px rgba(9,188,138,.20)` |
 
 ### 2.1 Rim suave (canto de vidrio) — receta exacta
 

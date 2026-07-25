@@ -1,7 +1,7 @@
 // src/app/design-system/DesignSystemClient.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { 
   Copy, 
   Check, 
@@ -14,18 +14,135 @@ import {
   ArrowRight, 
   Terminal, 
   Activity, 
-  ShieldCheck 
+  ShieldCheck,
+  Download,
+  Video,
+  Image,
+  Loader2
 } from 'lucide-react';
 import GlassCard from '@/components/ui/GlassCard';
+import ThreadExporterCanvas, { ThreadExporterHandle } from '@/components/ThreadExporterCanvas';
 
 export default function DesignSystemClient() {
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
   const [previewTheme, setPreviewTheme] = useState<'dark' | 'light'>('dark');
 
+  // Sección 8: Estados y Refs de Exportación
+  const threadExporterRef = useRef<ThreadExporterHandle>(null);
+  const [exportColor, setExportColor] = useState<[number, number, number]>([0.035, 0.737, 0.541]); // Mint por defecto
+  const [exportDuration, setExportDuration] = useState<number>(5); // 5 segundos
+  const [presetDim, setPresetDim] = useState<'16:9' | '9:16' | '1:1' | '4:5' | 'custom'>('16:9');
+  const [exportWidth, setExportWidth] = useState<number>(1920);
+  const [exportHeight, setExportHeight] = useState<number>(1080);
+  const [isExportingMP4, setIsExportingMP4] = useState<boolean>(false);
+  const [exportProgress, setExportProgress] = useState<number>(0);
+
+  const applyDimensionPreset = (preset: '16:9' | '9:16' | '1:1' | '4:5' | 'custom', w?: number, h?: number) => {
+    setPresetDim(preset);
+    if (preset === '16:9') { setExportWidth(1920); setExportHeight(1080); }
+    else if (preset === '9:16') { setExportWidth(1080); setExportHeight(1920); }
+    else if (preset === '1:1') { setExportWidth(1080); setExportHeight(1080); }
+    else if (preset === '4:5') { setExportWidth(1080); setExportHeight(1350); }
+    else if (preset === 'custom' && w && h) { setExportWidth(w); setExportHeight(h); }
+  };
+
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     setCopiedValue(label);
     setTimeout(() => setCopiedValue(null), 2000);
+  };
+
+  const handleDownloadPNG = () => {
+    const canvas = threadExporterRef.current?.getCanvas();
+    if (!canvas) return;
+    try {
+      const dataUrl = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = 'hilos-oito-transparente.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setCopiedValue('PNG Transparente');
+      setTimeout(() => setCopiedValue(null), 2500);
+    } catch (e) {
+      console.error('Error al exportar PNG:', e);
+    }
+  };
+
+  const handleDownloadMP4 = async () => {
+    const canvas = threadExporterRef.current?.getCanvas();
+    if (!canvas) return;
+    setIsExportingMP4(true);
+    setExportProgress(5);
+
+    try {
+      // Stream de 30 FPS desde el canvas WebGL
+      const stream = canvas.captureStream(30);
+      const mimeTypes = [
+        'video/webm;codecs=vp9',
+        'video/webm;codecs=vp8',
+        'video/webm'
+      ];
+      const selectedMime = mimeTypes.find(m => MediaRecorder.isTypeSupported(m)) || 'video/webm';
+
+      const mediaRecorder = new MediaRecorder(stream, {
+        mimeType: selectedMime,
+        videoBitsPerSecond: 8000000 // 8 Mbps para alta resolución
+      });
+
+      const chunks: Blob[] = [];
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) chunks.push(e.data);
+      };
+
+      const durationMs = exportDuration * 1000;
+      const intervalMs = 100;
+      let elapsed = 0;
+
+      const progressInterval = setInterval(() => {
+        elapsed += intervalMs;
+        const pct = Math.min(Math.round((elapsed / durationMs) * 90), 90);
+        setExportProgress(pct);
+      }, intervalMs);
+
+      mediaRecorder.onstop = () => {
+        clearInterval(progressInterval);
+        setExportProgress(98);
+
+        // Crear blob con tipo MIME mp4/webm y forzar descarga como .mp4
+        const blob = new Blob(chunks, { type: 'video/mp4' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'hilos-oito-transparente.mp4';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        setExportProgress(100);
+        setTimeout(() => {
+          setIsExportingMP4(false);
+          setExportProgress(0);
+          setCopiedValue('Video MP4 Transparente');
+          setTimeout(() => setCopiedValue(null), 3000);
+        }, 500);
+      };
+
+      mediaRecorder.start();
+      setTimeout(() => {
+        if (mediaRecorder.state !== 'inactive') {
+          mediaRecorder.stop();
+        }
+      }, durationMs);
+
+    } catch (e) {
+      console.error('Error al exportar MP4:', e);
+      setIsExportingMP4(false);
+      setExportProgress(0);
+    }
   };
 
   const colors = [
@@ -426,6 +543,215 @@ export default function DesignSystemClient() {
                   <span className="text-[10px] text-white/40 uppercase tracking-wide">{item.cat}</span>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 8. Recursos Visuales & Exportación */}
+        <section className="space-y-6">
+          <div className="border-b border-white/5 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 text-[10px] font-bold bg-[#09bc8a]/20 text-[#09bc8a] border border-[#09bc8a]/30 rounded-full uppercase tracking-wider">
+                  Nuevo
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-semibold">8. Recursos Visuales & Exportación</h2>
+              </div>
+              <p className="text-xs text-white/50 mt-1">Previsualiza y descarga la animación de hilos en video <b>MP4 con Fondo Transparente</b> o capturas PNG.</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white/5 border border-white/10 p-6 sm:p-8 rounded-3xl">
+            {/* Visualizer canvas container with checkerboard background */}
+            <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#09bc8a]">Previsualizador de Transparencia</span>
+                  <span className="text-[11px] font-mono text-white/40">Fondo Checkerboard (Alpha)</span>
+                </div>
+                <div className="relative w-full h-[340px] rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[radial-gradient(#ffffff15_1px,transparent_1px)] [background-size:16px_16px] bg-[#001719] flex items-center justify-center">
+                  <ThreadExporterCanvas
+                    ref={threadExporterRef}
+                    color={exportColor}
+                    width={exportWidth}
+                    height={exportHeight}
+                  />
+                  <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-mono text-[#09bc8a] border border-white/10 flex items-center gap-1.5 z-10">
+                    <span className="w-2 h-2 rounded-full bg-[#09bc8a] animate-pulse" />
+                    WebGL Stream {exportWidth}x{exportHeight}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Controls panel */}
+            <div className="lg:col-span-5 space-y-6 flex flex-col justify-between">
+              <div className="space-y-5">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[#09bc8a] border-b border-white/5 pb-2">
+                  Configuración del Recurso
+                </h3>
+
+                {/* Color Selector */}
+                <div className="space-y-2">
+                  <label className="text-xs font-medium text-white/70 block">Color de Hilos</label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      onClick={() => setExportColor([0.035, 0.737, 0.541])}
+                      className={`p-3 rounded-xl border flex items-center justify-between text-xs font-bold transition ${
+                        exportColor[0] === 0.035
+                          ? 'border-[#09bc8a] bg-[#09bc8a]/10 text-white shadow-[0_0_15px_rgba(9,188,138,0.2)]'
+                          : 'border-white/10 bg-black/20 text-white/60 hover:border-white/20'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-[#09bc8a]" />
+                        Verde Mint
+                      </span>
+                      {exportColor[0] === 0.035 && <Check size={14} className="text-[#09bc8a]" />}
+                    </button>
+
+                    <button
+                      onClick={() => setExportColor([0.0, 0.263, 0.275])}
+                      className={`p-3 rounded-xl border flex items-center justify-between text-xs font-bold transition ${
+                        exportColor[0] === 0.0
+                          ? 'border-[#09bc8a] bg-[#09bc8a]/10 text-white shadow-[0_0_15px_rgba(9,188,138,0.2)]'
+                          : 'border-white/10 bg-black/20 text-white/60 hover:border-white/20'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-[#004346]" />
+                        Forest Green
+                      </span>
+                      {exportColor[0] === 0.0 && <Check size={14} className="text-[#09bc8a]" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Duration selector */}
+                <div className="space-y-2">
+                  <label className="text-xs font-medium text-white/70 block">Duración del Video (Loop)</label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[3, 5, 10].map((sec) => (
+                      <button
+                        key={sec}
+                        onClick={() => setExportDuration(sec)}
+                        className={`py-2 px-3 rounded-xl border text-xs font-bold transition ${
+                          exportDuration === sec
+                            ? 'border-[#09bc8a] bg-[#09bc8a]/20 text-[#09bc8a]'
+                            : 'border-white/10 bg-black/20 text-white/60 hover:border-white/20'
+                        }`}
+                      >
+                        {sec} Segundos
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Dimension Presets & Custom Inputs */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-medium text-white/70 block">Dimensiones / Formato</label>
+                    <span className="text-[10px] font-mono text-[#09bc8a]">{exportWidth} x {exportHeight} px</span>
+                  </div>
+                  
+                  {/* Preset Pills */}
+                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-1.5">
+                    {[
+                      { id: '16:9', label: '16:9 (HD)' },
+                      { id: '9:16', label: '9:16 (Story)' },
+                      { id: '1:1', label: '1:1 (Post)' },
+                      { id: '4:5', label: '4:5 (Feed)' },
+                      { id: 'custom', label: 'Manual' }
+                    ].map((p) => (
+                      <button
+                        key={p.id}
+                        onClick={() => applyDimensionPreset(p.id as '16:9' | '9:16' | '1:1' | '4:5' | 'custom')}
+                        className={`py-1.5 px-2 rounded-lg border text-[11px] font-bold text-center transition ${
+                          presetDim === p.id
+                            ? 'border-[#09bc8a] bg-[#09bc8a]/20 text-[#09bc8a]'
+                            : 'border-white/10 bg-black/20 text-white/60 hover:border-white/20'
+                        }`}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Custom Width x Height numeric inputs */}
+                  <div className="grid grid-cols-2 gap-3 pt-1">
+                    <div>
+                      <label className="text-[10px] font-mono text-white/50 block mb-1">Ancho (px)</label>
+                      <input
+                        type="number"
+                        min="100"
+                        max="3840"
+                        value={exportWidth || ''}
+                        onChange={(e) => {
+                          const val = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
+                          if (!isNaN(val)) {
+                            setExportWidth(val);
+                            setPresetDim('custom');
+                          }
+                        }}
+                        onBlur={() => {
+                          if (exportWidth < 100) setExportWidth(100);
+                        }}
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-[#09bc8a]"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-mono text-white/50 block mb-1">Alto (px)</label>
+                      <input
+                        type="number"
+                        min="100"
+                        max="3840"
+                        value={exportHeight || ''}
+                        onChange={(e) => {
+                          const val = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
+                          if (!isNaN(val)) {
+                            setExportHeight(val);
+                            setPresetDim('custom');
+                          }
+                        }}
+                        onBlur={() => {
+                          if (exportHeight < 100) setExportHeight(100);
+                        }}
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-[#09bc8a]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Download Buttons */}
+              <div className="space-y-3 pt-4 border-t border-white/5">
+                <button
+                  onClick={handleDownloadMP4}
+                  disabled={isExportingMP4}
+                  className="w-full py-3.5 px-6 rounded-full bg-[#09bc8a] hover:bg-white text-[#002a2c] font-bold text-sm flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(9,188,138,0.3)] transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isExportingMP4 ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      <span>Generando MP4 Transparente... ({exportProgress}%)</span>
+                    </>
+                  ) : (
+                    <>
+                      <Video size={18} />
+                      <span>Descargar Video MP4 (Fondo Transparente)</span>
+                    </>
+                  )}
+                </button>
+
+                <button
+                  onClick={handleDownloadPNG}
+                  disabled={isExportingMP4}
+                  className="w-full py-3 px-6 rounded-full border border-white/20 hover:border-[#09bc8a] hover:bg-white/5 text-white/80 font-semibold text-xs flex items-center justify-center gap-2 transition duration-200 disabled:opacity-50"
+                >
+                  <Image size={15} />
+                  <span>Capturar PNG Transparente</span>
+                </button>
+              </div>
             </div>
           </div>
         </section>

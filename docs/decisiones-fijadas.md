@@ -49,13 +49,13 @@ El efecto de hilos WebGL animado y reactivo al mouse (`src/components/Threads.ts
 ### ✅ FIJADO — Dirección visual del Home
 Tratamiento **híbrido**: Hero y momentos clave en oscuro cinemático (forest green + hilos WebGL), secciones de contenido en claro (cream mint) para legibilidad y rendimiento. Patrón *Immersive/Interactive Experience + Feature-Rich Showcase*. CTA persistente (WhatsApp sticky/flotante). Regla: **cinemático sin sacrificar velocidad/SEO** — efectos con `transform`/`opacity`, degradación en móvil, respeta `prefers-reduced-motion`, opción de saltar el intro.
 
-### ✅ FIJADO — Glassmorphism sobre hilos (liquid glass, 2026-07-08)
+### ✅ FIJADO — Glassmorphism (vidrio frosteado, canto sólido 1px, 2026-07-25)
 Lenguaje visual central. Solo **dos** clases, elegidas por el tono del fondo:
-- **`.glass` (fondos oscuros) = "Liquid mint":** degradado translúcido teñido de mint (`120deg, mint 30%→5%→15%`), `blur(11px) saturate(1.5)`, brillo superior + luz interior mint.
-- **`.glass-light` (fondos claros) = "Liquid sheen":** mismo tratamiento glossy en blanco translúcido (`120deg, blanco 30%→5%→12%`), `blur(11px) saturate(1.4)`.
-- **Ambas usan "Rim suave":** el borde es un canto de luz en degradado enmascarado (pseudo-elemento `::after`), no un `border` sólido. Valores exactos + receta del rim en `design-system.md` §2 y §2.1.
+- **`.glass` (fondos oscuros) = vidrio neutro (no tiñe):** fill `rgba(255, 255, 255, 0.035)`, `blur(7px) saturate(1.35)`, borde sólido `1px solid rgba(255, 255, 255, 0.14)`, sombra `0 8px 36px rgba(0, 0, 0, 0.22)`, `border-radius: 26px`.
+- **`.glass-light` (fondos claros) = frosteado blanco (atenúa los hilos):** fill `rgba(255, 255, 255, 0.40)`, `blur(12px) saturate(1.4)`, borde sólido `1px solid rgba(255, 255, 255, 0.65)`, sombra `0 12px 30px rgba(0, 67, 70, 0.09)`, `border-radius: 26px`.
+- **Canto sólido de 1px:** El borde es un `border` sólido de 1px. NO hay rim enmascarado pseudo `::after`: el `::after` de estos elementos queda libre para los componentes.
 - *`.glass-strong` se eliminó (2026-07-07).*
-- **Pendiente:** llevar estas recetas a `globals.css` y a los componentes.
+- **Actualizado en `globals.css` (2026-07-25).**
 
 ### ⚠️ Verdad técnica clave del glass (2026-07-08, comprobado)
 El `backdrop-filter` **NO refracta los hilos del fondo**: `ThreadsBackground` es un canvas WebGL `position:fixed` (capa GPU) y Chromium no incluye esas capas fijas aceleradas en el "backdrop" → los hilos pasan por el vidrio sin difuminarse. Por eso: **(1)** `.glass` tiene **cuerpo propio** (fill translúcido + rim de luz; móvil ≤768px `blur(8px)`) para leer como vidrio en cualquier sección oscura sin depender del fondo; **(2)** la refracción visible se logra con un **glow LOCAL** por sección (`.section::before`, misma capa que sí capta el filtro) — aplicado en `EasyStart`, `AutomationPillars`, `SolutionsGrid`; los logos de `SocialProof` también usan `.glass`. **No prometer (en web ni en propuestas/PDF) que el vidrio distorsiona los hilos animados: es imposible con esta arquitectura.**

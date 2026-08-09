@@ -6,7 +6,7 @@
 
 /* Panel de foco: entra con un fundido suave cada vez que cambia (key={active} lo remonta). */
 .panel {
-  animation: fadeSwap 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  animation: fadeSwap 0.4s var(--ease-out);
 }
 
 @keyframes fadeSwap {

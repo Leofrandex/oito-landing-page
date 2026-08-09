@@ -37,15 +37,15 @@ export default function SolutionsGrid({ id }: { id?: string }) {
           <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>
             Soluciones
           </p>
-          <h2 className={styles.title} style={{ transitionDelay: '70ms' }}>
+          <h2 className={styles.title} style={{ transitionDelay: '60ms' }}>
             Lo que la automatización puede hacer por ti
           </h2>
-          <p className={styles.disclaimer} style={{ transitionDelay: '130ms' }}>
+          <p className={styles.disclaimer} style={{ transitionDelay: '120ms' }}>
             Ejemplos de soluciones comunes para tu operación.
           </p>
         </header>
 
-        <ul className={styles.pills} style={{ transitionDelay: '200ms' }} role="list">
+        <ul className={styles.pills} style={{ transitionDelay: '180ms' }} role="list">
           {SOLUTIONS.map(({ icon: Icon, name, note }) => (
             <li key={name} className={styles.pill}>
               <Icon size={15} strokeWidth={1.8} aria-hidden="true" />
@@ -55,7 +55,7 @@ export default function SolutionsGrid({ id }: { id?: string }) {
           ))}
         </ul>
 
-        <div className={styles.pregunta} style={{ transitionDelay: '280ms' }}>
+        <div className={styles.pregunta} style={{ transitionDelay: '240ms' }}>
           <h3 className={styles.preguntaTitle}>
             ¿Cuál le quitaría más <span className={styles.kw}>trabajo</span> a tu equipo?
           </h3>

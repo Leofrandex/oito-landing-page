@@ -11,31 +11,44 @@
   font-size: 1rem;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease,
-    box-shadow 0.2s ease, color 0.2s ease;
+  /* La pulsación baja rápido y la respuesta vuelve rápido: mismo tiempo en
+   * ambos sentidos, que es lo correcto para un botón. Curva sin overshoot:
+   * el rebote hacía que el CTA se sintiera gomoso. */
+  transition: transform var(--dur-press) var(--ease-out), background-color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease, color var(--dur-fast) ease;
 }
 .button:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+
+/* Feedback físico de pulsación. Aplica también en táctil, donde es el único
+ * feedback que el usuario recibe. */
+.button:active { transform: scale(0.97); }
 
 .sm { min-height: 44px; padding: 0 1.25rem; font-size: 0.9rem; }
 
 /* primary */
 .primary { background: var(--mint); color: var(--forest-deep); box-shadow: 0 0 34px rgba(9, 188, 138, 0.45); }
-.primary:hover { background: #fff; color: var(--forest-deep); transform: translateY(-2px); box-shadow: 0 0 44px rgba(0, 255, 170, 0.55); }
 
 /* secondary */
 .secondary { background: rgba(9, 188, 138, 0.12); border: 1px solid rgba(9, 188, 138, 0.4); color: var(--forest-deep); }
-.secondary:hover { background: var(--mint); color: var(--forest-deep); transform: translateY(-2px); }
 
 /* tertiary (link) */
 .tertiary { min-height: 0; padding: 0; background: none; color: var(--mint); font-weight: 600; }
 :global(.section-dark) .tertiary { color: var(--mint); }
-.tertiary:hover { opacity: 0.85; }
 
-/* flecha final desliza en hover (secondary + tertiary) */
-.secondary svg:last-child, .tertiary svg:last-child { transition: transform 0.2s ease; }
-.secondary:hover svg:last-child, .tertiary:hover svg:last-child { transform: translateX(4px); }
+/* La flecha final desliza en hover (secondary + tertiary) */
+.secondary svg:last-child, .tertiary svg:last-child { transition: transform var(--dur-fast) ease; }
+
+/* Hover SOLO con puntero fino: en táctil el tap dispara un hover fantasma y el
+ * botón se quedaba levantado después de pulsarlo. */
+@media (hover: hover) and (pointer: fine) {
+  .primary:hover { background: #fff; color: var(--forest-deep); transform: translateY(-2px); box-shadow: 0 0 44px rgba(0, 255, 170, 0.55); }
+  .secondary:hover { background: var(--mint); color: var(--forest-deep); transform: translateY(-2px); }
+  .tertiary:hover { opacity: 0.85; }
+  .secondary:hover svg:last-child, .tertiary:hover svg:last-child { transform: translateX(4px); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .primary:hover, .secondary:hover { transform: none; }
   .secondary:hover svg:last-child, .tertiary:hover svg:last-child { transform: none; }
+  /* La pulsación se conserva: es feedback, no decoración. */
 }

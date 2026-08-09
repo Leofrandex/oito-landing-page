@@ -190,7 +190,6 @@ export default function CasesShowcase({ id }: { id?: string }) {
               <span className={styles.dotCore} data-dot />
             </span>
           ))}
-          <span className={styles.arrow}>▼</span>
         </div>
 
         <div className={styles.titles}>

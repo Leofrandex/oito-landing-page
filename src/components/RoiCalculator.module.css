@@ -182,6 +182,19 @@
   will-change: transform;
 }
 
+/* Anuncio para lectores de pantalla del veredicto (solo al asentarse el tween) */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .colHoy {
   background: linear-gradient(to top, #7e3626, #c25a41);
 }
@@ -257,8 +270,8 @@
   opacity: 0;
   transform: translateY(24px);
   transition:
-    opacity 0.65s ease,
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity var(--dur-reveal) ease,
+    transform var(--dur-reveal) var(--ease-out);
 }
 
 .inner[data-revealed] .title,
@@ -292,9 +305,5 @@
     opacity: 1;
     transform: none;
     transition: none;
-  }
-
-  .col {
-    will-change: auto;
   }
 }

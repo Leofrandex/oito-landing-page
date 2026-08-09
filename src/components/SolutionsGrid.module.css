@@ -56,12 +56,14 @@
   background: rgba(255, 255, 255, 0.6);
   border: 1px solid rgba(0, 67, 70, 0.14);
   box-shadow: 0 8px 18px -10px rgba(0, 67, 70, 0.18);
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color var(--dur-fast) ease, transform var(--dur-fast) ease;
 }
 
-.pill:hover {
-  border-color: rgba(9, 188, 138, 0.55);
-  transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+  .pill:hover {
+    border-color: rgba(9, 188, 138, 0.55);
+    transform: translateY(-2px);
+  }
 }
 
 .pill svg { color: var(--mint); flex-shrink: 0; }
@@ -103,8 +105,8 @@
   opacity: 0;
   transform: translateY(24px);
   transition:
-    opacity 0.65s ease,
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity var(--dur-reveal) ease,
+    transform var(--dur-reveal) var(--ease-out);
 }
 
 .inner[data-revealed] .eyebrow,
@@ -122,4 +124,7 @@
     transform: none;
     transition: none;
   }
+
+  /* El color del borde sigue respondiendo; el desplazamiento no. */
+  .pill:hover { transform: none; }
 }

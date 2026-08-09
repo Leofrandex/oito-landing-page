@@ -26,18 +26,26 @@
 }
 
 /* ===== Scroll-reveal (Reveal sets data-revealed on .inner) ===== */
-.title {
+.title,
+.node {
   opacity: 0;
   transform: translateY(28px);
   transition:
-    opacity 0.65s ease,
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity var(--dur-reveal) ease,
+    transform var(--dur-reveal) var(--ease-out);
 }
 
-.inner[data-revealed] .title {
+.inner[data-revealed] .title,
+.inner[data-revealed] .node {
   opacity: 1;
   transform: none;
 }
+
+/* Stagger de los tres nodos: entraban los tres a la vez, y con una entrada
+ * distinta a la de su propio titular (solo opacidad, sin desplazamiento). */
+.nodeItem:nth-child(1) .node { transition-delay: 60ms; }
+.nodeItem:nth-child(2) .node { transition-delay: 120ms; }
+.nodeItem:nth-child(3) .node { transition-delay: 180ms; }
 
 /* ===== Nodos en fila (grid de 3 columnas, fuera del circuito) ===== */
 .nodes {
@@ -95,16 +103,6 @@
   color: var(--on-dark-soft);
 }
 
-/* Reveal de los nodos */
-.node {
-  opacity: 0;
-  transition: opacity 0.65s ease;
-}
-
-.inner[data-revealed] .node {
-  opacity: 1;
-}
-
 /* ===== Responsive: columna apilada, sin linea vertical ===== */
 @media (max-width: 760px) {
   .nodes {
@@ -116,11 +114,11 @@
 /* ===== Reduced motion: nodos visibles, sin transiciones. El BorderGlow es
  * pointer-driven (no loop), asi que sin hover no hay nada animandose. ===== */
 @media (prefers-reduced-motion: reduce) {
-  .title {
+  .title,
+  .node {
     opacity: 1;
     transform: none;
     transition: none;
+    transition-delay: 0ms;
   }
-
-  .node { opacity: 1; transition: none; }
 }

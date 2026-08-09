@@ -17,10 +17,10 @@ export default function EasyStart() {
         <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>
           El primer paso
         </p>
-        <h2 className={styles.title} style={{ transitionDelay: '70ms' }}>
+        <h2 className={styles.title} style={{ transitionDelay: '60ms' }}>
           Empezar es más simple de lo que crees
         </h2>
-        <p className={styles.lede} style={{ transitionDelay: '140ms' }}>
+        <p className={styles.lede} style={{ transitionDelay: '120ms' }}>
           No necesitas tener todo claro ni un documento perfecto. Nos escribes, nos cuentas en qué
           andas, y desde ahí lo resolvemos contigo.
         </p>
@@ -30,7 +30,7 @@ export default function EasyStart() {
             <li
               key={text}
               className={`glass ${styles.point}`}
-              style={{ transitionDelay: `${220 + i * 90}ms` }}
+              style={{ transitionDelay: `${180 + i * 60}ms` }}
             >
               <span className={styles.iconWrap} aria-hidden="true">
                 <Icon size={22} strokeWidth={1.7} />

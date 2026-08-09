@@ -3,7 +3,7 @@
   grid-template-columns: 0.85fr 1fr;
   align-items: stretch;
   overflow: hidden;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease,
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s ease,
     border-color 0.35s ease;
 }
 

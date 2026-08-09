@@ -101,16 +101,17 @@
 }
 
 /* ===== Coreografía de entrada (fase D) ===== */
+/* Sin will-change: la entrada ocurre una sola vez y GSAP ya promueve a capa
+ * mientras anima (auditoría 2026-08-08, Task 2.8). */
 .letter {
   display: inline-block;
-  will-change: transform, opacity;
 }
 
 /* El tagline entra con fade + leve translate (letter-spacing queda estatico: animarlo fuerza reflow) */
 .tagline {
   transition:
     opacity 0.7s ease,
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transform 0.7s var(--ease-out);
 }
 
 .tagline[data-collapsed] {
@@ -118,33 +119,10 @@
   transform: translateY(10px);
 }
 
-/* CTA con glow que respira (pausado bajo reduced motion). Se anima solo opacity de una capa
-   superpuesta (::after) para evitar repintar box-shadow en cada frame. */
-.actions :global(a) {
-  position: relative;
-}
-
-.actions :global(a)::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: 0 12px 40px -6px rgba(9, 188, 138, 0.85);
-  opacity: 0;
-  pointer-events: none;
-  z-index: -1;
-  animation: cta-breathe 2.6s ease-in-out infinite;
-}
-
-@keyframes cta-breathe {
-  0%,
-  100% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-}
+/* El CTA tenía un glow que "respiraba" en loop infinito. Retirado (auditoría
+ * 2026-08-08, Task 2.5): no indicaba ningún estado y repintaba una sombra de
+ * 40px sobre un fondo con backdrop-filter en cada frame. El botón ya trae su
+ * propio box-shadow de marca, estático. */
 
 @media (prefers-reduced-motion: reduce) {
   .tagline {
@@ -154,10 +132,5 @@
   .tagline[data-collapsed] {
     opacity: 1;
     transform: none;
-  }
-
-  .actions :global(a)::after {
-    animation: none;
-    opacity: 0;
   }
 }

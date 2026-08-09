@@ -48,7 +48,7 @@ export default function Faq({ id }: FaqProps) {
 
         <ul className={styles.list}>
           {FAQS.map(({ q, a }, i) => (
-            <li key={q} className={styles.item} style={{ transitionDelay: `${70 + i * 80}ms` }}>
+            <li key={q} className={styles.item} style={{ transitionDelay: `${60 + i * 60}ms` }}>
               <details className={`glass-light ${styles.details}`}>
                 <summary className={styles.summary}>
                   <span className={styles.q}>{q}</span>

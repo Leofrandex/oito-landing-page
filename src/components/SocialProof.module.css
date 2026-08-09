@@ -113,6 +113,52 @@
 .signal dt { order: 2; }
 .signal dd { order: 1; }
 
+/* ===== Scroll-reveal (Reveal pone data-revealed en .container) ===== */
+.title,
+.sectorChip,
+.logosGrid,
+.signal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-reveal) ease,
+    transform var(--dur-reveal) var(--ease-out);
+}
+
+/* Los placeholders entran SOLO por opacidad, no por transform: si el reveal
+ * les pusiera un `transform`, ganaría por especificidad al `translateY(-6px)`
+ * de .glass-hover y el hover dejaría de moverse. El desplazamiento lo hace su
+ * contenedor. */
+.logoPlaceholder {
+  opacity: 0;
+  transition: opacity var(--dur-reveal) ease;
+}
+
+.container[data-revealed] .title,
+.container[data-revealed] .sectorChip,
+.container[data-revealed] .logosGrid,
+.container[data-revealed] .signal {
+  opacity: 1;
+  transform: none;
+}
+
+.container[data-revealed] .logoPlaceholder {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title,
+  .sectorChip,
+  .logosGrid,
+  .logoPlaceholder,
+  .signal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    transition-delay: 0ms;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .section {

@@ -54,7 +54,6 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  will-change: transform, opacity;
 }
 
 .paneVisual {
@@ -176,7 +175,6 @@
   transform-origin: top;
   background: var(--mint);
   box-shadow: 0 0 10px rgba(9, 188, 138, 0.8);
-  will-change: transform;
 }
 
 .dot {
@@ -198,7 +196,6 @@
   border-radius: 50%;
   background: rgba(9, 188, 138, 0.4);
   transform-origin: center;
-  will-change: transform;
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -207,27 +204,8 @@
   box-shadow: 0 0 10px rgba(9, 188, 138, 0.8);
 }
 
-.arrow {
-  position: absolute;
-  left: 50%;
-  bottom: -18px;
-  transform: translateX(-50%);
-  color: var(--mint);
-  font-size: 12px;
-  animation: arrow-pulse 2s ease-in-out infinite;
-}
-
-@keyframes arrow-pulse {
-  0%,
-  100% {
-    transform: translate(-50%, 0);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translate(-50%, 4px);
-    opacity: 1;
-  }
-}
+/* La flecha ▼ pulsante al pie del recorrido se retiró (auditoría 2026-08-08,
+ * Task 2.5): era un scroll cue, la misma familia que el hint del hero. */
 
 /* ===== Titulares flotantes ===== */
 .titles {
@@ -253,7 +231,6 @@
   height: 400%;
   display: flex;
   flex-direction: column;
-  will-change: transform;
 }
 
 .item {

@@ -46,12 +46,14 @@
   height: 40px;
   color: var(--on-dark);
   opacity: 0.55;
-  transition: color 0.25s ease, opacity 0.25s ease;
+  transition: color var(--dur-ui) ease, opacity var(--dur-ui) ease;
 }
 
-.group li:hover .logo {
-  color: var(--on-dark);
-  opacity: 0.8;
+@media (hover: hover) and (pointer: fine) {
+  .group li:hover .logo {
+    color: var(--on-dark);
+    opacity: 0.8;
+  }
 }
 
 @keyframes scroll {

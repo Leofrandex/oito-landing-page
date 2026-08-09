@@ -15,14 +15,14 @@ export default function DevBridge() {
           <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>
             También hacemos
           </p>
-          <h2 className={styles.title} style={{ transitionDelay: '80ms' }}>
+          <h2 className={styles.title} style={{ transitionDelay: '60ms' }}>
             Tu página web, <span className={styles.accent}>construida por oito</span>
           </h2>
-          <p className={styles.lede} style={{ transitionDelay: '160ms' }}>
+          <p className={styles.lede} style={{ transitionDelay: '120ms' }}>
             El mismo estudio que automatiza tu operación puede construir la cara digital de tu
             negocio: rápida, moderna y hecha para vender.
           </p>
-          <div className={styles.ctaWrap} style={{ transitionDelay: '240ms' }}>
+          <div className={styles.ctaWrap} style={{ transitionDelay: '180ms' }}>
             <Button variant="secondary" external href={WHATSAPP_URL}>
               <WhatsAppIcon size={18} />
               Hablemos por WhatsApp
@@ -30,7 +30,7 @@ export default function DevBridge() {
           </div>
         </div>
 
-        <div className={styles.browser} style={{ transitionDelay: '200ms' }} aria-hidden="true">
+        <div className={styles.browser} style={{ transitionDelay: '120ms' }} aria-hidden="true">
           <div className={styles.browserBar}>
             <i /><i /><i />
           </div>

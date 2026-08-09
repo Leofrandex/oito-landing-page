@@ -14,11 +14,31 @@
     font-weight: 700;
     text-decoration: none;
     box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease;
+    /* Oculto hasta que el hero sale de pantalla. El 120% es su propia altura
+     * más un margen, así que no depende de píxeles fijos. */
+    transform: translateY(120%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        transform 0.3s var(--ease-out),
+        opacity 0.3s var(--ease-out);
 }
 
-.fab:hover {
-    transform: translateY(-2px);
+.visible {
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.visible:active { transform: scale(0.97); transition-duration: var(--dur-press); }
+
+@media (hover: hover) and (pointer: fine) {
+    .visible:hover { transform: translateY(-2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fab { transform: none; transition: opacity 150ms ease; }
+    .visible:hover { transform: none; }
 }
 
 .label {

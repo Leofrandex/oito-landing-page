@@ -69,10 +69,27 @@
 }
 
 .mobileNav { display: none; }
+.scrim { display: none; }
 
 @media (max-width: 820px) {
     .desktopNav { display: none; }
     .hamburger { display: flex; }
+
+    .scrim {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 38;
+        background: rgba(0, 12, 13, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--dur-ui) ease;
+    }
+
+    .scrimOpen {
+        opacity: 1;
+        pointer-events: auto;
+    }
 
     .mobileNav {
         display: flex;
@@ -86,7 +103,9 @@
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Panel que entra desde el borde: curva de drawer, no la de Material
+         * (que arranca lenta y retrasa justo el momento que se está mirando). */
+        transition: transform 0.3s var(--ease-drawer);
         z-index: 39;
     }
 
@@ -96,4 +115,8 @@
     }
 
     .mobileNav .navLink { font-size: 1.5rem; font-weight: 700; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobileNav { transition: none; }
 }

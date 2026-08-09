@@ -2,36 +2,63 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-/** Persigue `target` con un tween ease-out (~duration ms) vía requestAnimationFrame.
- *  Con prefers-reduced-motion salta directo al valor (sin animación).
- *  Pensado para los números de la calculadora (requisito: nunca saltos bruscos). */
-export default function useCountUp(target: number, duration = 300): number {
-  const [value, setValue] = useState(target);
-  const currentRef = useRef(target);
+/** Persigue VARIOS objetivos numéricos a la vez con un tween ease-out cúbico
+ *  (~duration ms) y devuelve los valores animados.
+ *
+ *  El punto de tener un solo hook para todos los valores: antes la calculadora
+ *  llamaba a `useCountUp` cuatro veces, así que arrastrar un slider disparaba
+ *  cuatro rAF y cuatro setState por frame (auditoría 2026-08-08, hallazgo A4).
+ *  Aquí hay un único rAF y un único setState por frame para los cuatro.
+ *
+ *  Nota de implementación: se probó escribir directo al DOM desde refs para
+ *  llegar a cero renders, y se descartó. Los nodos animados también los
+ *  renderiza React; sobrescribirlos con textContent fusiona sus nodos de texto
+ *  y deja huérfanas las referencias internas de React, que a partir de ahí
+ *  actualiza nodos desconectados. Un setState por frame es la opción correcta:
+ *  React sigue siendo el único dueño del DOM.
+ *
+ *  Con prefers-reduced-motion salta directo al valor final, sin animación. */
+export default function useCountUp(targets: number[], duration = 300): number[] {
+  const [values, setValues] = useState<number[]>(targets);
+  const currentRef = useRef<number[]>(targets);
   const rafRef = useRef<number | null>(null);
 
+  /* Clave estable: el array de objetivos es nuevo en cada render, así que
+   * depender de él directamente relanzaría el efecto siempre. */
+  const key = targets.join(',');
+
   useEffect(() => {
+    const to = key.split(',').map(Number);
+    const from = currentRef.current;
+
+    const settle = () => {
+      currentRef.current = to;
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- salto directo al valor final, no una cascada de renders
+      setValues(to);
+    };
+
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      currentRef.current = target;
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- sincroniza con media query leída al vuelo, no cascada de renders
-      setValue(target);
+      settle();
       return;
     }
 
-    const from = currentRef.current;
-    if (from === target) return;
+    if (from.length === to.length && from.every((v, i) => v === to[i])) return;
 
     const start = performance.now();
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / duration);
       const eased = 1 - Math.pow(1 - t, 3);
-      const v = from + (target - from) * eased;
-      currentRef.current = v;
-      setValue(v);
+      const next = to.map((target, i) => {
+        const origin = from[i] ?? target;
+        return origin + (target - origin) * eased;
+      });
+      currentRef.current = next;
+      setValues(next);
       if (t < 1) {
         rafRef.current = requestAnimationFrame(tick);
       } else {
-        currentRef.current = target;
+        currentRef.current = to;
+        setValues(to);
       }
     };
 
@@ -39,7 +66,7 @@ export default function useCountUp(target: number, duration = 300): number {
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
-  }, [target, duration]);
+  }, [key, duration]);
 
-  return value;
+  return values;
 }

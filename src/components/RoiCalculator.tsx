@@ -66,11 +66,13 @@ export default function RoiCalculator({ id }: { id?: string }) {
   const horasRecuperables = horasMes * 0.7;
   const horasRestantes = horasMes - horasRecuperables;
 
-  /* Todos los números y las columnas persiguen su objetivo con tween fluido. */
-  const costoAnim = useCountUp(costoMensual);
-  const horasHoyAnim = useCountUp(horasMes);
-  const horasOitoAnim = useCountUp(horasRestantes);
-  const deltaAnim = useCountUp(horasRecuperables);
+  /* Un solo tween para los cuatro números: un rAF y un render por frame. */
+  const [costoAnim, horasHoyAnim, horasOitoAnim, deltaAnim] = useCountUp([
+    costoMensual,
+    horasMes,
+    horasRestantes,
+    horasRecuperables,
+  ]);
 
   /* La columna "Hoy" usa la escala sqrt para moverse en todo el rango; la de
    * "Con oito" es proporcional lineal a ella para que la diferencia real se lea. */
@@ -84,12 +86,12 @@ export default function RoiCalculator({ id }: { id?: string }) {
           <h2 className={styles.title} style={{ transitionDelay: '0ms' }}>
             Calcula el costo real de <span className={styles.accent}>no automatizar</span>
           </h2>
-          <p className={styles.lede} style={{ transitionDelay: '70ms' }}>
+          <p className={styles.lede} style={{ transitionDelay: '60ms' }}>
             Ajusta los tres valores a tu operación. El resto lo hace la página.
           </p>
         </header>
 
-        <div className={styles.layout} style={{ transitionDelay: '140ms' }}>
+        <div className={styles.layout} style={{ transitionDelay: '120ms' }}>
           <div className={styles.controls}>
             <Field
               label="Personas en tareas repetitivas"
@@ -114,12 +116,18 @@ export default function RoiCalculator({ id }: { id?: string }) {
               prefix="$"
             />
 
-            <div className={styles.verdict} aria-live="polite">
+            <div className={styles.verdict}>
               <span className={styles.money}>
                 {fmt.format(Math.round(costoAnim))}
                 <span className={styles.per}>/mes en trabajo manual</span>
               </span>
               <span className={styles.note}>Cálculo estimado sobre ~70% del tiempo recuperable</span>
+              {/* El anuncio usa el valor OBJETIVO, no el animado: con aria-live
+                  sobre un número que cambia 60 veces por segundo, el lector de
+                  pantalla no callaría. Así cambia una vez por interacción. */}
+              <span className={styles.srOnly} aria-live="polite">
+                {`${fmt.format(Math.round(costoMensual))} al mes en trabajo manual`}
+              </span>
             </div>
 
             <Button variant="primary" external href={WHATSAPP_URL}>

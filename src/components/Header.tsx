@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
@@ -18,6 +18,21 @@ const links = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+
+  /* Escape cierra el menú y devuelve el foco al hamburguesa: sin esto, al
+   * cerrar con teclado el foco se quedaba huérfano en un panel invisible. */
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        hamburgerRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [open]);
 
   const handleHashClick =
     (href: string, onClick?: () => void) => (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -83,6 +98,7 @@ export default function Header() {
           </nav>
 
           <button
+            ref={hamburgerRef}
             className={styles.hamburger}
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
@@ -94,7 +110,17 @@ export default function Header() {
       </GlassSurface>
 
       {/* Mobile overlay kept outside GlassSurface (backdrop-filter would trap fixed positioning). */}
-      <nav className={clsx(styles.mobileNav, open && styles.open)}>
+      {/* Velo: cierra al tocar fuera. Se transiciona por opacidad (no display),
+        * si no el fade no llegaría a verse. */}
+      <div
+        className={clsx(styles.scrim, open && styles.scrimOpen)}
+        onClick={() => setOpen(false)}
+        aria-hidden="true"
+      />
+      {/* `inert` saca los enlaces del orden de tabulación y del árbol de
+        * accesibilidad mientras el panel está fuera de pantalla, sin recurrir a
+        * display:none (que mataría la transición). */}
+      <nav className={clsx(styles.mobileNav, open && styles.open)} inert={!open}>
         {navLinks(() => setOpen(false))}
         {mobileCta}
       </nav>

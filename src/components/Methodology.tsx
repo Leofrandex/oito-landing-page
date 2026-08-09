@@ -50,7 +50,9 @@ export default function Methodology() {
 
         if (progress) gsap.set(progress, { scaleX: 0 });
         gsap.set(glows, { autoAlpha: 0 });
-        gsap.set(checks, { autoAlpha: 0, scale: 0.4 });
+        /* 0.92, no 0.4: nada en el mundo real aparece desde casi-nada, y a 0.4
+         * el check leía como un globo inflándose. */
+        gsap.set(checks, { autoAlpha: 0, scale: 0.92 });
         gsap.set(items, { autoAlpha: 0.35 });
         gsap.set(items[0], { autoAlpha: 1 });
 

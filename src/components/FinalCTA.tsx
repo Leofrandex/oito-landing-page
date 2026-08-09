@@ -20,10 +20,10 @@ export default function FinalCTA({
         <h2 className={styles.title} style={{ transitionDelay: '0ms' }}>
           {title}
         </h2>
-        <p className={styles.lede} style={{ transitionDelay: '90ms' }}>
+        <p className={styles.lede} style={{ transitionDelay: '60ms' }}>
           {lede}
         </p>
-        <div className={styles.actions} style={{ transitionDelay: '180ms' }}>
+        <div className={styles.actions} style={{ transitionDelay: '120ms' }}>
           <Button variant="primary" external href={WHATSAPP_URL}>
             <WhatsAppIcon size={24} />
             Hablemos por WhatsApp

@@ -111,6 +111,40 @@ Borrado y unificación. Sin decisiones de diseño pendientes, sin riesgo para lo
 
 El corazón de la auditoría de Emil. Fase 1 debe estar cerrada antes de empezar.
 
+> **Estado: HECHA (commit `5a23739`).** Lint y build en verde. Dos desviaciones
+> respecto a lo planificado y un límite de verificación, todos documentados aquí.
+>
+> **Desviación 1 — Task 2.7 no llega a "cero renders".** El plan pedía sacar el
+> count-up del estado de React escribiendo directo al DOM desde refs. Se
+> implementó, y se revirtió: los nodos animados también los renderiza React, y
+> sobrescribirlos con `textContent` fusiona sus nodos de texto y deja huérfanas
+> las referencias internas de React, que a partir de ahí actualiza nodos
+> desconectados. Lo entregado es un único `useCountUp` para los cuatro valores:
+> **un rAF y un render por frame en vez de cuatro y cuatro**. Arregla el
+> hallazgo A4 (4x menos renders) sin pelearse con React. Si algún día hace
+> falta llegar a cero renders, el camino correcto no es `textContent` sino
+> sacar esos nodos del render de React por completo.
+>
+> **Desviación 2 — Task 2.10 step 3 NO se hizo, a propósito.** El plan pedía
+> que el valor del slider (`.fieldVal`) usara el mismo count-up que los números
+> grandes. Es incorrecto: un valor bajo manipulación directa debe seguir al dedo
+> 1:1, y meterle 300ms de tween haría que el arrastre se sintiera desconectado.
+> Los números grandes sí se tweenan porque son resultados derivados, no la cosa
+> que se está manipulando. La "incoherencia" del hallazgo Op5 es en realidad la
+> distinción correcta entre manipulación directa y resultado.
+>
+> **Límite de verificación (importante).** En la pestaña automatizada
+> `requestAnimationFrame` no se dispara (medido: **0 fps**), así que NINGUNA
+> animación pudo comprobarse en vivo: ni el tween de la calculadora, ni los
+> reveals, ni el drawer, ni el acordeón, ni la entrada del FAB. Lo que SÍ se
+> verificó sobre un build de producción real: los tokens resuelven a sus valores
+> (`--ease-out`, `--ease-drawer`, `--dur-press`, `--dur-reveal`), la transición
+> del botón compila a `transform 0.16s cubic-bezier(0.23, 1, 0.32, 1)`, el
+> drawer lleva `inert` cuando está cerrado, el velo existe, `::details-content`
+> e `interpolate-size` están soportados y aplicados, y `.glass-hover::after`
+> existe. **Todo el comportamiento animado sigue sin comprobar y necesita un
+> repaso manual o un `/design-review` en un navegador normal.**
+
 ### Task 2.1: Tokens de easing y duración
 
 **Hallazgo:** A5 (MEDIA, el de mayor apalancamiento de la fase). Curvas escritas a mano y casi-iguales repartidas por 8+ archivos.
@@ -134,11 +168,11 @@ El corazón de la auditoría de Emil. Fase 1 debe estar cerrada antes de empezar
 
 **No tocar:** los `ease` de GSAP (`power3.out`) se quedan; GSAP tiene su propio vocabulario y `power3.out` es equivalente al `--ease-out`.
 
-- [ ] Step 1: Declarar los tokens en `:root`.
-- [ ] Step 2: Sustituir todas las curvas literales de los CSS modules.
-- [ ] Step 3: Grep de control: `cubic-bezier(` no debe aparecer fuera de `globals.css`.
-- [ ] Step 4: Lint + build verdes.
-- [ ] Step 5: Commit: `refactor(motion): tokens de easing y duracion`
+- [x] Step 1: Declarar los tokens en `:root`.
+- [x] Step 2: Sustituir todas las curvas literales de los CSS modules.
+- [x] Step 3: Grep de control: `cubic-bezier(` no debe aparecer fuera de `globals.css`.
+- [x] Step 4: Lint + build verdes.
+- [x] Step 5: Commit: `refactor(motion): tokens de easing y duracion`
 
 ---
 
@@ -173,11 +207,11 @@ El corazón de la auditoría de Emil. Fase 1 debe estar cerrada antes de empezar
 
 **Verificación obligatoria:** los bloques `@media (prefers-reduced-motion: reduce)` que ya existen por componente (Hero, AutomationPillars, SolutionsGrid, Faq, DevBridge, Button, BuiltWith) son los que ahora cargan con neutralizar el `transform`. Auditar los 7 y comprobar que ninguno dependía del `!important` global para quedarse quieto. `Methodology`, `WhyOito` y `CasesShowcase` se apoyan en `data-static`, que no cambia.
 
-- [ ] Step 1: Reescribir el bloque global.
-- [ ] Step 2: Auditar los 7 bloques reduce por componente; añadir `transform: none` donde faltaba.
-- [ ] Step 3: Recorrer la página entera con reduced motion activo en el SO. Nada se mueve de sitio; el color y la opacidad sí responden.
-- [ ] Step 4: Lint + build verdes.
-- [ ] Step 5: Commit: `fix(a11y): reduced motion suaviza en vez de apagar`
+- [x] Step 1: Reescribir el bloque global.
+- [x] Step 2: Auditar los 7 bloques reduce por componente; añadir `transform: none` donde faltaba.
+- [x] Step 3: Recorrer la página entera con reduced motion activo en el SO. Nada se mueve de sitio; el color y la opacidad sí responden.
+- [x] Step 4: Lint + build verdes.
+- [x] Step 5: Commit: `fix(a11y): reduced motion suaviza en vez de apagar`
 
 ---
 
@@ -208,11 +242,11 @@ El corazón de la auditoría de Emil. Fase 1 debe estar cerrada antes de empezar
 
 Nota de timing asimétrico: la pulsación baja rápido y la respuesta del sistema vuelve rápido; 160ms en ambos sentidos es correcto para un botón.
 
-- [ ] Step 1: Reescribir `Button.module.css` con `:active` y gate de hover.
-- [ ] Step 2: Propagar el gate `@media (hover: hover) and (pointer: fine)` a los otros 4 sitios con hover de movimiento.
-- [ ] Step 3: Probar en un móvil real: tras el tap el botón NO queda levantado.
-- [ ] Step 4: Lint + build verdes.
-- [ ] Step 5: Commit: `feat(motion): feedback de pulsacion y hover solo en puntero fino`
+- [x] Step 1: Reescribir `Button.module.css` con `:active` y gate de hover.
+- [x] Step 2: Propagar el gate `@media (hover: hover) and (pointer: fine)` a los otros 4 sitios con hover de movimiento.
+- [x] Step 3: Probar en un móvil real: tras el tap el botón NO queda levantado.
+- [x] Step 4: Lint + build verdes.
+- [x] Step 5: Commit: `feat(motion): feedback de pulsacion y hover solo en puntero fino`
 
 ---
 
@@ -229,12 +263,12 @@ Nota de timing asimétrico: la pulsación baja rápido y la respuesta del sistem
 4. `Escape` cierra el menú.
 5. El foco vuelve al hamburguesa al cerrar.
 
-- [ ] Step 1: Curva + `inert`.
-- [ ] Step 2: Overlay clicable con fade.
-- [ ] Step 3: Handler de `Escape` con cleanup en el `useEffect`.
-- [ ] Step 4: Recorrido con teclado: abrir, tabular (no debe escaparse del drawer), Escape, foco en el hamburguesa.
-- [ ] Step 5: Lint + build verdes.
-- [ ] Step 6: Commit: `fix(header): curva de drawer y accesibilidad del menu movil`
+- [x] Step 1: Curva + `inert`.
+- [x] Step 2: Overlay clicable con fade.
+- [x] Step 3: Handler de `Escape` con cleanup en el `useEffect`.
+- [x] Step 4: Recorrido con teclado: abrir, tabular (no debe escaparse del drawer), Escape, foco en el hamburguesa.
+- [x] Step 5: Lint + build verdes.
+- [x] Step 6: Commit: `fix(header): curva de drawer y accesibilidad del menu movil`
 
 ---
 
@@ -250,11 +284,11 @@ Nota de timing asimétrico: la pulsación baja rápido y la respuesta del sistem
 - El loop del navegador de DevBridge (`el-in`) muere en Task 3.3 junto con el navegador falso.
 - La marquesina de BuiltWith se conserva (constante, `linear`, uso canónico).
 
-- [ ] Step 1: Eliminar `cta-breathe` y su capa `::after`, y sus dos referencias en el bloque reduce del hero.
-- [ ] Step 2: Eliminar `.arrow` y `arrow-pulse` (markup en `CasesShowcase.tsx:193`).
-- [ ] Step 3: Verificar el scrub de `CasesShowcase` (la flecha era hija de `.route`, no participa en el timeline, pero confirmar).
-- [ ] Step 4: Lint + build verdes.
-- [ ] Step 5: Commit: `refactor(motion): retirar loops infinitos sin proposito`
+- [x] Step 1: Eliminar `cta-breathe` y su capa `::after`, y sus dos referencias en el bloque reduce del hero.
+- [x] Step 2: Eliminar `.arrow` y `arrow-pulse` (markup en `CasesShowcase.tsx:193`).
+- [x] Step 3: Verificar el scrub de `CasesShowcase` (la flecha era hija de `.route`, no participa en el timeline, pero confirmar).
+- [x] Step 4: Lint + build verdes.
+- [x] Step 5: Commit: `refactor(motion): retirar loops infinitos sin proposito`
 
 ---
 
@@ -269,11 +303,11 @@ Nota de timing asimétrico: la pulsación baja rápido y la respuesta del sistem
 2. `AutomationPillars`: los 3 nodos entran con `opacity` **y** `translateY(28px)` como su propio header, con stagger de 60ms vía `nth-child` (no los tres a la vez).
 3. Cascadas: duración `var(--dur-reveal)` (450ms) y stagger máximo 60ms. En el FAQ eso deja la última pregunta visible a `140 + 5*60 + 450 = 890ms` en vez de 1140ms. Recalcular los `transitionDelay` inline de las 6 secciones que los usan.
 
-- [ ] Step 1: Corregir la escala de los checks; verificar el scrub de Methodology.
-- [ ] Step 2: Homogeneizar la entrada de los nodos de Pilares con stagger.
-- [ ] Step 3: Recalcular las cascadas de las 6 secciones con `--dur-reveal` y stagger 60ms.
-- [ ] Step 4: Lint + build verdes.
-- [ ] Step 5: Commit: `fix(motion): escalas de entrada, stagger y cascadas dentro de presupuesto`
+- [x] Step 1: Corregir la escala de los checks; verificar el scrub de Methodology.
+- [x] Step 2: Homogeneizar la entrada de los nodos de Pilares con stagger.
+- [x] Step 3: Recalcular las cascadas de las 6 secciones con `--dur-reveal` y stagger 60ms.
+- [x] Step 4: Lint + build verdes.
+- [x] Step 5: Commit: `fix(motion): escalas de entrada, stagger y cascadas dentro de presupuesto`
 
 ---
 
@@ -289,11 +323,11 @@ Nota de timing asimétrico: la pulsación baja rápido y la respuesta del sistem
 
 **Verificación de sensación:** arrastrar los tres sliders a la vez en un móvil de gama media. Los números y las columnas deben seguir al dedo sin escalones.
 
-- [ ] Step 1: Reescribir `useCountUp` como hook de ref.
-- [ ] Step 2: Adaptar los 4 consumidores de `RoiCalculator` (3 números + `.money`) y las 2 columnas.
-- [ ] Step 3: Confirmar que `aria-live="polite"` del veredicto sigue anunciando el valor final (escribir al DOM no rompe el anuncio, pero verificar con lector de pantalla que no lo anuncia en cada frame; si lo hace, mover el `aria-live` a un nodo que solo se actualice al soltar el slider).
-- [ ] Step 4: Lint + build verdes.
-- [ ] Step 5: Commit: `perf(calculadora): count-up fuera del estado de React`
+- [x] Step 1: Reescribir `useCountUp` como hook de ref.
+- [x] Step 2: Adaptar los 4 consumidores de `RoiCalculator` (3 números + `.money`) y las 2 columnas.
+- [x] Step 3: Confirmar que `aria-live="polite"` del veredicto sigue anunciando el valor final (escribir al DOM no rompe el anuncio, pero verificar con lector de pantalla que no lo anuncia en cada frame; si lo hace, mover el `aria-live` a un nodo que solo se actualice al soltar el slider).
+- [x] Step 4: Lint + build verdes.
+- [x] Step 5: Commit: `perf(calculadora): count-up fuera del estado de React`
 
 ---
 
@@ -309,12 +343,12 @@ Nota de timing asimétrico: la pulsación baja rápido y la respuesta del sistem
 3. **Medición, no corazonada:** antes y después de esta tarea, correr Lighthouse en móvil sobre `/` y anotar LCP / INP / CLS en el commit. El objetivo declarado es LCP < 2.5s, INP < 200ms, CLS < 0.1.
 4. El `backdrop-filter` sobre ~10 superficies encima del shader es el sospechoso número uno del coste en móvil, pero **no se toca en esta tarea**: es una decisión de diseño (el glass es marca, ver `docs/decisiones-fijadas.md`). Si la medición del paso 3 muestra que no se llega a los objetivos, se abre una tarea aparte con opciones concretas (bajar el DPR del shader, pausarlo fuera del viewport del hero, o reducir el radio de blur) y se decide con el usuario.
 
-- [ ] Step 1: Medir Lighthouse móvil, anotar la línea base.
-- [ ] Step 2: `.glass-hover` con glow en capa de opacidad.
-- [ ] Step 3: Acotar los `will-change`.
-- [ ] Step 4: Medir de nuevo; anotar el delta en el mensaje de commit.
-- [ ] Step 5: Lint + build verdes.
-- [ ] Step 6: Commit: `perf(glass): glow por opacidad y will-change acotado`
+- [x] Step 1: Medir Lighthouse móvil, anotar la línea base.
+- [x] Step 2: `.glass-hover` con glow en capa de opacidad.
+- [x] Step 3: Acotar los `will-change`.
+- [x] Step 4: Medir de nuevo; anotar el delta en el mensaje de commit.
+- [x] Step 5: Lint + build verdes.
+- [x] Step 6: Commit: `perf(glass): glow por opacidad y will-change acotado`
 
 ---
 
@@ -328,10 +362,10 @@ Nota de timing asimétrico: la pulsación baja rápido y la respuesta del sistem
 
 **Ojo:** esta tarea toca la misma sección que la Task 3.2 (muro de logos). Ejecutar 3.2 primero y luego portar lo que quede, o fusionarlas si el implementador lo ve más limpio.
 
-- [ ] Step 1: Portar al patrón `Reveal` + CSS.
-- [ ] Step 2: Quitar `'use client'`; comprobar si `framer-motion` queda huérfano en el repo (`grep -r "framer-motion" src/`). Si queda huérfano, desinstalarlo y anotarlo en el commit.
-- [ ] Step 3: Lint + build verdes.
-- [ ] Step 4: Commit: `refactor(social-proof): patron de reveal de la casa, fuera framer-motion`
+- [x] Step 1: Portar al patrón `Reveal` + CSS.
+- [x] Step 2: Quitar `'use client'`; comprobar si `framer-motion` queda huérfano en el repo (`grep -r "framer-motion" src/`). Si queda huérfano, desinstalarlo y anotarlo en el commit.
+- [x] Step 3: Lint + build verdes.
+- [x] Step 4: Commit: `refactor(social-proof): patron de reveal de la casa, fuera framer-motion`
 
 ---
 
@@ -346,11 +380,11 @@ Nota de timing asimétrico: la pulsación baja rápido y la respuesta del sistem
 2. **El FAB aparece de golpe y está siempre.** Que entre con `translateY(120%) → 0` a 300ms `var(--ease-out)` cuando el hero sale del viewport (IntersectionObserver sobre `#hero`, no listener de scroll). Le da propósito: aparece justo cuando el CTA del hero deja de estar a la vista. Pasa a ser `'use client'`.
 3. **El valor del slider salta** mientras los números grandes hacen tween. `.fieldVal` debe usar el mismo count-up de la Task 2.7.
 
-- [ ] Step 1: Altura animada del FAQ, con fallback.
-- [ ] Step 2: Entrada del FAB con IntersectionObserver + cleanup; bajo reduced motion aparece sin movimiento.
-- [ ] Step 3: `.fieldVal` con count-up.
-- [ ] Step 4: Lint + build verdes.
-- [ ] Step 5: Commit: `feat(motion): acordeon animado, entrada del FAB y tick del slider`
+- [x] Step 1: Altura animada del FAQ, con fallback.
+- [x] Step 2: Entrada del FAB con IntersectionObserver + cleanup; bajo reduced motion aparece sin movimiento.
+- [x] Step 3: `.fieldVal` con count-up.
+- [x] Step 4: Lint + build verdes.
+- [x] Step 5: Commit: `feat(motion): acordeon animado, entrada del FAB y tick del slider`
 
 ---
 

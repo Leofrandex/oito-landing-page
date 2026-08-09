@@ -47,11 +47,11 @@ Borrado y unificación. Sin decisiones de diseño pendientes, sin riesgo para lo
 
 **Se eliminan (5):** `WhyOito` "Por qué oito", `AutomationPillars` "Cómo lo logramos", `RoiCalculator` "Calculadora", `Methodology` "Metodología", `Faq` "Preguntas frecuentes". Criterio: redundantes con su propio titular.
 
-- [ ] Step 1: Eliminar los 5 `<p className="badge">` y sus estilos `.eyebrow` asociados.
-- [ ] Step 2: Reajustar la cascada de `transitionDelay` de cada sección afectada (el primer elemento visible pasa a `0ms`).
-- [ ] Step 3: En `WhyOito` y `Methodology`, confirmar que el `gsap.set` inicial y el layout del stage no dependían del alto del badge. Verificar el scrub completo.
-- [ ] Step 4: Lint + build verdes.
-- [ ] Step 5: Commit: `refactor(taste): recortar eyebrows de nueve a cuatro`
+- [x] Step 1: Eliminar los 5 `<p className="badge">` y sus estilos `.eyebrow` asociados.
+- [x] Step 2: Reajustar la cascada de `transitionDelay` de cada sección afectada (el primer elemento visible pasa a `0ms`).
+- [x] Step 3: En `WhyOito` y `Methodology`, confirmar que el `gsap.set` inicial y el layout del stage no dependían del alto del badge. Verificar el scrub completo. **Parcial:** verificado que los 3 pin-spacers de GSAP siguen creándose; el scrub visual no se pudo recorrer (ver nota de verificación al final).
+- [x] Step 4: Lint + build verdes.
+- [x] Step 5: Commit (unificado para toda la Fase 1: `f003c22`).
 
 ---
 
@@ -63,10 +63,10 @@ Borrado y unificación. Sin decisiones de diseño pendientes, sin riesgo para lo
 
 **Requisito:** el hero queda con 4 elementos de texto exactos: wordmark, tagline, línea keyword, rotating line + subtítulo + CTA. Al quitar el hint, revisar que el `[data-anim]` restante siga escalonando bien (era el último item de la timeline).
 
-- [ ] Step 1: Eliminar markup, estilos y keyframes.
-- [ ] Step 2: Verificar la timeline de entrada del hero (el `items.slice(1)` pierde un elemento).
-- [ ] Step 3: Lint + build verdes.
-- [ ] Step 4: Commit: `refactor(hero): retirar el scroll hint`
+- [x] Step 1: Eliminar markup, estilos y keyframes.
+- [x] Step 2: Verificar la timeline de entrada del hero (el `items.slice(1)` pierde un elemento). Sin cambios necesarios: el hint era el último `[data-anim]`, no el primero.
+- [x] Step 3: Lint + build verdes.
+- [x] Step 4: Commit (unificado, `f003c22`).
 
 ---
 
@@ -82,10 +82,10 @@ Borrado y unificación. Sin decisiones de diseño pendientes, sin riesgo para lo
 
 **Cuidado:** `StickyWhatsAppCTA` tiene `aria-label="Escríbenos por WhatsApp"` — el aria-label puede seguir siendo descriptivo, es el texto visible el que se unifica.
 
-- [ ] Step 1: Aplicar los labels en los siete componentes.
-- [ ] Step 2: Verificar que "Hablemos por WhatsApp" no desborda a dos líneas en móvil a 360px (regla CTA Button Wrap). Si desborda, el fix es ensanchar el botón, no acortar el label.
-- [ ] Step 3: Lint + build verdes.
-- [ ] Step 4: Commit: `refactor(cta): un solo label por intent de contacto`
+- [x] Step 1: Aplicar los labels. **Fueron ocho archivos, no siete:** el `Footer` también tenía dos CTA de WhatsApp ("Hablemos" + un enlace de icono) que el plan no había listado. Corregido.
+- [ ] Step 2: Verificar que "Hablemos por WhatsApp" no desborda a dos líneas en móvil a 360px (regla CTA Button Wrap). **PENDIENTE**, no se pudo comprobar en navegador.
+- [x] Step 3: Lint + build verdes.
+- [x] Step 4: Commit (unificado, `f003c22`).
 
 ---
 
@@ -97,11 +97,13 @@ Borrado y unificación. Sin decisiones de diseño pendientes, sin riesgo para lo
 
 **Requisito:** se conserva la marquesina de `BuiltWith` (uso canónico: muro de logos que no necesita atención individual). `SolutionsGrid` pasa a grilla envolvente de píldoras — **que es exactamente lo que su propio bloque `prefers-reduced-motion` ya renderiza hoy** (`SolutionsGrid.module.css:167-192`), así que la implementación consiste en promover ese fallback a estado por defecto y borrar la maquinaria de marquesina.
 
-- [ ] Step 1: Promover el layout de reduced-motion a defecto: `.rowHalf` con `flex-wrap`, sin duplicado decorativo, sin máscara lateral, sin `@keyframes marquee-left/right`.
-- [ ] Step 2: Simplificar `MarqueeRow` a un único render de las 8 píldoras (fuera la función `pills(hidden)` y el `aria-hidden`).
-- [ ] Step 3: Conservar el hover de píldora (`translateY(-2px)`), ya gateado en Task 2.3.
-- [ ] Step 4: Lint + build verdes.
-- [ ] Step 5: Commit: `refactor(soluciones): grilla de pildoras en lugar de marquesina`
+- [x] Step 1: Promover el layout de reduced-motion a defecto. `.rowHalf` y `.row` desaparecen; queda un solo `.pills`.
+- [x] Step 2: `MarqueeRow` eliminado; las 8 píldoras se renderizan en una sola `<ul>`.
+- [x] Step 3: Hover de píldora conservado (el gate de `hover: hover` sigue pendiente para la Task 2.3).
+- [x] Step 4: Lint + build verdes.
+- [x] Step 5: Commit (unificado, `f003c22`).
+
+**Verificación pendiente:** las 8 píldoras caen en 4 filas de 2 a 1568px de ancho. No pude juzgar si ese ritmo se ve bien; hay que mirarlo.
 
 ---
 

@@ -115,7 +115,6 @@ export default function WhyOito() {
     <section ref={container} className={`section-light ${styles.section} ${styles.narrative}`}>
       <div className={styles.stage}>
         <div className={styles.arg} data-arg1>
-          <p className={`badge ${styles.eyebrow}`}>Por qué oito</p>
           <h2 className={styles.argTitle}>
             El tiempo no se recupera, <span className={styles.accent}>los ingresos sí</span>
           </h2>

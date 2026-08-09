@@ -31,7 +31,7 @@ export default function Footer() {
               <li><a href="mailto:info@oitove.com" className={styles.link}>info@oitove.com</a></li>
               <li>
                 <Button variant="tertiary" external href={WHATSAPP_URL}>
-                  Hablemos <ArrowRight size={16} />
+                  WhatsApp <ArrowRight size={16} />
                 </Button>
               </li>
             </ul>

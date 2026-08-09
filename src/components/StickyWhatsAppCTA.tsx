@@ -12,7 +12,7 @@ export default function StickyWhatsAppCTA() {
       aria-label="Escríbenos por WhatsApp"
     >
       <WhatsAppIcon size={24} />
-      <span className={styles.label}>Hablemos</span>
+      <span className={styles.label}>WhatsApp</span>
     </a>
   );
 }

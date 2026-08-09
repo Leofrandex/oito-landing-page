@@ -30,10 +30,7 @@ export default function AutomationPillars() {
     <section className={`section-dark ${styles.section}`}>
       <Reveal className={styles.inner}>
         <header className={styles.head}>
-          <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>
-            Cómo lo logramos
-          </p>
-          <h2 className={styles.title} style={{ transitionDelay: '80ms' }}>
+          <h2 className={styles.title} style={{ transitionDelay: '0ms' }}>
             Nos basamos en 3 pilares
           </h2>
         </header>

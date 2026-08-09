@@ -100,11 +100,6 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
             Hablemos por WhatsApp
           </Button>
         </div>
-
-        <div className={styles.scrollHint} data-anim aria-hidden="true">
-          <span className={styles.mouse} />
-          <span className={styles.hintLabel}>desliza</span>
-        </div>
       </div>
     </section>
   );

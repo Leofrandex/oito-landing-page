@@ -41,17 +41,14 @@ export default function Faq({ id }: FaqProps) {
     <section id={id} className={`section-light anchor-target ${styles.section}`}>
       <Reveal className={styles.inner}>
         <header className={styles.head}>
-          <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>
-            Preguntas frecuentes
-          </p>
-          <h2 className={styles.title} style={{ transitionDelay: '70ms' }}>
+          <h2 className={styles.title} style={{ transitionDelay: '0ms' }}>
             Antes de que hablemos
           </h2>
         </header>
 
         <ul className={styles.list}>
           {FAQS.map(({ q, a }, i) => (
-            <li key={q} className={styles.item} style={{ transitionDelay: `${140 + i * 80}ms` }}>
+            <li key={q} className={styles.item} style={{ transitionDelay: `${70 + i * 80}ms` }}>
               <details className={`glass-light ${styles.details}`}>
                 <summary className={styles.summary}>
                   <span className={styles.q}>{q}</span>

@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import Reveal from './ui/Reveal';
 import Button from './ui/Button';
+import WhatsAppIcon from './WhatsAppIcon';
 import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './SolutionsGrid.module.css';
 
@@ -28,38 +29,6 @@ const SOLUTIONS: Solution[] = [
   { icon: FileText, name: 'Documentos', note: 'extrae datos de PDFs y adjuntos' },
 ];
 
-const ROW_A = SOLUTIONS.slice(0, 4);
-const ROW_B = SOLUTIONS.slice(4);
-
-type MarqueeRowProps = {
-  items: Solution[];
-  reverse?: boolean;
-};
-
-function MarqueeRow({ items, reverse }: MarqueeRowProps) {
-  /* El contenido se duplica para el loop continuo; la copia es decorativa. */
-  const pills = (hidden: boolean) => (
-    <ul className={styles.rowHalf} aria-hidden={hidden || undefined}>
-      {items.map(({ icon: Icon, name, note }) => (
-        <li key={name} className={styles.pill}>
-          <Icon size={15} strokeWidth={1.8} aria-hidden="true" />
-          <span>{name}</span>
-          <span className={styles.pillNote}>{note}</span>
-        </li>
-      ))}
-    </ul>
-  );
-
-  return (
-    <div className={`${styles.row} ${reverse ? styles.rowReverse : ''}`}>
-      <div className={styles.rowTrack}>
-        {pills(false)}
-        {pills(true)}
-      </div>
-    </div>
-  );
-}
-
 export default function SolutionsGrid({ id }: { id?: string }) {
   return (
     <section id={id} className={`section-light anchor-target ${styles.section}`}>
@@ -76,17 +45,23 @@ export default function SolutionsGrid({ id }: { id?: string }) {
           </p>
         </header>
 
-        <div className={styles.marquee} style={{ transitionDelay: '200ms' }}>
-          <MarqueeRow items={ROW_A} />
-          <MarqueeRow items={ROW_B} reverse />
-        </div>
+        <ul className={styles.pills} style={{ transitionDelay: '200ms' }} role="list">
+          {SOLUTIONS.map(({ icon: Icon, name, note }) => (
+            <li key={name} className={styles.pill}>
+              <Icon size={15} strokeWidth={1.8} aria-hidden="true" />
+              <span>{name}</span>
+              <span className={styles.pillNote}>{note}</span>
+            </li>
+          ))}
+        </ul>
 
         <div className={styles.pregunta} style={{ transitionDelay: '280ms' }}>
           <h3 className={styles.preguntaTitle}>
             ¿Cuál le quitaría más <span className={styles.kw}>trabajo</span> a tu equipo?
           </h3>
           <Button variant="secondary" external href={WHATSAPP_URL}>
-            Cuéntanos por WhatsApp
+            <WhatsAppIcon size={18} />
+            Hablemos por WhatsApp
           </Button>
         </div>
       </Reveal>

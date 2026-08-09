@@ -25,7 +25,7 @@ export default function DevBridge() {
           <div className={styles.ctaWrap} style={{ transitionDelay: '240ms' }}>
             <Button variant="secondary" external href={WHATSAPP_URL}>
               <WhatsAppIcon size={18} />
-              Cuéntanos qué quieres hacer
+              Hablemos por WhatsApp
             </Button>
           </div>
         </div>

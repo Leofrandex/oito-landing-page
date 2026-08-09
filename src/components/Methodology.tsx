@@ -90,7 +90,6 @@ export default function Methodology() {
     >
       <div className={styles.inner}>
         <header className={styles.head}>
-          <p className={`badge ${styles.eyebrow}`}>Metodología</p>
           <h2 className={styles.title}>
             Metodología <span className="wordmark">oito</span>
           </h2>

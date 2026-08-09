@@ -146,60 +146,6 @@
   }
 }
 
-/* Scroll hint */
-.scrollHint {
-  position: absolute;
-  bottom: clamp(1rem, 3vh, 2rem);
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.mouse {
-  width: 18px;
-  height: 30px;
-  border: 1.5px solid var(--on-dark-soft);
-  border-radius: 999px;
-  position: relative;
-}
-
-.mouse::after {
-  content: "";
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  width: 3px;
-  height: 7px;
-  border-radius: 999px;
-  background: var(--mint);
-  animation: wheel 1.8s ease-out infinite;
-}
-
-@keyframes wheel {
-  0% {
-    transform: translate(-50%, 0);
-    opacity: 1;
-  }
-  70% {
-    transform: translate(-50%, 9px);
-    opacity: 0;
-  }
-  100% {
-    transform: translate(-50%, 9px);
-    opacity: 0;
-  }
-}
-
-.hintLabel {
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--on-dark-soft);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .tagline {
     transition: none;
@@ -213,9 +159,5 @@
   .actions :global(a)::after {
     animation: none;
     opacity: 0;
-  }
-
-  .mouse::after {
-    animation: none;
   }
 }

@@ -81,18 +81,15 @@ export default function RoiCalculator({ id }: { id?: string }) {
     <section id={id} className={`section-dark anchor-target ${styles.section}`}>
       <Reveal className={styles.inner}>
         <header className={styles.head}>
-          <p className={`badge ${styles.eyebrow}`} style={{ transitionDelay: '0ms' }}>
-            Calculadora
-          </p>
-          <h2 className={styles.title} style={{ transitionDelay: '70ms' }}>
+          <h2 className={styles.title} style={{ transitionDelay: '0ms' }}>
             Calcula el costo real de <span className={styles.accent}>no automatizar</span>
           </h2>
-          <p className={styles.lede} style={{ transitionDelay: '130ms' }}>
+          <p className={styles.lede} style={{ transitionDelay: '70ms' }}>
             Ajusta los tres valores a tu operación. El resto lo hace la página.
           </p>
         </header>
 
-        <div className={styles.layout} style={{ transitionDelay: '200ms' }}>
+        <div className={styles.layout} style={{ transitionDelay: '140ms' }}>
           <div className={styles.controls}>
             <Field
               label="Personas en tareas repetitivas"
@@ -127,7 +124,7 @@ export default function RoiCalculator({ id }: { id?: string }) {
 
             <Button variant="primary" external href={WHATSAPP_URL}>
               <WhatsAppIcon size={20} />
-              Hablemos de tu caso
+              Hablemos por WhatsApp
             </Button>
           </div>
 

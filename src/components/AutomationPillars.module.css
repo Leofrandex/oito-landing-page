@@ -19,7 +19,6 @@
 }
 
 .title {
-  margin-top: 0.9rem;
   font-size: clamp(1.75rem, 4vw, 2.8rem);
   letter-spacing: -0.02em;
   color: var(--on-dark);
@@ -27,7 +26,6 @@
 }
 
 /* ===== Scroll-reveal (Reveal sets data-revealed on .inner) ===== */
-.eyebrow,
 .title {
   opacity: 0;
   transform: translateY(28px);
@@ -36,7 +34,6 @@
     transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.inner[data-revealed] .eyebrow,
 .inner[data-revealed] .title {
   opacity: 1;
   transform: none;
@@ -119,7 +116,6 @@
 /* ===== Reduced motion: nodos visibles, sin transiciones. El BorderGlow es
  * pointer-driven (no loop), asi que sin hover no hay nada animandose. ===== */
 @media (prefers-reduced-motion: reduce) {
-  .eyebrow,
   .title {
     opacity: 1;
     transform: none;

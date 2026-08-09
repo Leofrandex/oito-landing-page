@@ -32,17 +32,42 @@
   font-weight: 700;
 }
 
-/* ===== Sectores reales =====
- * Al retirar la franja de logos vacía (auditoría 2026-08-08, T4), las dos
- * franjas que quedan necesitan más aire entre sí en vez de heredar el hueco
- * que dejó la del medio. */
+.logosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 800px;
+  justify-items: center;
+}
+
+/* Superficie = .glass (+ .glass-hover) desde globals.css. Aquí solo layout. */
+.logoPlaceholder {
+  width: 130px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  cursor: default;
+}
+
+.placeholderIcon {
+  width: 3rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--on-dark-soft);
+  opacity: 0.6;
+}
+
+/* ===== Sectores reales ===== */
 .sectors {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.6rem;
-  margin: 1.75rem 0 0;
+  margin: 1.75rem 0 2rem;
 }
 
 .sectorChip {
@@ -61,7 +86,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: clamp(1.5rem, 5vw, 3.5rem);
-  margin-top: 0;
+  margin-top: 2.25rem;
 }
 
 .signal {
@@ -91,6 +116,7 @@
 /* ===== Scroll-reveal (Reveal pone data-revealed en .container) ===== */
 .title,
 .sectorChip,
+.logosGrid,
 .signal {
   opacity: 0;
   transform: translateY(16px);
@@ -99,16 +125,32 @@
     transform var(--dur-reveal) var(--ease-out);
 }
 
+/* Los placeholders entran SOLO por opacidad, no por transform: si el reveal
+ * les pusiera un `transform`, ganaría por especificidad al `translateY(-6px)`
+ * de .glass-hover y el hover dejaría de moverse. El desplazamiento lo hace su
+ * contenedor. */
+.logoPlaceholder {
+  opacity: 0;
+  transition: opacity var(--dur-reveal) ease;
+}
+
 .container[data-revealed] .title,
 .container[data-revealed] .sectorChip,
+.container[data-revealed] .logosGrid,
 .container[data-revealed] .signal {
   opacity: 1;
   transform: none;
 }
 
+.container[data-revealed] .logoPlaceholder {
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .title,
   .sectorChip,
+  .logosGrid,
+  .logoPlaceholder,
   .signal {
     opacity: 1;
     transform: none;
@@ -126,6 +168,22 @@
   .title {
     font-size: 1.5rem;
   }
+
+  .logosGrid {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 1rem;
+    max-width: 100%;
+  }
+
+  .logoPlaceholder {
+    width: 110px;
+    height: 110px;
+    padding: 1rem;
+  }
+
+  .placeholderIcon {
+    width: 2.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -135,5 +193,20 @@
 
   .title {
     font-size: 1.25rem;
+  }
+
+  .logosGrid {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .logoPlaceholder {
+    width: 90px;
+    height: 90px;
+    padding: 0.75rem;
+  }
+
+  .placeholderIcon {
+    width: 2rem;
   }
 }

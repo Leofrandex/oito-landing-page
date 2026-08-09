@@ -23,6 +23,9 @@ const SIGNALS = [
  * sección de la página que usaba framer-motion, con su `easeOut` built-in
  * mientras el resto usa las curvas de globals.css (auditoría 2026-08-08, A14). */
 export default function SocialProof() {
+  const placeholderCount = 5;
+  const placeholders = Array.from({ length: placeholderCount }, (_, i) => i);
+
   return (
     <section className={`section-dark cv-auto ${styles.section}`}>
       <Reveal className={styles.container}>
@@ -44,12 +47,21 @@ export default function SocialProof() {
           ))}
         </ul>
 
-        {/* La franja de 5 placeholders de logos se retiró en la auditoría
-            2026-08-08 (hallazgo T4): un muro de logos vacío comunica "no
-            tenemos clientes que mostrar", así que restaba credibilidad en vez
-            de sumarla. Vuelve cuando haya logos reales con permiso. */}
+        {/* Franja 2: placeholders de logos (se vuelven logos reales cuando haya permiso) */}
+        <div className={styles.logosGrid} style={{ transitionDelay: '60ms' }}>
+          {placeholders.map((idx) => (
+            <div
+              key={idx}
+              className={`glass glass-hover ${styles.logoPlaceholder}`}
+              style={{ transitionDelay: `${60 + idx * 60}ms` }}
+              aria-label={`Client logo placeholder ${idx + 1}`}
+            >
+              <div className={styles.placeholderIcon} aria-hidden="true" />
+            </div>
+          ))}
+        </div>
 
-        {/* Franja 2: señales neutras */}
+        {/* Franja 3: señales neutras */}
         <dl className={styles.signals}>
           {SIGNALS.map(({ value, label }, i) => (
             <div

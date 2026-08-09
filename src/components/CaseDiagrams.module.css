@@ -46,12 +46,27 @@
   stroke-linejoin: round;
 }
 
-/* El nodo destacado de cada diagrama (donde vive la IA) se distingue por su
- * halo estático (.glow), no por latir. El pulso infinito se retiró en la
- * auditoría 2026-08-08 (hallazgo A2): la jerarquía ya la da el halo, y un loop
- * perpetuo por diagrama no añadía información. La clase se conserva vacía para
- * no tener que tocar cada `className` de los SVG. */
+/* One subtle living node per diagram. */
 .pulse {
   transform-box: fill-box;
   transform-origin: center;
+  animation: nodePulse 2.6s ease-in-out infinite;
+}
+
+@keyframes nodePulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+  }
 }

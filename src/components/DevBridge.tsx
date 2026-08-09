@@ -5,13 +5,8 @@ import { WHATSAPP_URL } from '@/lib/constants';
 import styles from './DevBridge.module.css';
 
 /* Puente a desarrollo web (spec 2026-07-19 §3.9): tono "también hacemos",
- * jerarquía menor que los CTA de WhatsApp.
- *
- * Auditoría 2026-08-08 (T2 + A2): la columna derecha era un navegador falso
- * hecho con seis divs absolutos que se armaba solo en loop infinito de 7s. Se
- * retiró. La sección pasa a banda horizontal (copy a la izquierda, CTA a la
- * derecha), que además le da a la página una familia de layout distinta de las
- * pilas centradas del resto (hallazgo T7). */
+ * jerarquía menor que los CTA de WhatsApp. El navegador de la derecha se
+ * construye solo en loop (CSS puro). */
 export default function DevBridge() {
   return (
     <section className={`section-light cv-auto ${styles.section}`}>
@@ -27,13 +22,26 @@ export default function DevBridge() {
             El mismo estudio que automatiza tu operación puede construir la cara digital de tu
             negocio: rápida, moderna y hecha para vender.
           </p>
+          <div className={styles.ctaWrap} style={{ transitionDelay: '180ms' }}>
+            <Button variant="secondary" external href={WHATSAPP_URL}>
+              <WhatsAppIcon size={18} />
+              Hablemos por WhatsApp
+            </Button>
+          </div>
         </div>
 
-        <div className={styles.ctaWrap} style={{ transitionDelay: '180ms' }}>
-          <Button variant="secondary" external href={WHATSAPP_URL}>
-            <WhatsAppIcon size={18} />
-            Hablemos por WhatsApp
-          </Button>
+        <div className={styles.browser} style={{ transitionDelay: '120ms' }} aria-hidden="true">
+          <div className={styles.browserBar}>
+            <i /><i /><i />
+          </div>
+          <div className={styles.canvas}>
+            <span className={`${styles.el} ${styles.e1}`} />
+            <span className={`${styles.el} ${styles.e2}`} />
+            <span className={`${styles.el} ${styles.e3}`} />
+            <span className={`${styles.el} ${styles.e4}`} />
+            <span className={`${styles.el} ${styles.e5}`} />
+            <span className={`${styles.el} ${styles.e6}`} />
+          </div>
         </div>
       </Reveal>
     </section>

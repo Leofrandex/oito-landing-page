@@ -70,11 +70,77 @@
   color: var(--on-dark-soft);
 }
 
-/* El marco de navegador con placeholder "captura próximamente" se retiró en la
- * auditoría 2026-08-08 (hallazgo T2). En su lugar, el diagrama del flujo real
- * de cada caso (src/components/CaseDiagrams.tsx). */
-.paneVisual svg {
-  max-height: 100%;
+/* ===== Marco de captura (browser frame oscuro + placeholder) ===== */
+.frame {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #061a19;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px -18px rgba(0, 0, 0, 0.6);
+}
+
+.frameBar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 24px;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.frameBar i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.frameCanvas {
+  position: relative;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  overflow: hidden;
+  background: radial-gradient(60% 60% at 50% 40%, rgba(9, 188, 138, 0.1), transparent 72%);
+}
+
+.framePattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(9, 188, 138, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(9, 188, 138, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent 80%);
+  mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent 80%);
+}
+
+.frameWordmark {
+  position: relative;
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.22);
+  letter-spacing: 0.02em;
+}
+
+.frameNote {
+  position: relative;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+  color: var(--on-dark-soft);
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.frameImage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ===== Línea de recorrido ===== */
@@ -218,7 +284,18 @@
 
 .staticDiagram {
   width: 100%;
-  height: 120px;
+}
+
+.staticDiagram .frameCanvas {
+  height: 110px;
+}
+
+.staticDiagram .frameWordmark {
+  font-size: 1.1rem;
+}
+
+.staticDiagram .frameNote {
+  font-size: 0.68rem;
 }
 
 /* Desktop con motion: el escenario manda y la lista sale del flujo visual

@@ -68,10 +68,19 @@ export default function RootLayout({
             __html: `(function(){try{var n=performance.getEntriesByType('navigation')[0];if(n&&n.type==='reload'){history.scrollRestoration='manual';if(location.hash)history.replaceState(null,'',location.pathname+location.search);window.scrollTo(0,0);}}catch(e){}})();`,
           }}
         />
+        {/* Primer tabulable de la página: deja saltar la nav (y la intro animada del
+         * hero) sin pasar por los 5 enlaces del header. WCAG 2.4.1. */}
+        <a href="#contenido" className="skip-link">
+          Saltar al contenido
+        </a>
         <ThreadsBackground />
         <div style={{ position: "relative", zIndex: 1 }}>
           <Header />
-          {children}
+          {/* tabIndex -1 para que el foco aterrice de verdad aquí al usar el skip link;
+           * sin él, varios navegadores mueven el scroll pero dejan el foco atrás. */}
+          <div id="contenido" tabIndex={-1}>
+            {children}
+          </div>
           <Footer />
         </div>
         <StickyWhatsAppCTA />

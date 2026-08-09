@@ -162,6 +162,31 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
     outline: 2px solid var(--mint);
     outline-offset: 2px;
 }
+/* Contenedor del skip link: recibe foco para mover al lector de pantalla, pero no debe
+ * dibujar el outline mint alrededor de la página entera (cae en [tabindex] de arriba). */
+#contenido:focus,
+#contenido:focus-visible { outline: none; }
+
+/* Skip link — fuera de pantalla hasta que recibe foco. */
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -120%);
+    z-index: 100;
+    padding: 12px 22px;
+    border-radius: 0 0 14px 14px;
+    background: var(--mint);
+    color: var(--forest-deep);
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform .18s ease;
+}
+.skip-link:focus { transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) {
+    .skip-link { transition: none; }
+}
 img, svg, canvas { display: block; }
 
 /* ===== Section backgrounds (hybrid: dark immersive / light editorial) ===== */
@@ -184,13 +209,17 @@ img, svg, canvas { display: block; }
  * estos elementos queda libre para los componentes, SALVO si además llevan
  * .glass-hover, que desde 2026-08-08 usa ::after para su glow de elevación.
  * Recordatorio: el backdrop-filter NO refracta los hilos WebGL fijos; la
- * refracción visible se logra con un glow LOCAL por sección (.section::before). */
+ * refracción visible se logra con un glow LOCAL por sección (.section::before).
+ *
+ * NO escribir `-webkit-backdrop-filter` a mano (2026-08-08). Si se declara
+ * después de la estándar, LightningCSS colapsa el par y deja SOLO la prefijada;
+ * Chrome 150 ya retiró ese alias de su parser, así que el blur desaparecía por
+ * completo en producción. Dejar que el prefijo lo genere el build. */
 .glass, .glass-light { border-radius: 26px; }
 
 .glass {
   background: rgba(255, 255, 255, 0.035);
   backdrop-filter: blur(7px) saturate(1.35);
-  -webkit-backdrop-filter: blur(7px) saturate(1.35);
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 8px 36px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.20);
 }
@@ -198,7 +227,6 @@ img, svg, canvas { display: block; }
 .glass-light {
   background: rgba(255, 255, 255, 0.40);
   backdrop-filter: blur(12px) saturate(1.4);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
   border: 1px solid rgba(255, 255, 255, 0.65);
   box-shadow: 0 12px 30px rgba(0, 67, 70, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
@@ -226,8 +254,8 @@ img, svg, canvas { display: block; }
 }
 
 @media (max-width: 768px) {
-  .glass { backdrop-filter: blur(6px) saturate(1.3); -webkit-backdrop-filter: blur(6px) saturate(1.3); }
-  .glass-light { backdrop-filter: blur(9px) saturate(1.3); -webkit-backdrop-filter: blur(9px) saturate(1.3); }
+  .glass { backdrop-filter: blur(6px) saturate(1.3); }
+  .glass-light { backdrop-filter: blur(9px) saturate(1.3); }
 }
 
 /* Keyframes de prueba para elementos visuales de fondo */

@@ -154,17 +154,30 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
 
             if (!isLoaded) return;
 
-            // Timed animation instead of scrolling
-            const tl = gsap.timeline({ delay: 0.5 });
+            const mm = gsap.matchMedia();
 
-            // Reveal opacity immediately then animate mask
-            tl.to(containerRef.current, { opacity: 1, duration: 0.05 }, 0)
-                .to(containerRef.current, {
+            mm.add('(prefers-reduced-motion: no-preference)', () => {
+                // Timed animation instead of scrolling
+                const tl = gsap.timeline({ delay: 0.5 });
+
+                // Reveal opacity immediately then animate mask
+                tl.to(containerRef.current, { opacity: 1, duration: 0.05 }, 0)
+                    .to(containerRef.current, {
+                        maskPosition: '0% 0',
+                        webkitMaskPosition: '0% 0',
+                        duration: 3, // slightly slower for cinematic feel
+                        ease: 'power2.inOut'
+                    }, 0);
+            });
+
+            // Sin barrido de máscara: los hilos aparecen ya revelados.
+            mm.add('(prefers-reduced-motion: reduce)', () => {
+                gsap.set(containerRef.current, {
+                    opacity: 1,
                     maskPosition: '0% 0',
                     webkitMaskPosition: '0% 0',
-                    duration: 3, // slightly slower for cinematic feel
-                    ease: 'power2.inOut'
-                }, 0);
+                });
+            });
         }
     }, { scope: containerRef, dependencies: [isLoaded] });
 
@@ -206,6 +219,11 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
         // leen `paused`: debe estar inicializada (fuera del temporal dead zone) para
         // esa primera llamada.
         let paused = false;
+
+        /* Declarada aquí arriba por la misma razón que `paused`: resize() se invoca de
+         * inmediato más abajo y evaluatePause() la lee, así que no puede quedar en el
+         * temporal dead zone. */
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
         function resize() {
             if (!container) return;
@@ -254,6 +272,10 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
         // resize() ya corrió una vez arriba (llamada síncrona en el setup) y puede haber
         // marcado `paused = true` si se monta con una sección clara cubriendo el viewport;
         // no armar el rAF inicial en ese caso o quedaría corriendo pese a la pausa.
+        /* Un frame siempre, aunque se arranque en pausa: si no, el canvas queda vacío y
+         * los hilos desaparecerían del todo con reduced motion. */
+        renderer.render({ scene: mesh });
+
         if (!paused) {
             animationFrameId.current = requestAnimationFrame(update);
         }
@@ -272,6 +294,13 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
             }
         }
         function evaluatePause() {
+            /* Con reduced motion los hilos se quedan congelados en el frame estático que
+             * se dibuja en el arranque: siguen presentes como textura de fondo, pero el
+             * shader no anima. */
+            if (reduceMotion.matches) {
+                setPaused(true);
+                return;
+            }
             if (document.hidden) {
                 setPaused(true);
                 return;
@@ -294,6 +323,7 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
         }
         document.addEventListener('visibilitychange', evaluatePause);
         window.addEventListener('scroll', onScroll, { passive: true });
+        reduceMotion.addEventListener('change', evaluatePause);
         evaluatePause();
 
         return () => {
@@ -301,6 +331,7 @@ const Threads = ({ color = [0.035, 0.737, 0.541], amplitude = 1, distance = 0, e
             window.removeEventListener('resize', resize);
             document.removeEventListener('visibilitychange', evaluatePause);
             window.removeEventListener('scroll', onScroll);
+            reduceMotion.removeEventListener('change', evaluatePause);
 
             if (enableMouseInteraction) {
                 container.removeEventListener('mousemove', handleMouseMove);

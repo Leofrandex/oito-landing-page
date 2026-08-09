@@ -30,6 +30,9 @@ const TextType = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(!startOnVisible);
+  /* Arranca en false a propósito: el valor real se lee en el efecto, ya en cliente, para
+   * que el HTML servido y el primer render coincidan. */
+  const [reduceMotion, setReduceMotion] = useState(false);
   const cursorRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -45,6 +48,14 @@ const TextType = ({
     if (textColors.length === 0) return 'inherit';
     return textColors[currentTextIndex % textColors.length];
   };
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setReduceMotion(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
 
   useEffect(() => {
     if (!startOnVisible || !containerRef.current) return;
@@ -67,18 +78,29 @@ const TextType = ({
   useEffect(() => {
     if (showCursor && cursorRef.current) {
       gsap.set(cursorRef.current, { opacity: 1 });
-      gsap.to(cursorRef.current, {
+      // Sin parpadeo con reduced motion: el cursor queda fijo.
+      if (reduceMotion) return;
+      const blink = gsap.to(cursorRef.current, {
         opacity: 0,
         duration: cursorBlinkDuration,
         repeat: -1,
         yoyo: true,
         ease: 'power2.inOut'
       });
+      return () => blink.kill();
     }
-  }, [showCursor, cursorBlinkDuration]);
+  }, [showCursor, cursorBlinkDuration, reduceMotion]);
 
   useEffect(() => {
     if (!isVisible) return;
+
+    /* Con reduced motion no se tipea ni se rota: se muestra la primera frase completa y
+     * quieta. No se pierde contenido — quien usa el componente expone la lista entera
+     * como texto estático (ver el span .srOnly del Hero). */
+    if (reduceMotion) {
+      setDisplayedText(textArray[0]);
+      return;
+    }
 
     let timeout;
     const currentText = textArray[currentTextIndex];
@@ -144,11 +166,14 @@ const TextType = ({
     isVisible,
     reverseMode,
     variableSpeed,
-    onSentenceComplete
+    onSentenceComplete,
+    reduceMotion
   ]);
 
   const shouldHideCursor =
-    hideCursorWhileTyping && (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
+    hideCursorWhileTyping &&
+    !reduceMotion &&
+    (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
 
   return createElement(
     Component,

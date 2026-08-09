@@ -29,6 +29,41 @@ const SOLUTIONS: Solution[] = [
   { icon: FileText, name: 'Documentos', note: 'extrae datos de PDFs y adjuntos' },
 ];
 
+const ROW_A = SOLUTIONS.slice(0, 4);
+const ROW_B = SOLUTIONS.slice(4);
+
+type MarqueeRowProps = {
+  items: Solution[];
+  reverse?: boolean;
+};
+
+/* La marquesina se retiró en la auditoría 2026-08-08 (hallazgo T9: tres
+ * marquesinas en una misma página) y el usuario pidió recuperarla el
+ * 2026-08-09. Decisión suya, registrada: la página vuelve a tener dos. */
+function MarqueeRow({ items, reverse }: MarqueeRowProps) {
+  /* El contenido se duplica para el loop continuo; la copia es decorativa. */
+  const pills = (hidden: boolean) => (
+    <ul className={styles.rowHalf} aria-hidden={hidden || undefined}>
+      {items.map(({ icon: Icon, name, note }) => (
+        <li key={name} className={styles.pill}>
+          <Icon size={15} strokeWidth={1.8} aria-hidden="true" />
+          <span>{name}</span>
+          <span className={styles.pillNote}>{note}</span>
+        </li>
+      ))}
+    </ul>
+  );
+
+  return (
+    <div className={`${styles.row} ${reverse ? styles.rowReverse : ''}`}>
+      <div className={styles.rowTrack}>
+        {pills(false)}
+        {pills(true)}
+      </div>
+    </div>
+  );
+}
+
 export default function SolutionsGrid({ id }: { id?: string }) {
   return (
     <section id={id} className={`section-light anchor-target ${styles.section}`}>
@@ -45,15 +80,10 @@ export default function SolutionsGrid({ id }: { id?: string }) {
           </p>
         </header>
 
-        <ul className={styles.pills} style={{ transitionDelay: '180ms' }} role="list">
-          {SOLUTIONS.map(({ icon: Icon, name, note }) => (
-            <li key={name} className={styles.pill}>
-              <Icon size={15} strokeWidth={1.8} aria-hidden="true" />
-              <span>{name}</span>
-              <span className={styles.pillNote}>{note}</span>
-            </li>
-          ))}
-        </ul>
+        <div className={styles.marquee} style={{ transitionDelay: '180ms' }}>
+          <MarqueeRow items={ROW_A} />
+          <MarqueeRow items={ROW_B} reverse />
+        </div>
 
         <div className={styles.pregunta} style={{ transitionDelay: '240ms' }}>
           <h3 className={styles.preguntaTitle}>

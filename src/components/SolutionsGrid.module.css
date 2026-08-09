@@ -31,14 +31,61 @@
   color: var(--ink-soft);
 }
 
-/* ===== Rejilla envolvente de pildoras ===== */
-.pills {
+/* ===== Marquesina =====
+ * Retirada en la auditoría 2026-08-08 (T9) y recuperada a petición del usuario
+ * el 2026-08-09. */
+.marquee {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  gap: 0.9rem;
+  /* La máscara recorta todo lo pintado fuera del border-box (mask-clip);
+   * el padding compensado da aire para el translateY(-2px) del hover de las píldoras. */
+  padding-block: 6px;
+  margin-block: -6px;
+  margin-bottom: calc(1.5rem - 6px);
+  /* difumina los extremos del riel */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.row {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+.rowTrack {
+  display: flex;
+  width: max-content;
+}
+
+.inner[data-revealed] .row .rowTrack {
+  animation: marquee-left 32s linear infinite;
+}
+
+.inner[data-revealed] .rowReverse .rowTrack {
+  animation-name: marquee-right;
+}
+
+.row:hover .rowTrack,
+.row:focus-within .rowTrack {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.rowHalf {
+  display: flex;
   gap: 0.75rem;
-  margin: 0 0 1.5rem;
-  padding: 0;
+  padding-right: 0.75rem;
+  margin: 0;
   list-style: none;
 }
 
@@ -47,6 +94,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  white-space: nowrap;
   border-radius: 999px;
   padding: 0.6rem 1.1rem;
   font: inherit;
@@ -100,7 +148,7 @@
 .eyebrow,
 .title,
 .disclaimer,
-.pills,
+.marquee,
 .pregunta {
   opacity: 0;
   transform: translateY(24px);
@@ -112,18 +160,38 @@
 .inner[data-revealed] .eyebrow,
 .inner[data-revealed] .title,
 .inner[data-revealed] .disclaimer,
-.inner[data-revealed] .pills,
+.inner[data-revealed] .marquee,
 .inner[data-revealed] .pregunta {
   opacity: 1;
   transform: none;
 }
 
+/* ===== Reduced motion: sin marquee, pildoras en grid envolvente ===== */
 @media (prefers-reduced-motion: reduce) {
-  .eyebrow, .title, .disclaimer, .pills, .pregunta {
+  .eyebrow, .title, .disclaimer, .marquee, .pregunta {
     opacity: 1;
     transform: none;
     transition: none;
   }
+
+  .inner[data-revealed] .row .rowTrack,
+  .inner[data-revealed] .rowReverse .rowTrack {
+    animation: none;
+  }
+
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .rowTrack { width: auto; }
+
+  .rowHalf { flex-wrap: wrap; justify-content: center; }
+
+  /* ocultar la copia decorativa duplicada */
+  .rowHalf[aria-hidden='true'] { display: none; }
+
+  .pill { white-space: normal; }
 
   /* El color del borde sigue respondiendo; el desplazamiento no. */
   .pill:hover { transform: none; }

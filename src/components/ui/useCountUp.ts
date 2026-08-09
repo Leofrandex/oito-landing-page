@@ -33,7 +33,6 @@ export default function useCountUp(targets: number[], duration = 300): number[] 
 
     const settle = () => {
       currentRef.current = to;
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- salto directo al valor final, no una cascada de renders
       setValues(to);
     };
 

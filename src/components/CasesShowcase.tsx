@@ -4,6 +4,12 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {
+  FunnelDiagram,
+  FanoutDiagram,
+  ProspectDiagram,
+  RouteDiagram,
+} from './CaseDiagrams';
 import styles from './CasesShowcase.module.css';
 
 if (typeof window !== 'undefined') {
@@ -14,9 +20,11 @@ type ShowcaseCase = {
   pillar: 'Automatización' | 'Desarrollo';
   title: string;
   description: string;
-  /** Captura real del proyecto (ej. Hospiwaste). Hoy no hay ninguna cargada: el marco
-   * siempre muestra el placeholder. Cuando llegue una, se pasa aquí y el marco la usa. */
-  image?: string;
+  /** Diagrama del flujo REAL del caso, en el lenguaje de nodos e hilos de la
+   * marca. Sustituye al marco de navegador que anunciaba "captura próximamente"
+   * (auditoría 2026-08-08, hallazgo T2): un diagrama del sistema que sí
+   * construimos es verdad; una ventana vacía no. */
+  diagram: () => React.ReactElement;
 };
 
 /* Roster del deck v2 §5 (2026-07-19): 3 Automatización + 1 Desarrollo, arco de ventas
@@ -26,54 +34,32 @@ const CASES: ShowcaseCase[] = [
   {
     pillar: 'Automatización',
     title: 'Calificación y enrutamiento de leads con IA',
+    diagram: FunnelDiagram,
     description:
       'Para un integrador de ciberseguridad: un flujo en n8n lee mensajes y adjuntos (PDF, Excel, imágenes), califica el lead con IA, lo deduplica en el CRM, lo reparte por turnos al equipo y responde pidiendo lo que falte.',
   },
   {
     pillar: 'Automatización',
     title: 'Secuencias de venta personalizadas con IA',
+    diagram: FanoutDiagram,
     description:
       'Para un bróker logístico B2B: agentes de IA, con RAG sobre la guía de ventas del negocio, extraen el contexto de cada empresa desde el CRM y generan correos de venta personalizados, enviados en automático desde el correo del vendedor asignado.',
   },
   {
     pillar: 'Automatización',
     title: 'Prospección outbound B2B con IA',
+    diagram: ProspectDiagram,
     description:
       'Para una empresa de ciberseguridad: el flujo busca prospectos, los investiga con agentes de IA (búsqueda web y razonamiento), los puntúa con una rúbrica de 0 a 100 y redacta cold emails diferenciados, separando los leads listos de los fríos.',
   },
   {
     pillar: 'Desarrollo',
     title: 'App de rastreo de fuerza de campo',
+    diagram: RouteDiagram,
     description:
       'Para una distribuidora farmacéutica: app móvil nativa + panel web que gestiona al equipo de ventas en campo, con GPS en tiempo real, modo offline y cámara anti-fraude para verificar cada visita.',
   },
 ];
-
-/* Marco de captura: browser frame oscuro con placeholder digno hasta que existan
- * capturas reales de los proyectos (Hospiwaste primero). */
-function CaseFrame({ image }: { image?: string }) {
-  return (
-    <div className={styles.frame}>
-      <div className={styles.frameBar}>
-        <i />
-        <i />
-        <i />
-      </div>
-      <div className={styles.frameCanvas}>
-        {image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={image} alt="" className={styles.frameImage} />
-        ) : (
-          <>
-            <span className={styles.framePattern} />
-            <span className={`wordmark ${styles.frameWordmark}`}>oito</span>
-            <span className={styles.frameNote}>Captura del proyecto próximamente</span>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
 
 export default function CasesShowcase({ id }: { id?: string }) {
   const container = useRef<HTMLElement>(null);
@@ -168,12 +154,12 @@ export default function CasesShowcase({ id }: { id?: string }) {
       {/* ===== Escenario sticky (desktop) ===== */}
       <div className={styles.stage} aria-hidden="true">
         <div className={styles.visual}>
-          {CASES.map((c) => (
-            <div key={c.title} className={styles.pane} data-pane>
+          {CASES.map(({ title, description, diagram: Diagram }) => (
+            <div key={title} className={styles.pane} data-pane>
               <div className={styles.paneVisual}>
-                <CaseFrame image={c.image} />
+                <Diagram />
               </div>
-              <p className={styles.paneDesc}>{c.description}</p>
+              <p className={styles.paneDesc}>{description}</p>
             </div>
           ))}
         </div>
@@ -208,15 +194,15 @@ export default function CasesShowcase({ id }: { id?: string }) {
 
       {/* ===== Lista accesible / fallback móvil y reduced motion ===== */}
       <ul className={styles.staticList} role="list">
-        {CASES.map((c) => (
-          <li key={c.title} className={styles.staticCase}>
+        {CASES.map(({ pillar, title, description, diagram: Diagram }) => (
+          <li key={title} className={styles.staticCase}>
             <div className={styles.staticDiagram} aria-hidden="true">
-              <CaseFrame image={c.image} />
+              <Diagram />
             </div>
             <div>
-              <span className={styles.sector}>{c.pillar}</span>
-              <h3 className={styles.itemTitle}>{c.title}</h3>
-              <p className={styles.itemDesc}>{c.description}</p>
+              <span className={styles.sector}>{pillar}</span>
+              <h3 className={styles.itemTitle}>{title}</h3>
+              <p className={styles.itemDesc}>{description}</p>
             </div>
           </li>
         ))}

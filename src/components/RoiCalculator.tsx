@@ -82,18 +82,17 @@ export default function RoiCalculator({ id }: { id?: string }) {
   return (
     <section id={id} className={`section-dark anchor-target ${styles.section}`}>
       <Reveal className={styles.inner}>
-        {/* Split de verdad (auditoría 2026-08-08, T7): el titular vive DENTRO de
-          * la columna de controles. Antes iba centrado encima de un layout
-          * partido, lo que creaba dos ejes que no se hablaban. */}
-        <div className={styles.layout}>
-          <div className={styles.controls} style={{ transitionDelay: '0ms' }}>
-            <h2 className={styles.title}>
-              Calcula el costo real de <span className={styles.accent}>no automatizar</span>
-            </h2>
-            <p className={styles.lede}>
-              Ajusta los tres valores a tu operación. El resto lo hace la página.
-            </p>
+        <header className={styles.head}>
+          <h2 className={styles.title} style={{ transitionDelay: '0ms' }}>
+            Calcula el costo real de <span className={styles.accent}>no automatizar</span>
+          </h2>
+          <p className={styles.lede} style={{ transitionDelay: '60ms' }}>
+            Ajusta los tres valores a tu operación. El resto lo hace la página.
+          </p>
+        </header>
 
+        <div className={styles.layout} style={{ transitionDelay: '120ms' }}>
+          <div className={styles.controls}>
             <Field
               label="Personas en tareas repetitivas"
               value={personas}
@@ -137,7 +136,7 @@ export default function RoiCalculator({ id }: { id?: string }) {
             </Button>
           </div>
 
-          <div className={styles.plot} style={{ transitionDelay: '120ms' }} aria-hidden="true">
+          <div className={styles.plot} aria-hidden="true">
             <div className={styles.baseline} />
             <div className={styles.colWrap}>
               <div className={styles.colTrack}>

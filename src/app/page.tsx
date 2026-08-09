@@ -10,6 +10,7 @@ import SocialProof from '@/components/SocialProof';
 import BuiltWith from '@/components/BuiltWith';
 import DevBridge from '@/components/DevBridge';
 import Faq from '@/components/Faq';
+import EasyStart from '@/components/EasyStart';
 import FinalCTA from '@/components/FinalCTA';
 import { buildJsonLd } from '@/lib/seo';
 
@@ -35,9 +36,7 @@ export default function Home() {
       <BuiltWith />
       <DevBridge />
       <Faq id="faq" />
-      {/* <EasyStart /> se fusionó dentro de <FinalCTA> el 2026-08-09: sus tres
-        * motivos ahora sostienen la petición en lugar de precederla. El
-        * componente se conserva en el repo, desenlazado. */}
+      <EasyStart />
       <FinalCTA />
     </main>
   );

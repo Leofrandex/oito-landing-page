@@ -103,7 +103,11 @@ Borrado y unificación. Sin decisiones de diseño pendientes, sin riesgo para lo
 - [x] Step 4: Lint + build verdes.
 - [x] Step 5: Commit (unificado, `f003c22`).
 
-**Verificación pendiente:** las 8 píldoras caen en 4 filas de 2 a 1568px de ancho. No pude juzgar si ese ritmo se ve bien; hay que mirarlo.
+> **REVERTIDA (2026-08-09, commit `b4f160d`).** El usuario pidió recuperar la
+> marquesina. Se restauró con los tokens de la Fase 2 aplicados y el fallback de
+> reduced motion intacto. **El hallazgo T9 queda cerrado como decisión suya, no
+> como pendiente:** la página tiene dos marquesinas a propósito. Que no se
+> reabra en el design review ni en auditorías futuras.
 
 ---
 
@@ -556,7 +560,7 @@ Resultado: 5 familias distintas (centrado, asimétrico, split, escalonado, banda
 | T6 | MEDIA | 6 labels para un solo intent | 1.3 |
 | T7 | MEDIA | Una familia de layout, 8 veces | 4.0 → 4.1 |
 | T8 | MEDIA | Dos filas de 3 tarjetas iguales | 4.0 → 4.2 |
-| T9 | MEDIA | Tres marquesinas | 1.4 |
+| T9 | MEDIA | Tres marquesinas | 1.4 hecha y **revertida a petición del usuario (2026-08-09, commit `b4f160d`)**. Cerrado como decisión suya: la página se queda con dos marquesinas. No reabrir |
 | T10 | MEDIA | Contador en vivo | **No se corrige** (decisión del usuario) |
 | T11 | BAJA | Semáforos decorativos | 3.1, 3.3 |
 | T12 | BAJA | Tres familias de iconos | **No se corrige.** `react-icons/si` son logos de marca (uso legítimo) y `WhatsAppIcon` es un logo, no un icono de UI. No hay mezcla real de familias de UI: lucide es la única |

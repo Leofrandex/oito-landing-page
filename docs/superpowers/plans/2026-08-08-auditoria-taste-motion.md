@@ -392,6 +392,32 @@ Nota de timing asimétrico: la pulsación baja rápido y la respuesta del sistem
 
 Decisión del usuario: **rediseñar sin assets**. Las tres secciones dejan de fingir que muestran producto.
 
+> **Estado: HECHA (commit `0268924`).** Lint y build en verde. 366 líneas
+> borradas frente a 85 añadidas.
+>
+> **Hallazgo de paso:** la Task 3.1 previó "evaluar `CaseDiagrams.tsx` antes de
+> escribir nada nuevo" y acertó: los cuatro diagramas ya existían sin usarse y
+> mapean uno a uno con los cuatro casos (embudo → calificación de leads,
+> abanico → secuencias de venta, prospección → outbound, ruta con paradas → app
+> de campo). No hubo que dibujar nada. La alternativa de respaldo (pane solo
+> tipográfico) no hizo falta.
+>
+> **Loop infinito extra retirado:** los diagramas traían un nodo que latía en
+> bucle (`.pulse`, 2.6s). Se retiró por la misma lógica del hallazgo A2: la
+> jerarquía (dónde está la IA) ya la da el halo estático `.glow`. Con esto la
+> home pasa de **seis animaciones infinitas a dos**: el shader de fondo y la
+> marquesina de `BuiltWith`.
+>
+> **Verificado sobre un build de producción** (por HTTP, no por navegador): 8
+> diagramas SVG en su sitio (4 en el escenario con pin + 4 en la lista de
+> respaldo), cero restos del marco falso, cero placeholders de logo, cero
+> navegador falso, 4 badges.
+>
+> **Sin verificar:** el aspecto de las tres secciones recompuestas. En concreto
+> el ritmo vertical de `SocialProof` al quitarle la franja del medio, cómo caen
+> los diagramas dentro del pane con pin, y la banda horizontal de `DevBridge`
+> en el punto de quiebre de 820px. Va al `/design-review` final.
+
 ### Task 3.1: Casos sin marco de navegador falso
 
 **Hallazgo:** T2 (ALTA) + T11. Un browser frame con semáforo mac que en los 4 casos anuncia "Captura del proyecto próximamente". Es el peor de los tres: no solo es un preview falso, además confiesa que está vacío.
@@ -404,11 +430,11 @@ Decisión del usuario: **rediseñar sin assets**. Las tres secciones dejan de fi
 
 **Si no llega a una solución digna sin imagen:** la alternativa aprobada es eliminar el visual por completo y dejar que el pane sea solo tipografía (sector + titular + descripción a mayor escala). Un pane tipográfico honesto es mejor que un marco vacío.
 
-- [ ] Step 1: Leer `CaseDiagrams.tsx` y decidir portar vs. escribir.
-- [ ] Step 2: Sustituir `CaseFrame` en los dos puntos de uso (stage pinneado + `staticList` de fallback).
-- [ ] Step 3: Verificar el scrub completo de la sección, ida y vuelta, y el fallback `data-static` en móvil.
-- [ ] Step 4: Lint + build verdes.
-- [ ] Step 5: Commit: `feat(casos): diagrama real del flujo en lugar de marco de navegador vacio`
+- [x] Step 1: Leer `CaseDiagrams.tsx` y decidir portar vs. escribir.
+- [x] Step 2: Sustituir `CaseFrame` en los dos puntos de uso (stage pinneado + `staticList` de fallback).
+- [x] Step 3: Verificar el scrub completo de la sección, ida y vuelta, y el fallback `data-static` en móvil.
+- [x] Step 4: Lint + build verdes.
+- [x] Step 5: Commit: `feat(casos): diagrama real del flujo en lugar de marco de navegador vacio`
 
 ---
 
@@ -422,10 +448,10 @@ Decisión del usuario: **rediseñar sin assets**. Las tres secciones dejan de fi
 
 **Nota:** el `TODO` del slot de testimonio (línea 116) se conserva.
 
-- [ ] Step 1: Eliminar markup y estilos de la franja de logos.
-- [ ] Step 2: Recomponer el ritmo vertical de la sección.
-- [ ] Step 3: Lint + build verdes.
-- [ ] Step 4: Commit: `refactor(social-proof): retirar el muro de logos vacio`
+- [x] Step 1: Eliminar markup y estilos de la franja de logos.
+- [x] Step 2: Recomponer el ritmo vertical de la sección.
+- [x] Step 3: Lint + build verdes.
+- [x] Step 4: Commit: `refactor(social-proof): retirar el muro de logos vacio`
 
 ---
 
@@ -439,10 +465,10 @@ Decisión del usuario: **rediseñar sin assets**. Las tres secciones dejan de fi
 
 **Preferencia:** la banda horizontal. Mata el preview falso, elimina un loop infinito y aporta una familia de layout nueva a la página de una sola vez.
 
-- [ ] Step 1: Eliminar el navegador falso y su loop.
-- [ ] Step 2: Recomponer la sección como banda horizontal (coordinar con Task 4.1 para no rehacer el trabajo dos veces).
-- [ ] Step 3: Lint + build verdes.
-- [ ] Step 4: Commit: `refactor(dev-bridge): banda horizontal sin navegador falso`
+- [x] Step 1: Eliminar el navegador falso y su loop.
+- [x] Step 2: Recomponer la sección como banda horizontal (coordinar con Task 4.1 para no rehacer el trabajo dos veces).
+- [x] Step 3: Lint + build verdes.
+- [x] Step 4: Commit: `refactor(dev-bridge): banda horizontal sin navegador falso`
 
 ---
 

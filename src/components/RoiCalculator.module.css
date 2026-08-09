@@ -12,15 +12,12 @@
   margin: 0 auto;
 }
 
-.head {
-  text-align: center;
-  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
-}
-
 .title {
-  font-size: clamp(1.75rem, 4vw, 2.8rem);
+  font-size: clamp(1.75rem, 4vw, 2.6rem);
   letter-spacing: -0.02em;
+  line-height: 1.1;
   color: var(--on-dark);
+  text-wrap: balance;
 }
 
 .accent {
@@ -28,7 +25,9 @@
 }
 
 .lede {
-  margin-top: 0.6rem;
+  margin-top: 0.7rem;
+  margin-bottom: 0.6rem;
+  max-width: 42ch;
   font-size: clamp(0.95rem, 1.8vw, 1.05rem);
   color: var(--on-dark-soft);
 }
@@ -263,10 +262,11 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ===== Reveal ===== */
-.title,
-.lede,
-.layout {
+/* ===== Reveal =====
+ * Se revelan las DOS COLUMNAS, no el titular por separado: ahora el titular
+ * vive dentro de .controls y revelarlo aparte anidaría dos translateY. */
+.controls,
+.plot {
   opacity: 0;
   transform: translateY(24px);
   transition:
@@ -274,9 +274,8 @@
     transform var(--dur-reveal) var(--ease-out);
 }
 
-.inner[data-revealed] .title,
-.inner[data-revealed] .lede,
-.inner[data-revealed] .layout {
+.inner[data-revealed] .controls,
+.inner[data-revealed] .plot {
   opacity: 1;
   transform: none;
 }
@@ -299,9 +298,8 @@
 
 /* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
-  .title,
-  .lede,
-  .layout {
+  .controls,
+  .plot {
     opacity: 1;
     transform: none;
     transition: none;

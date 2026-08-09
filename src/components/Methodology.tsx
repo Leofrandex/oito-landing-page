@@ -43,12 +43,17 @@ export default function Methodology() {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: no-preference) and (min-width: 861px)', () => {
-        const progress = container.current?.querySelector<HTMLElement>('[data-progress]');
+        const connV = gsap.utils.toArray<HTMLElement>('[data-conn-v]');
+        const connH = gsap.utils.toArray<HTMLElement>('[data-conn-h]');
         const glows = gsap.utils.toArray<HTMLElement>('[data-node-glow]');
         const checks = gsap.utils.toArray<HTMLElement>('[data-check]');
         const items = gsap.utils.toArray<HTMLElement>('[data-step-text]');
 
-        if (progress) gsap.set(progress, { scaleX: 0 });
+        /* Los conectores en L sustituyen a la barra de progreso única: cada
+         * tramo baja (scaleY) y gira a la derecha (scaleX) hacia el paso
+         * siguiente, así que el avance se dibuja recorriendo la escalera. */
+        gsap.set(connV, { scaleY: 0 });
+        gsap.set(connH, { scaleX: 0 });
         gsap.set(glows, { autoAlpha: 0 });
         /* 0.92, no 0.4: nada en el mundo real aparece desde casi-nada, y a 0.4
          * el check leía como un globo inflándose. */
@@ -71,9 +76,17 @@ export default function Methodology() {
           const at = i;
           tl.to(items[i], { autoAlpha: 1, duration: 0.3 }, at)
             .to(glows[i], { autoAlpha: 1, duration: 0.3 }, at + 0.1)
-            .to(progress ?? {}, { scaleX: (i + 1) / STEPS.length, duration: 0.7 }, at + 0.15)
-            .to(checks[i], { autoAlpha: 1, scale: 1, duration: 0.3 }, at + 0.6)
-            .to(glows[i], { autoAlpha: 0, duration: 0.3 }, at + 0.8);
+            .to(checks[i], { autoAlpha: 1, scale: 1, duration: 0.3 }, at + 0.5)
+            .to(glows[i], { autoAlpha: 0, duration: 0.3 }, at + 0.7);
+
+          /* El último paso no tiene conector: no hay a dónde seguir. */
+          if (connV[i] && connH[i]) {
+            tl.to(connV[i], { scaleY: 1, duration: 0.35 }, at + 0.6).to(
+              connH[i],
+              { scaleX: 1, duration: 0.35 },
+              at + 0.85,
+            );
+          }
         });
       });
 
@@ -98,18 +111,25 @@ export default function Methodology() {
         </header>
 
         <ol className={styles.steps}>
-          <span className={styles.thread} aria-hidden="true">
-            <span className={styles.progress} data-progress />
-          </span>
           {STEPS.map(({ icon: Icon, title, description }, i) => (
             <li key={title} className={styles.step} data-step>
-              <div className={styles.node}>
-                <span className={styles.nodeGlow} data-node-glow aria-hidden="true" />
-                <Icon size={26} strokeWidth={1.6} />
-                <span className={styles.num}>{String(i + 1).padStart(2, '0')}</span>
-                <span className={styles.check} data-check aria-hidden="true">
-                  ✓
-                </span>
+              <div className={styles.nodeWrap}>
+                <div className={styles.node}>
+                  <span className={styles.nodeGlow} data-node-glow aria-hidden="true" />
+                  <Icon size={26} strokeWidth={1.6} />
+                  <span className={styles.check} data-check aria-hidden="true">
+                    ✓
+                  </span>
+                </div>
+                {/* El escalonado ya dice el orden, así que la numeración
+                  * "01/02/03" se retiró (auditoría 2026-08-08). El conector
+                  * baja y gira hacia el paso siguiente. */}
+                {i < STEPS.length - 1 && (
+                  <span className={styles.connector} aria-hidden="true">
+                    <span className={styles.connV} data-conn-v />
+                    <span className={styles.connH} data-conn-h />
+                  </span>
+                )}
               </div>
               <div className={styles.stepText} data-step-text>
                 <h3 className={styles.stepTitle}>{title}</h3>

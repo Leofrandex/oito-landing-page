@@ -22,6 +22,7 @@
 ## Historial de diseño (specs + planes)
 - `superpowers/specs/` — specs aprobados por iniciativa/fase (contenido, visual, pivote).
 - `superpowers/plans/` — planes de ejecución por fase.
+- **[superpowers/plans/2026-08-08-auditoria-taste-motion.md](superpowers/plans/2026-08-08-auditoria-taste-motion.md)** — plan **vigente** de la rama `auditoria-taste-motion`: correcciones de la auditoría con las skills de taste (tells de IA) y de animación (Emil Kowalski), en 4 fases, con tabla de trazabilidad de los 26 hallazgos.
 - Más recientes: `specs/2026-07-19-experiencia-inmersiva-design.md` (**vigente**: arquitectura /+/desarrollo-web y diseño de experiencia de las 11 secciones), `specs/2026-07-17-pivote-automatizacion-design.md` (pivote), `specs/2026-07-17-contenido-v2-brainstorm-brief.md` (brief del brainstorm de Contenido v2).
 
 ---
